@@ -14,26 +14,38 @@ import profile from '../reducers/profile'
 
 const Company = () => {
   const [companyLocal, setCompanyLocal] = useState('')
+
   const profileId = useSelector((store) => store.user.userId)
-  console.log('profileId', profileId)
+  const companyAllInfo = useSelector((store) => store.company)
+  const accessToken = useSelector((store) => store.user.accessToken)
+
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  const accessToken = useSelector((store) => store.user.accessToken)
   useEffect(() => {
-    fetch(`http://localhost:8080/company/${profileId}`)
+    if (!accessToken) {
+      navigate('/login')
+    }
+  }, [accessToken, navigate])
+
+  useEffect(() => {
+    const options = {
+      method: 'GET',
+      headers: {
+        Authorization: accessToken,
+      },
+    }
+
+    fetch(TEST_API(`company/${profileId}`), options)
       .then((res) => res.json())
       .then((data) => {
         console.log(data)
         setCompanyLocal(data.response[0].companyName)
-      }, [])
-  })
-
-  useEffect(() => {
-    if (accessToken === null) {
-      navigate('/login')
-    }
-  }, [accessToken, navigate])
+        dispatch(company.actions.setCompany(data.response))
+        console.log('companyAllInfo', companyAllInfo)
+        console.log('profileId', profileId)
+      })
+  }, [])
 
   return (
     <>
@@ -41,6 +53,9 @@ const Company = () => {
       <div>
         <p>Company page.. </p>
         <p>{companyLocal}.. </p>
+        {companyAllInfo?.company?.map((item) => (
+          <p>{item.companyName}</p>
+        ))}
       </div>
 
       <LogOutBtn />

@@ -4,6 +4,7 @@ const initialState = {
   // userId: null,
   // username: null,
   // accessToken: null,
+  company: null,
   companyName: null,
   genderRatio: null,
   companyDesciption: null,
@@ -26,8 +27,12 @@ const company = createSlice({
     // setAccessToken: (store, action) => {
     //   store.accessToken = action.payload
     // },
+    setCompany: (store, action) => {
+      console.log('setCompany in reducer', action.payload)
+      store.company = action.payload
+      console.log('store.company', store.company)
+    },
     setUser: (store, action) => {
-      console.log('setUser in reducer', action.payload)
       store.username = action.payload
     },
     setCompanyName: (store, action) => {
