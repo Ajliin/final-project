@@ -52,7 +52,7 @@ const Company = () => {
       <Header />
       <div>
         <p>Company page.. </p>
-        <p>{companyLocal}.. </p>
+        {/* <p>{companyLocal}.. </p> */}
         {companyAllInfo?.company?.map((item) => (
           <p>{item.companyName}</p>
         ))}

@@ -12,6 +12,7 @@ import '@fontsource/roboto/700.css'
 import user from './reducers/user'
 import profile from './reducers/profile'
 import company from './reducers/company'
+import companies from './reducers/companies'
 
 import Company from './pages/Company'
 import CompanySignUp from './pages/CompanySignUp'
@@ -24,6 +25,7 @@ const reducer = combineReducers({
   user: user.reducer,
   profile: profile.reducer,
   company: company.reducer,
+  companies: companies.reducer,
 })
 
 const store = configureStore({ reducer })

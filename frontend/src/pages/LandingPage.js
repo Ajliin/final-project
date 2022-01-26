@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useSelector, useDispatch, batch } from 'react-redux'
 
 import { Button, Typography, TextField } from '@material-ui/core'
 
@@ -6,16 +7,25 @@ import Header from '../components/Header'
 import AvatarIcon from '../components/AvatarIcon'
 import { TEST_API } from '../utils/url'
 
+import companies from '../reducers/companies'
+
 const LandingPage = () => {
   const [user, setUser] = useState('')
 
-  console.log(' TEST_API', TEST_API(''))
+  const allCompanies = useSelector((store) => store.companies)
+  console.log('allCompanies', allCompanies)
+
+  const dispatch = useDispatch()
+  //const navigate = useNavigate()
+
+  console.log(' TEST_API', TEST_API('allcompanies'))
 
   const getData = () => {
     fetch(TEST_API('allcompanies'))
       .then((res) => res.json())
       .then((data) => {
         setUser(data.response[0].companyName)
+        dispatch(companies.actions.setCompanies(data.response))
       })
   }
 
@@ -46,6 +56,11 @@ const LandingPage = () => {
         </div>
         <div className="category-container">
           <AvatarIcon />
+        </div>
+        <div>
+          {allCompanies?.companies?.map((company) => (
+            <p key={company._id}>{company.companyName}</p>
+          ))}
         </div>
       </div>
     </section>

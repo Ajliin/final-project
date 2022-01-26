@@ -1,17 +1,22 @@
-import { AppBar, Toolbar, Typography } from '@material-ui/core'
+import { AppBar, Toolbar, Typography, Button } from '@material-ui/core'
 import { AccountCircle } from '@material-ui/icons'
 import React from 'react'
 
-import { createTheme } from '@mui/material/styles';
-
+import { createTheme } from '@mui/material/styles'
+import { useNavigate } from 'react-router-dom'
 
 const Header = () => {
+  const navigate = useNavigate()
+
   return (
     <AppBar position="static" color="secondary">
       <Toolbar>
         <div className="nav-container">
           <Typography>This is my final project</Typography>
-          <AccountCircle />
+
+          <Button type="submit" onClick={() => navigate('/login')}>
+            <AccountCircle />
+          </Button>
         </div>
       </Toolbar>
     </AppBar>

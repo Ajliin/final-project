@@ -4,9 +4,6 @@ import mongoose from 'mongoose'
 import crypto from 'crypto'
 import bcrypt from 'bcrypt'
 import dotenv from 'dotenv'
-import { url } from 'inspector'
-import { notEqual } from 'assert'
-import { Resolver } from 'dns'
 
 const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/foaje'
 mongoose.connect(mongoUrl, {
@@ -255,6 +252,7 @@ app.post('/company', async (req, res) => {
 
 // to get all companies from one unser
 
+app.get('/company/:userId', authenticateUser)
 app.get('/company/:userId', async (req, res) => {
   const { userId } = req.params
 
@@ -263,6 +261,33 @@ app.get('/company/:userId', async (req, res) => {
   try {
     const company = await Company.find({ user: userId }).populate('user')
     res.status(200).json({ response: company, success: true })
+  } catch (error) {
+    res.status(400).json({ response: error, success: false })
+  }
+})
+
+//to edit company
+app.patch('/company/:userId', async (req, res) => {
+  //req.query ==> ?company="id"
+
+  const { userId } = req.params
+  const updatedInfo = req.body
+
+  console.log(userId)
+  try {
+    // console.log('inside try in patch')
+    // const queriedCompany = await Company.find({ user: userId })
+    // console.log('queriedCompany', queriedCompany)
+    const updateCompany = await Company.findOneAndUpdate(
+      userId,
+      { $set: updatedInfo },
+      {
+        new: true,
+      },
+    )
+    console.log('updatecompany', updateCompany)
+
+    res.status(201).json({ response: updateCompany, success: true })
   } catch (error) {
     res.status(400).json({ response: error, success: false })
   }
