@@ -13,6 +13,12 @@
   }
 }
 
+.intro-text {
+  display: flex;
+  margin: 0 auto;
+  max-width: 600px;
+}
+
 .search-container {
   display: flex;
   justify-content: space-around;

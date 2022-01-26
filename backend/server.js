@@ -55,9 +55,27 @@ const CompanySchema = new mongoose.Schema({
   companyName: {
     type: String,
   },
-  genderQuote: {
+  companyDescription: {
+    type: String,
+  },
+  location: {
+    type: String,
+  },
+  skills: [
+    {
+      type: String,
+    },
+  ],
+  url: {
+    type: String,
+  },
+  rating: {
     type: Number,
   },
+  genderRatio: {
+    type: Number,
+  },
+
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
@@ -192,7 +210,7 @@ app.get('/profile/:userId', async (req, res) => {
   const { userId } = req.params
 
   try {
-    const profile = await MyPage.find({ user: userId }).populate('user')
+    const profile = await MyPage.find({ user: userId }, { description: 1 })
     console.log('inside ge - profile', profile)
     res.status(200).json({ response: profile, success: true })
   } catch (error) {
@@ -204,14 +222,28 @@ app.get('/profile/:userId', async (req, res) => {
 
 //to create new company
 app.post('/company', async (req, res) => {
-  const { companyName, genderQuote, user } = req.body
+  const {
+    companyName,
+    genderRatio,
+    companyDescription,
+    location,
+    skills,
+    url,
+    rating,
+    user,
+  } = req.body
 
   try {
     const queriedUser = await User.findById(user)
     const newCompany = await new Company({
       companyName,
-      genderQuote,
+      genderRatio,
       user: queriedUser,
+      companyDescription,
+      location,
+      skills,
+      url,
+      rating,
     }).save()
 
     res.status(201).json({ response: newCompany, success: true })

@@ -12,19 +12,25 @@ const LandingPage = () => {
   console.log(' TEST_API', TEST_API(''))
 
   const getData = () => {
-    fetch(TEST_API(''))
+    fetch(TEST_API('allcompanies'))
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
         setUser(data.response[0].companyName)
       })
   }
 
   return (
-    <div>
-      <p> Hello LandingPage </p>
-      <div className="App">
-        <Header />
+    <section className="landing-page-container">
+      <Header />
+      <div className="intro-text">
+        <Typography variant="h4" component="h4">
+          FOAJÉ works as a commercial space where woman can sell and buy
+          products and services to and from each other. At FOAJÉ you are of
+          course also welcome only to be a part of the community and search for
+          services and products sold on the platform from female entrepreneurs.
+        </Typography>
+      </div>
+      <div>
         <Typography variant="h2" component="h2">
           Yeah {user}, yeah!
         </Typography>
@@ -35,12 +41,14 @@ const LandingPage = () => {
             Hitta
           </Button>
         </div>
-        <Typography variant="p" component="p">
-          Let us talk about this
-        </Typography>
-        <AvatarIcon />
+        <div>
+          <p>Let us talk about this</p>
+        </div>
+        <div className="category-container">
+          <AvatarIcon />
+        </div>
       </div>
-    </div>
+    </section>
   )
 }
 

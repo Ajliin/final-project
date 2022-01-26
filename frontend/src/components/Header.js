@@ -1,6 +1,9 @@
-import { AppBar, Toolbar, Typography, Box } from '@material-ui/core'
+import { AppBar, Toolbar, Typography } from '@material-ui/core'
 import { AccountCircle } from '@material-ui/icons'
 import React from 'react'
+
+import { createTheme } from '@mui/material/styles';
+
 
 const Header = () => {
   return (
