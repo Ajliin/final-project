@@ -26,6 +26,10 @@ const company = createSlice({
     // setAccessToken: (store, action) => {
     //   store.accessToken = action.payload
     // },
+    setUser: (store, action) => {
+      console.log('setUser in reducer', action.payload)
+      store.username = action.payload
+    },
     setCompanyName: (store, action) => {
       store.companyName = action.payload
     },

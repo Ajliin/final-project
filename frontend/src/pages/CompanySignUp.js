@@ -16,15 +16,22 @@ const CompanySignUp = () => {
   const [url, setUrl] = useState('')
   const [rating, setRating] = useState('')
   const [error, setError] = useState(false)
+  const [user, setUser] = useState('')
 
   const errorMess = useSelector((store) => store.user.error)
 
   const accessToken = useSelector((store) => store.user.accessToken)
   const companyData = useSelector((store) => store.company.companyName)
   console.log('company', company)
+  const profileId = useSelector((store) => store.user.userId)
+  console.log('profileId', profileId)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  useEffect(() => {
+    setUser(profileId)
+  }, [user])
 
   useEffect(() => {
     if (companyData) {
@@ -43,6 +50,7 @@ const CompanySignUp = () => {
       body: JSON.stringify({
         companyName,
         genderRatio,
+        user,
         companyDescription,
         location,
         skills,
@@ -55,6 +63,7 @@ const CompanySignUp = () => {
       .then((data) => {
         if (data.success) {
           batch(() => {
+            dispatch(company.actions.setUser(data.response.user))
             dispatch(company.actions.setCompanyName(data.response.companyName))
 
             dispatch(company.actions.setGenderRatio(data.response.genderRatio))
@@ -72,7 +81,7 @@ const CompanySignUp = () => {
           batch(() => {
             dispatch(company.actions.setCompanyName(null))
             dispatch(company.actions.setGenderRatio(null))
-            dispatch(company.actions.setCompanyDesciption(null))
+            dispatch(company.actions.setCompanyDescription(null))
             dispatch(company.actions.setLocation(null))
             dispatch(company.actions.setSkills(null))
             dispatch(company.actions.setUrl(null))
@@ -138,6 +147,15 @@ const CompanySignUp = () => {
           value={url}
           onChange={(event) => setUrl(event.target.value)}
         />
+
+        {/* <TextField
+          id="userid"
+          type="text"
+          label="user id"
+          variant="outlined"
+          value={user}
+          onChange={(event) => setUser(event.target.value)}
+        /> */}
         <Button type="submit" color="secondary" variant="contained">
           Submit
         </Button>

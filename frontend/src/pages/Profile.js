@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import { TEST_API } from '../utils/url'
 import Header from '../components/Header'
 import { Button, Typography, TextField } from '@material-ui/core'
+import LogOutBtn from '../components/LogOutBtn'
 
 import user from '../reducers/user'
 import profile from '../reducers/profile'
@@ -31,7 +32,7 @@ const Profile = () => {
     const options = {
       method: 'GET',
       headers: {
-        Authoriztion: accessToken,
+        Authorization: accessToken,
       },
     }
 
@@ -45,19 +46,6 @@ const Profile = () => {
       })
   }, [])
 
-  const onLogOut = () => {
-    batch(() => {
-      dispatch(user.actions.setUserId(null))
-      dispatch(user.actions.setUsername(null))
-      dispatch(user.actions.setAccessToken(null))
-      dispatch(user.actions.setEmail(null))
-      dispatch(user.actions.setError(null))
-      dispatch(profile.actions.setDescription(null))
-      //specify the data that we want to save in localStorage 'user' here
-      localStorage.removeItem('user')
-    })
-  }
-
   return (
     <>
       <Header />
@@ -68,28 +56,29 @@ const Profile = () => {
           {description?.map((item) => (
             <>
               {console.log(item.description)}
-              <p>{item.description}</p>
+              <p key={item.description}>{item.description}</p>
             </>
           ))}
         </div>
       </div>
+      <LogOutBtn />
+
       <Button
         type="submit"
         color="secondary"
         variant="contained"
-        onClick={() => onLogOut()}
+        onClick={() => navigate('/company-sign-up')}
       >
-        Log out
+        Sign up a new company?
       </Button>
-
-      {/* <Button
+      <Button
         type="submit"
         color="secondary"
         variant="contained"
-        onClick={() => onSubmitButton()}
+        onClick={() => navigate('/company')}
       >
-        Fetch api
-      </Button> */}
+        Go to your company
+      </Button>
     </>
   )
 }

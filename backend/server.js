@@ -99,9 +99,9 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 
-const authenticateMyPage = async (req, res, next) => {
+const authenticateUser = async (req, res, next) => {
   const accessToken = req.header('Authorization')
-
+  console.log('aut is happening', accessToken)
   try {
     const user = await User.findOne({ accessToken })
     console.log(user)
@@ -206,6 +206,7 @@ app.post('/profile', async (req, res) => {
 })
 
 //to get "all" profile- maybe not needed later, will just be one and prob. patch?
+app.get('/profile/:userId', authenticateUser)
 app.get('/profile/:userId', async (req, res) => {
   const { userId } = req.params
 

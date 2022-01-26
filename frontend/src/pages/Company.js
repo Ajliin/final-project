@@ -1,26 +1,49 @@
 import React, { useEffect, useState } from 'react'
+import { useSelector, useDispatch, batch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
+import { Button, Typography, TextField } from '@material-ui/core'
+
+import { TEST_API } from '../utils/url'
 import Header from '../components/Header'
+import LogOutBtn from '../components/LogOutBtn'
+
+import user from '../reducers/user'
+import company from '../reducers/company'
+import profile from '../reducers/profile'
 
 const Company = () => {
-  const [company, setCompany] = useState('')
+  const [companyLocal, setCompanyLocal] = useState('')
+  const profileId = useSelector((store) => store.user.userId)
+  console.log('profileId', profileId)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
 
-  useEffect = () => {
-    fetch('http://localhost:8080/company/61ee4f01e8a8604db38366cf')
+  const accessToken = useSelector((store) => store.user.accessToken)
+  useEffect(() => {
+    fetch(`http://localhost:8080/company/${profileId}`)
       .then((res) => res.json())
       .then((data) => {
         console.log(data)
-        setCompany(data.response[0].companyName)
+        setCompanyLocal(data.response[0].companyName)
       }, [])
-  }
+  })
+
+  useEffect(() => {
+    if (accessToken === null) {
+      navigate('/login')
+    }
+  }, [accessToken, navigate])
 
   return (
     <>
       <Header />
       <div>
-        <p>Profile.. </p>
-        <p>{company}.. </p>
+        <p>Company page.. </p>
+        <p>{companyLocal}.. </p>
       </div>
+
+      <LogOutBtn />
     </>
   )
 }
