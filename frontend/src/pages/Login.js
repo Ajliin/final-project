@@ -5,6 +5,7 @@ import { Button, Typography, TextField } from '@material-ui/core'
 
 import { TEST_API } from '../utils/url'
 import user from '../reducers/user'
+import Header from '../components/Header'
 
 const Login = () => {
   const [username, setUsername] = useState('')
@@ -75,59 +76,62 @@ const Login = () => {
   }
 
   return (
-    <section position="static" color="secondary">
-      <form onSubmit={onFormSubmit}>
-        {mode === 'signup' && (
-          <TextField
-            id="username"
-            label="Username *"
-            variant="outlined"
-            value={username}
-            onChange={(event) => setUsername(event.target.value)}
-          />
-        )}
+    <>
+      <Header />
+      <section position="static" color="secondary">
+        <form onSubmit={onFormSubmit}>
+          {mode === 'signup' && (
+            <TextField
+              id="username"
+              label="Förnamn *"
+              variant="outlined"
+              value={username}
+              onChange={(event) => setUsername(event.target.value)}
+            />
+          )}
 
-        <TextField
-          id="email"
-          type="email"
-          type="text"
-          label="Email *"
-          variant="outlined"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-        />
-        <TextField
-          id="password"
-          type="password"
-          label="Password *"
-          variant="outlined"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-        />
-        <Button type="submit" color="secondary" variant="contained">
-          Submit
-        </Button>
-        {mode === 'signup' ? (
-          <Button
-            type="button"
-            color="primary"
-            variant="contained"
-            onClick={() => setMode('signin')}
-          >
-            Already a an account?
+          <TextField
+            id="email"
+            type="email"
+            type="text"
+            label="Email *"
+            variant="outlined"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+          />
+          <TextField
+            id="password"
+            type="password"
+            label="Password *"
+            variant="outlined"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          />
+          <Button type="submit" color="secondary" variant="contained">
+            Submit
           </Button>
-        ) : (
-          <Button
-            type="button"
-            color="primary"
-            variant="contained"
-            onClick={() => setMode('signup')}
-          >
-            Want to become a new member?
-          </Button>
-        )}
-      </form>
-    </section>
+          {mode === 'signup' ? (
+            <Button
+              type="button"
+              color="primary"
+              variant="contained"
+              onClick={() => setMode('signin')}
+            >
+              Already a an account?
+            </Button>
+          ) : (
+            <Button
+              type="button"
+              color="primary"
+              variant="contained"
+              onClick={() => setMode('signup')}
+            >
+              Want to become a new member?
+            </Button>
+          )}
+        </form>
+      </section>
+    </>
   )
 }
 

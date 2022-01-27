@@ -13,12 +13,9 @@ const LandingPage = () => {
   const [user, setUser] = useState('')
 
   const allCompanies = useSelector((store) => store.companies)
-  console.log('allCompanies', allCompanies)
 
   const dispatch = useDispatch()
   //const navigate = useNavigate()
-
-  console.log(' TEST_API', TEST_API('allcompanies'))
 
   const getData = () => {
     fetch(TEST_API('allcompanies'))
@@ -33,7 +30,7 @@ const LandingPage = () => {
     <section className="landing-page-container">
       <Header />
       <div className="intro-text">
-        <Typography variant="h4" component="h4">
+        <Typography variant="h6" component="h6">
           FOAJÉ works as a commercial space where woman can sell and buy
           products and services to and from each other. At FOAJÉ you are of
           course also welcome only to be a part of the community and search for
@@ -41,7 +38,7 @@ const LandingPage = () => {
         </Typography>
       </div>
       <div>
-        <Typography variant="h2" component="h2">
+        <Typography variant="h4" component="h4">
           Yeah {user}, yeah!
         </Typography>
         <div className="search-container">

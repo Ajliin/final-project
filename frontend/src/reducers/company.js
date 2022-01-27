@@ -32,13 +32,16 @@ const company = createSlice({
       store.company = action.payload
       console.log('store.company', store.company)
     },
-    setUser: (store, action) => {
+    setUsername: (store, action) => {
+      console.log('inside user reducer', action.payload)
       store.username = action.payload
     },
     setCompanyName: (store, action) => {
+      console.log('inside companyName reducer', action.payload)
       store.companyName = action.payload
     },
     setGenderRatio: (store, action) => {
+      console.log('inside genderRatio reducer', action.payload)
       store.genderRatio = action.payload
     },
     setCompanyDescription: (store, action) => {

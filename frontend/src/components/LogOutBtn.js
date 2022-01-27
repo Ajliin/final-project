@@ -14,12 +14,14 @@ const LogOutBtn = () => {
 
   const onLogOut = () => {
     batch(() => {
-      dispatch(company.actions.setUser(null))
       dispatch(user.actions.setUsername(null))
+      dispatch(user.actions.setUserId(null))
       dispatch(user.actions.setAccessToken(null))
       dispatch(user.actions.setEmail(null))
       dispatch(user.actions.setError(null))
       dispatch(profile.actions.setDescription(null))
+      dispatch(company.actions.setCompany(null))
+      dispatch(company.actions.setUsername(null))
       dispatch(company.actions.setCompanyName(null))
       dispatch(company.actions.setGenderRatio(null))
       dispatch(company.actions.setCompanyDescription(null))
@@ -35,8 +37,8 @@ const LogOutBtn = () => {
   return (
     <Button
       type="submit"
-      color="secondary"
-      variant="contained"
+      color="primary"
+      variant="outlined"
       onClick={() => onLogOut()}
     >
       Log out

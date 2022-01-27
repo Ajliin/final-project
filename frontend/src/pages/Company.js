@@ -16,7 +16,15 @@ const Company = () => {
   const [companyLocal, setCompanyLocal] = useState('')
 
   const profileId = useSelector((store) => store.user.userId)
-  const companyAllInfo = useSelector((store) => store.company)
+  const companyAllInfo = useSelector((store) => store.company.company)
+  const {
+    companyName,
+    genderRatio,
+    companyDescription,
+    location,
+    skills,
+    url,
+  } = useSelector((store) => store.company)
   const accessToken = useSelector((store) => store.user.accessToken)
 
   const dispatch = useDispatch()
@@ -35,27 +43,27 @@ const Company = () => {
         Authorization: accessToken,
       },
     }
-
-    fetch(TEST_API(`company/${profileId}`), options)
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data)
-        setCompanyLocal(data.response[0].companyName)
-        dispatch(company.actions.setCompany(data.response))
-        console.log('companyAllInfo', companyAllInfo)
-        console.log('profileId', profileId)
-      })
-  }, [])
-
+  })
   return (
     <>
       <Header />
       <div>
+        {companyAllInfo && (
+          <>
+            <p> {companyAllInfo[0]?.companyName} </p>
+            <p> {companyAllInfo[0]?.companyDescription} </p>
+            <p> {companyAllInfo[0]?.genderRatio} </p>
+            <p> {companyAllInfo[0]?.location} </p>
+            <p> {companyAllInfo[0]?.url} </p>
+            <p> {companyAllInfo[0]?.skills?.map((skill) => skill)} </p>
+          </>
+        )}
         <p>Company page.. </p>
         {/* <p>{companyLocal}.. </p> */}
-        {companyAllInfo?.company?.map((item) => (
-          <p>{item.companyName}</p>
-        ))}
+
+        {/* {companyName?.map((item) => (
+          <p>{item}</p>
+        ))} */}
       </div>
       <Button
         type="submit"

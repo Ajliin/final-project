@@ -19,16 +19,16 @@ mongoose.Promise = Promise
 const UserSchema = new mongoose.Schema({
   username: {
     type: String,
-    // unique: true,
   },
   email: {
     type: String,
     unique: true,
-    // required: true,
+    required: true,
+    unique: true,
   },
   password: {
     type: String,
-    //required: true,
+    required: true,
   },
   accessToken: {
     type: String,
@@ -51,12 +51,14 @@ const MyPageSchema = new mongoose.Schema({
 const CompanySchema = new mongoose.Schema({
   companyName: {
     type: String,
+    unique: true,
   },
   companyDescription: {
     type: String,
   },
   location: {
     type: String,
+    required: true,
   },
   skills: [
     {
@@ -71,6 +73,7 @@ const CompanySchema = new mongoose.Schema({
   },
   genderRatio: {
     type: Number,
+    required: true,
   },
 
   user: {
@@ -261,6 +264,23 @@ app.get('/company/:userId', async (req, res) => {
   try {
     const company = await Company.find({ user: userId }).populate('user')
     res.status(200).json({ response: company, success: true })
+  } catch (error) {
+    res.status(400).json({ response: error, success: false })
+  }
+})
+app.get('/company-edit/:userId', async (req, res) => {
+  //req.query ==> ?company="id"
+
+  const { userId } = req.params
+  //const companyInfo = req.body
+  console.log('inside get edit', userId)
+
+  try {
+    console.log('inside TRY edit')
+    const showCompany = await Company.find({ user: userId })
+    console.log('updatecompany', showCompany)
+
+    res.status(201).json({ response: showCompany, success: true })
   } catch (error) {
     res.status(400).json({ response: error, success: false })
   }

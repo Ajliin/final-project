@@ -23,6 +23,7 @@ const user = createSlice({
       store.userId = action.payload
     },
     setUsername: (store, action) => {
+      console.log('inside setUsername reducer', action.payload)
       store.username = action.payload
     },
     setAccessToken: (store, action) => {
