@@ -12,7 +12,7 @@ const Header = () => {
     <AppBar position="static" color="secondary">
       <Toolbar>
         <div className="nav-container">
-          <Typography>This is my final project</Typography>
+          <Typography>FOAJÉ</Typography>
 
           <Button type="submit" onClick={() => navigate('/login')}>
             <AccountCircle />

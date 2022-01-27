@@ -9,6 +9,7 @@ import LogOutBtn from '../components/LogOutBtn'
 
 import user from '../reducers/user'
 import profile from '../reducers/profile'
+import AvatarIcon from '../components/AvatarIcon'
 
 const Profile = () => {
   const [name, setName] = useState('')
@@ -49,6 +50,7 @@ const Profile = () => {
   return (
     <>
       <Header />
+      <AvatarIcon />
       <div>
         <p>Profile.. </p>
         <p>{name}.. </p>
@@ -71,6 +73,7 @@ const Profile = () => {
       >
         Sign up a new company?
       </Button>
+
       <Button
         type="submit"
         color="secondary"

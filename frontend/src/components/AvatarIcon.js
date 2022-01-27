@@ -1,7 +1,13 @@
 import react from 'react'
 import { Avatar } from '@mui/material'
+import { useSelector } from 'react-redux'
+
+import user from '../reducers/user'
 
 const AvatarIcon = () => {
+  const username = useSelector((store) => store.user.username)
+  console.log('avatarusername', username)
+
   const stringToColor = (string) => {
     let hash = 0
     let i
@@ -33,9 +39,7 @@ const AvatarIcon = () => {
 
   return (
     <>
-      <Avatar {...stringAvatar('Elin Diczfalusy')} />
-      <Avatar {...stringAvatar('Hanna Flybring')} />
-      <Avatar {...stringAvatar('Indendent Foajé')} />
+      <Avatar {...stringAvatar(`${username} ${username}`)} />
     </>
   )
 }

@@ -6,6 +6,7 @@ import { Button, Typography, TextField } from '@material-ui/core'
 import { TEST_API } from '../utils/url'
 import user from '../reducers/user'
 import company from '../reducers/company'
+import AvatarIcon from '../components/AvatarIcon'
 
 const CompanySignUp = () => {
   const [companyName, setCompanyName] = useState('')
@@ -148,36 +149,9 @@ const CompanySignUp = () => {
           onChange={(event) => setUrl(event.target.value)}
         />
 
-        {/* <TextField
-          id="userid"
-          type="text"
-          label="user id"
-          variant="outlined"
-          value={user}
-          onChange={(event) => setUser(event.target.value)}
-        /> */}
         <Button type="submit" color="secondary" variant="contained">
           Submit
         </Button>
-        {/* {mode === 'signup' ? (
-          <Button
-            type="button"
-            color="primary"
-            variant="contained"
-            onClick={() => setMode('signin')}
-          >
-            Already a an account?
-          </Button>
-        ) : (
-          <Button
-            type="button"
-            color="primary"
-            variant="contained"
-            onClick={() => setMode('signup')}
-          >
-            Want to become a new member?
-          </Button>
-        )} */}
       </form>
     </section>
   )

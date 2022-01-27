@@ -57,7 +57,14 @@ const Company = () => {
           <p>{item.companyName}</p>
         ))}
       </div>
-
+      <Button
+        type="submit"
+        color="secondary"
+        variant="contained"
+        onClick={() => navigate('/company-sign-up')}
+      >
+        Edit profile
+      </Button>
       <LogOutBtn />
     </>
   )

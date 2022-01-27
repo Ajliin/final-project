@@ -54,9 +54,9 @@ const LandingPage = () => {
         <div>
           <p>Let us talk about this</p>
         </div>
-        <div className="category-container">
+        {/* <div className="category-container">
           <AvatarIcon />
-        </div>
+        </div> */}
         <div>
           {allCompanies?.companies?.map((company) => (
             <p key={company._id}>{company.companyName}</p>
