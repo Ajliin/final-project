@@ -1,39 +1,39 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const initialState = {
-  // userId: null,
-  // username: null,
-  // accessToken: null,
-  company: null,
-  companyName: null,
-  genderRatio: null,
-  companyDesciption: null,
-  location: null,
-  skills: [],
-  url: null,
-  rating: null,
-}
+const initialState = localStorage.getItem('company')
+  ? {
+      company: JSON.parse(localStorage.getItem('company')).company,
+      companyName: JSON.parse(localStorage.getItem('company')).companyName,
+      genderRatio: JSON.parse(localStorage.getItem('company')).genderRatio,
+      companyDesciption: JSON.parse(localStorage.getItem('company'))
+        .companyDesciption,
+      location: JSON.parse(localStorage.getItem('company')).location,
+      skills: JSON.parse(localStorage.getItem('company')).skills,
+      url: JSON.parse(localStorage.getItem('company')).url,
+      rating: JSON.parse(localStorage.getItem('company')).rating,
+    }
+  : {
+      company: null,
+      companyName: null,
+      genderRatio: null,
+      companyDesciption: null,
+      location: null,
+      skills: [],
+      url: null,
+      rating: null,
+    }
 
 const company = createSlice({
   name: 'company',
   initialState,
   reducers: {
-    // setUserId: (store, action) => {
-    //   store.userId = action.payload
-    // },
-    // setUsername: (store, action) => {
-    //   store.username = action.payload
-    // },
-    // setAccessToken: (store, action) => {
-    //   store.accessToken = action.payload
-    // },
     setCompany: (store, action) => {
       console.log('setCompany in reducer', action.payload)
       store.company = action.payload
       console.log('store.company', store.company)
     },
-    setUsername: (store, action) => {
-      console.log('inside user reducer', action.payload)
+    setUserId: (store, action) => {
+      console.log('inside userId reducer', action.payload)
       store.username = action.payload
     },
     setCompanyName: (store, action) => {

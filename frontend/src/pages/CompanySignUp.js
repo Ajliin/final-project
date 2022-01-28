@@ -18,15 +18,18 @@ const CompanySignUp = () => {
   const [url, setUrl] = useState('')
   const [rating, setRating] = useState('')
   const [error, setError] = useState(false)
-  const [user, setUser] = useState('')
+  const [userState, setUserState] = useState('')
   const [mode, setMode] = useState('new')
+  const [hasCompany, setHasCompany] = useState(false)
 
   const errorMess = useSelector((store) => store.user.error)
 
-  const accessToken = useSelector((store) => store.user.accessToken)
+  const hasCompany1 = useSelector((store) => store.user.hasCompany)
+  console.log('hasCompany in signup', hasCompany)
 
-  const companyData = useSelector((store) => store.company.company)
-  console.log('companyData', companyData)
+  const companyData = useSelector((store) => store.company)
+
+  console.log('companyData2', companyData)
 
   const profileId = useSelector((store) => store.user.userId)
   console.log('profileId', profileId)
@@ -35,17 +38,19 @@ const CompanySignUp = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    setUser(profileId)
-    if (companyData) {
+    setUserState(profileId)
+    if (hasCompany1) {
       setMode('edit')
-      setCompanyName(companyData[0].companyName)
-      setGenderRatio(companyData[0].genderRatio)
-      setCompanyDescription(companyData[0].companyDescription)
-      setSkills(companyData[0].skills)
-      setLocation(companyData[0].location)
-      setUrl(companyData[0].url)
+      setCompanyName(companyData.companyName)
+      setGenderRatio(companyData.genderRatio)
+      setCompanyDescription(companyData.companyDescription)
+      setSkills(companyData.skills)
+      setLocation(companyData.location)
+      setUrl(companyData.url)
+    } else {
+      setHasCompany(true)
     }
-  }, [user, companyData, mode])
+  }, [hasCompany, mode, profileId])
 
   useEffect(() => {
     if (mode === 'done') {
@@ -54,9 +59,34 @@ const CompanySignUp = () => {
   }, [mode, navigate])
 
   const onFormSubmit = (event) => {
-    console.log('onformsubmit', mode)
+    console.log('onformsubmit mode', mode)
     event.preventDefault()
+
+    //Fetch if new company
     if (mode === 'new') {
+      // PATCH the user
+
+      console.log('hasCompany inside patch', hasCompany)
+      const options2 = {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          hasCompany,
+        }),
+      }
+
+      fetch(TEST_API(`user-edit/${profileId}`), options2)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(
+            'data inside PATCH EDIT USER companyfetch!!!!!!!!!!!!!!!!!!!!!!!!!!!!!',
+            data.response.hasCompany,
+          )
+          dispatch(user.actions.setHasCompany(data.response.hasCompany))
+        })
+
       const options = {
         method: 'POST',
         headers: {
@@ -65,7 +95,7 @@ const CompanySignUp = () => {
         body: JSON.stringify({
           companyName,
           genderRatio,
-          user,
+          user: userState,
           companyDescription,
           location,
           skills,
@@ -76,44 +106,14 @@ const CompanySignUp = () => {
       fetch(TEST_API('company'), options)
         .then((res) => res.json())
         .then((data) => {
-          console.l0g('data inside companyfetch', data)
-          if (data.success) {
-            batch(() => {
-              dispatch(company.actions.setUsername(data.response.user))
-              dispatch(
-                company.actions.setCompanyName(data.response.companyName),
-              )
-
-              dispatch(
-                company.actions.setGenderRatio(data.response.genderRatio),
-              )
-              dispatch(
-                company.actions.setCompanyDescription(
-                  data.response.companyDescription,
-                ),
-              )
-              dispatch(company.actions.setLocation(data.response.location))
-              dispatch(company.actions.setSkills(data.response.skills))
-              dispatch(company.actions.setUrl(data.response.url))
-              dispatch(company.actions.setError(null))
-            })
-          } else {
-            batch(() => {
-              dispatch(company.actions.setCompanyName(null))
-              dispatch(company.actions.setGenderRatio(null))
-              dispatch(company.actions.setCompanyDescription(null))
-              dispatch(company.actions.setLocation(null))
-              dispatch(company.actions.setSkills(null))
-              dispatch(company.actions.setUrl(null))
-              dispatch(company.actions.setError(data.response))
-            })
-            setError(true)
-          }
+          console.log('data inside POST new Company', data)
         })
+
       setMode('done')
-      console.log('last in fetch', mode)
-    } else {
-      console.log('i else', mode)
+    }
+
+    //Fetch if EDIT a company
+    else {
       const options = {
         method: 'PATCH',
         headers: {
@@ -122,7 +122,7 @@ const CompanySignUp = () => {
         body: JSON.stringify({
           companyName,
           genderRatio,
-          user,
+          user: userState,
           companyDescription,
           location,
           skills,
@@ -135,7 +135,7 @@ const CompanySignUp = () => {
         .then((data) => {
           if (data.success) {
             batch(() => {
-              dispatch(company.actions.setUser(data.response.user))
+              dispatch(company.actions.setUserId(data.response.user))
               dispatch(
                 company.actions.setCompanyName(data.response.companyName),
               )
@@ -167,7 +167,6 @@ const CompanySignUp = () => {
           }
         })
       setMode('done')
-      console.log('last in fetch', mode)
     }
   }
 
@@ -228,7 +227,7 @@ const CompanySignUp = () => {
             value={url}
             onChange={(event) => setUrl(event.target.value)}
           />
-          {!companyData ? (
+          {!companyData || companyData.length === 0 ? (
             <Button type="submit" color="secondary" variant="contained">
               Submit
             </Button>

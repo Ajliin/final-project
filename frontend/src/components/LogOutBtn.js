@@ -21,7 +21,7 @@ const LogOutBtn = () => {
       dispatch(user.actions.setError(null))
       dispatch(profile.actions.setDescription(null))
       dispatch(company.actions.setCompany(null))
-      dispatch(company.actions.setUsername(null))
+      dispatch(company.actions.setUserId(null))
       dispatch(company.actions.setCompanyName(null))
       dispatch(company.actions.setGenderRatio(null))
       dispatch(company.actions.setCompanyDescription(null))
@@ -32,6 +32,7 @@ const LogOutBtn = () => {
 
       //specify the data that we want to save in localStorage 'user' here
       localStorage.removeItem('user')
+      localStorage.removeItem('company')
     })
   }
   return (

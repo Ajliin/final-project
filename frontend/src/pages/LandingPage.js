@@ -55,6 +55,7 @@ const LandingPage = () => {
           <AvatarIcon />
         </div> */}
         <div>
+          <p>Sökresultat:</p>
           {allCompanies?.companies?.map((company) => (
             <p key={company._id}>{company.companyName}</p>
           ))}

@@ -15,15 +15,20 @@ import AvatarIcon from '../components/AvatarIcon'
 const Profile = () => {
   const [name, setName] = useState('')
 
-  const { userId, accessToken, username } = useSelector((store) => store.user)
+  const { userId, accessToken, username, hasCompany } = useSelector(
+    (store) => store.user,
+  )
   const description = useSelector((store) => store.profile.description)
-  const companyData = useSelector((store) => store.company.company)
+  const companyData = useSelector((store) => store.company.companyName)
+  const companyName = useSelector((store) => store.company.companyName)
   const profileId = useSelector((store) => store.user.userId)
 
   console.log('userId', userId)
   console.log('username', username)
-  console.log('accessToken', accessToken)
+  // console.log('accessToken', accessToken)
   console.log('companyData', companyData)
+  console.log('companyname', companyName)
+  console.log('hasCompany', hasCompany)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -34,6 +39,7 @@ const Profile = () => {
     }
   }, [accessToken, navigate])
 
+  //Get profilepage
   useEffect(() => {
     const options = {
       method: 'GET',
@@ -49,6 +55,8 @@ const Profile = () => {
       })
   }, [])
 
+  //Get companypage
+
   useEffect(() => {
     const options = {
       method: 'GET',
@@ -63,44 +71,31 @@ const Profile = () => {
         console.log('data from fetch company/profile', data)
         batch(() => {
           dispatch(company.actions.setCompany(data.response))
-          // dispatch(company.actions.setUsername(data.response.user))
-          // dispatch(company.actions.setCompanyName(data.response.companyName))
-
-          // dispatch(company.actions.setGenderRatio(data.response.genderRatio))
-          // dispatch(
-          //   company.actions.setCompanyDescription(
-          //     data.response.companyDescription,
-          //   ),
-          // )
-          // dispatch(company.actions.setLocation(data.response.location))
-          // dispatch(company.actions.setSkills(data.response.skills))
-          // dispatch(company.actions.setUrl(data.response.url))
+          dispatch(company.actions.setCompanyName(data.response.companyName))
           dispatch(company.actions.setError(null))
         })
-        // setCompanyLocal(data.response[0].companyName)
-        //dispatch(company.actions.setCompany(data.response))
-        //console.log('companyAllinfo', companyAllInfo)
       })
-  }, [dispatch])
+  }, [dispatch, company])
 
   return (
     <>
       <Header />
       <AvatarIcon />
       <div>
-        <p>Profile.. </p>
+        <p>VÄLKOMSTSIDA </p>
         <p>{username}.. </p>
         <div>
-          {description?.map((item) => (
-            <>
-              <p key={item.description}>{item.description}</p>
-            </>
-          ))}
+          {description &&
+            description?.map((item) => (
+              <>
+                <p key={item.description}>{item.description}</p>
+              </>
+            ))}
         </div>
       </div>
       <LogOutBtn />
 
-      {!companyData ? (
+      {!hasCompany ? (
         <Button
           type="submit"
           color="secondary"

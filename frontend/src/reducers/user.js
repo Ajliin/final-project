@@ -6,12 +6,14 @@ const initialState = localStorage.getItem('user')
       username: JSON.parse(localStorage.getItem('user')).username,
       email: JSON.parse(localStorage.getItem('user')).email,
       accessToken: JSON.parse(localStorage.getItem('user')).accessToken,
+      hasCompany: JSON.parse(localStorage.getItem('user')).hasCompany,
     }
   : {
       userId: null,
       username: null,
       accessToken: null,
       email: null,
+      hasCompany: null,
       error: null,
     }
 
@@ -31,6 +33,10 @@ const user = createSlice({
     },
     setEmail: (store, action) => {
       store.email = action.payload
+    },
+    setHasCompany: (store, action) => {
+      store.hasCompany = action.payload
+      console.log('reducr store.hasCompany', store.hasCompany)
     },
     setError: (store, action) => {
       store.error = action.payload

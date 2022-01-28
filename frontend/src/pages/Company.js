@@ -16,15 +16,7 @@ const Company = () => {
   const [companyLocal, setCompanyLocal] = useState('')
 
   const profileId = useSelector((store) => store.user.userId)
-  const companyAllInfo = useSelector((store) => store.company.company)
-  const {
-    companyName,
-    genderRatio,
-    companyDescription,
-    location,
-    skills,
-    url,
-  } = useSelector((store) => store.company)
+  const postCompany = useSelector((store) => store.company)
   const accessToken = useSelector((store) => store.user.accessToken)
 
   const dispatch = useDispatch()
@@ -36,6 +28,8 @@ const Company = () => {
     }
   }, [accessToken, navigate])
 
+  //Get companypage
+
   useEffect(() => {
     const options = {
       method: 'GET',
@@ -43,27 +37,89 @@ const Company = () => {
         Authorization: accessToken,
       },
     }
-  })
+
+    fetch(TEST_API(`company/${profileId}`), options)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log('Data from get company/profileid in COMPANY', data)
+        console.log(
+          'Data.response.companyName from get company/profileid in COMPANY',
+          data.response.getCompany[0].companyName,
+        )
+
+        if (data.success) {
+          batch(() => {
+            //  dispatch(company.actions.setUserId(data.response.newCompany.userId))
+            dispatch(
+              company.actions.setCompanyName(
+                data.response.getCompany[0].companyName,
+              ),
+            )
+
+            dispatch(
+              company.actions.setGenderRatio(
+                data.response.getCompany[0].genderRatio,
+              ),
+            )
+            dispatch(
+              company.actions.setCompanyDescription(
+                data.response.getCompany[0].companyDescription,
+              ),
+            )
+            dispatch(
+              company.actions.setLocation(data.response.getCompany[0].location),
+            )
+            dispatch(
+              company.actions.setSkills(data.response.getCompany[0].skills),
+            )
+            dispatch(company.actions.setUrl(data.response.getCompany[0].url))
+            dispatch(company.actions.setError(null))
+            localStorage.setItem(
+              'company',
+              JSON.stringify({
+                user: data.response.getCompany[0].companyName,
+                companyName: data.response.getCompany[0].companyName,
+                companyDescription:
+                  data.response.getCompany[0].companyDescription,
+                genderRatio: data.response.getCompany[0].genderRatio,
+                location: data.response.getCompany[0].location,
+                skills: data.response.getCompany[0].skills,
+                url: data.response.getCompany[0].url,
+              }),
+            )
+          })
+        } else {
+          batch(() => {
+            dispatch(company.actions.setCompanyName(null))
+            dispatch(company.actions.setGenderRatio(null))
+            dispatch(company.actions.setCompanyDescription(null))
+            dispatch(company.actions.setLocation(null))
+            dispatch(company.actions.setSkills(null))
+            dispatch(company.actions.setUrl(null))
+            dispatch(company.actions.setError(data.response))
+          })
+          //    setError(true)
+        }
+      })
+  }, [dispatch, company])
+
+  //to the store
+
   return (
     <>
       <Header />
       <div>
-        {companyAllInfo && (
-          <>
-            <p> {companyAllInfo[0]?.companyName} </p>
-            <p> {companyAllInfo[0]?.companyDescription} </p>
-            <p> {companyAllInfo[0]?.genderRatio} </p>
-            <p> {companyAllInfo[0]?.location} </p>
-            <p> {companyAllInfo[0]?.url} </p>
-            <p> {companyAllInfo[0]?.skills?.map((skill) => skill)} </p>
-          </>
-        )}
-        <p>Company page.. </p>
-        {/* <p>{companyLocal}.. </p> */}
+        <p>FÖRETAGSSIDA.. </p>
 
-        {/* {companyName?.map((item) => (
-          <p>{item}</p>
-        ))} */}
+        <p>Företagsnamn: {postCompany.companyName}</p>
+        <p>% kvinnliga ägare{postCompany.genderRatio}</p>
+        <p>Beskrvning av företaget: {postCompany.companyDescription}</p>
+
+        <p>Location: {postCompany.location}</p>
+        <p>Hemsida: {postCompany.url}</p>
+        <p>Skills eller produkter{postCompany.skills?.map((skill) => skill)}</p>
+
+        {console.log('postcompany', postCompany)}
       </div>
       <Button
         type="submit"
@@ -71,7 +127,7 @@ const Company = () => {
         variant="contained"
         onClick={() => navigate('/company-sign-up')}
       >
-        Edit profile
+        Edit company profile
       </Button>
       <LogOutBtn />
     </>

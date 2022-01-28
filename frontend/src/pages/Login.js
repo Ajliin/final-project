@@ -11,6 +11,7 @@ const Login = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
+  const [hasCompany, setHasCompany] = useState(false)
   const [mode, setMode] = useState('signin')
   const [error, setError] = useState(false)
 
@@ -35,14 +36,13 @@ const Login = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ username, password, email }),
+      body: JSON.stringify({ username, password, email, hasCompany }),
     }
 
     fetch(TEST_API(mode), options)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
-        console.log(TEST_API(mode))
+        console.log('userdata', data)
 
         if (data.success) {
           batch(() => {
@@ -50,6 +50,7 @@ const Login = () => {
             dispatch(user.actions.setUsername(data.response.username))
             dispatch(user.actions.setAccessToken(data.response.accessToken))
             dispatch(user.actions.setEmail(data.response.email))
+            dispatch(user.actions.setHasCompany(data.response.hasCompany))
             dispatch(user.actions.setError(null))
             //specify the data that we want to save in localStorage 'user' here
             localStorage.setItem(
@@ -59,6 +60,7 @@ const Login = () => {
                 username: data.response.username,
                 email: data.response.email,
                 accessToken: data.response.accessToken,
+                hasCompany: data.response.hasCompany,
               }),
             )
           })
