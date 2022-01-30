@@ -103,10 +103,10 @@ app.use(express.json())
 
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header('Authorization')
-  console.log('aut is happening', accessToken)
+
   try {
     const user = await User.findOne({ accessToken })
-    console.log(user)
+    console.log('auten user', user)
     if (user) {
       next()
     } else {
@@ -143,7 +143,7 @@ app.post('/signup', async (req, res) => {
       username,
       password: bcrypt.hashSync(password, salt),
       email,
-      hasCompany,
+      hasCompany: false,
     }).save()
 
     res.status(201).json({
@@ -198,19 +198,37 @@ app.patch('/user-edit/:userId', async (req, res) => {
 
   try {
     const updatedUser = await User.findOneAndUpdate(
-      userId,
+      { _id: userId },
       { $set: updatedInfo },
-      {
-        new: true,
-      },
+      { new: true },
     )
-    console.log('updatedUser', updatedUser)
+    console.log('updatedUser!!!!!!!!!!!', updatedUser)
 
     res.status(200).json({
-      response: { hasCompany: updatedUser.hasCompany },
+      response: { hasCompany: updatedUser },
 
       success: true,
     })
+  } catch (error) {
+    res.status(400).json({ response: error, success: false })
+  }
+})
+
+//GET Edit hasCompany
+app.get('/user-edit/:userId', async (req, res) => {
+  const { userId } = req.params
+
+  try {
+    const companyExist = await Company.find({ user: userId })
+    //console.log('companyExist', companyExist)
+    if (companyExist.length !== 0) {
+      res.status(200).json({
+        response: { hasCompany: true, companyExist },
+        success: true,
+      })
+    } else {
+      res.status(200).json({ response: { hasCompany: false }, success: true })
+    }
   } catch (error) {
     res.status(400).json({ response: error, success: false })
   }
@@ -223,12 +241,12 @@ app.post('/profile', async (req, res) => {
 
   try {
     const queriedUser = await User.findById(user)
-    console.log(queriedUser)
+    //console.log(queriedUser)
     const newUser = await new MyPage({
       description: description,
       user: queriedUser,
     }).save()
-    console.log('newUser', newUser)
+    //console.log('newUser', newUser)
 
     res.status(201).json({ response: newUser, success: true })
   } catch (error) {
@@ -243,7 +261,7 @@ app.get('/profile/:userId', async (req, res) => {
 
   try {
     const profile = await MyPage.find({ user: userId }, { description: 1 })
-    console.log('inside ge - profile', profile)
+    // console.log('inside ge - profile', profile)
     res.status(200).json({ response: profile, success: true })
   } catch (error) {
     res.status(400).json({ response: error, success: false })
@@ -265,7 +283,7 @@ app.post('/company', async (req, res) => {
     user,
   } = req.body
 
-  console.log('user inside app.post', user)
+  //console.log('user inside app.post', user)
 
   try {
     const queriedUser = await User.findById(user)
@@ -280,7 +298,19 @@ app.post('/company', async (req, res) => {
       rating,
     }).save()
 
-    res.status(201).json({ response: { newCompany }, success: true })
+    res.status(201).json({
+      response: {
+        companyId: newCompany._id,
+        companyName: newCompany.companyName,
+        user: newCompany.user,
+        companyDescription: newCompany.companyDescription,
+        location: newCompany.location,
+        skills: newCompany.skills,
+        url: newCompany.url,
+        rating: newCompany.rating,
+      },
+      success: true,
+    })
   } catch (error) {
     res.status(400).json({ response: error, success: false })
   }
@@ -288,14 +318,14 @@ app.post('/company', async (req, res) => {
 
 // to get all companies from one unser
 
-app.get('/company/:userId', authenticateUser)
+//app.get('/company/:userId', authenticateUser)
 app.get('/company/:userId', async (req, res) => {
   const { userId } = req.params
 
   try {
     const getCompany = await Company.find({ user: userId })
-    console.log('userID get companypage', userId)
-    console.log('company get companypage', getCompany)
+    // console.log('userID get companypage', userId)
+    //console.log('company get companypage', getCompany)
     res.status(200).json({ response: { getCompany }, success: true })
   } catch (error) {
     res.status(400).json({ response: error, success: false })
@@ -320,25 +350,28 @@ app.get('/company/:userId', async (req, res) => {
 // })
 
 //to edit company
-app.patch('/company/:userId', async (req, res) => {
+app.patch('/company/:companyId', async (req, res) => {
   //req.query ==> ?company="id"
 
-  const { userId } = req.params
+  const { companyId } = req.params
   const updatedInfo = req.body
 
-  console.log(userId)
+  //console.log('userId INSIDE PATCH!!!!', companyId)
   try {
     // console.log('inside try in patch')
     // const queriedCompany = await Company.find({ user: userId })
     // console.log('queriedCompany', queriedCompany)
     const updateCompany = await Company.findOneAndUpdate(
-      userId,
+      { _id: companyId },
       { $set: updatedInfo },
       {
         new: true,
       },
     )
-    console.log('updatecompany', updateCompany)
+    // console.log(
+    //   'updatecompany (what will be send back) in PATCH',
+    //   updateCompany,
+    // )
 
     res.status(200).json({ response: updateCompany, success: true })
   } catch (error) {

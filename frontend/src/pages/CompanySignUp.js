@@ -8,8 +8,10 @@ import user from '../reducers/user'
 import company from '../reducers/company'
 import AvatarIcon from '../components/AvatarIcon'
 import Header from '../components/Header'
+import profile from '../reducers/profile'
 
 const CompanySignUp = () => {
+  const [companyId, setCompanyId] = useState('')
   const [companyName, setCompanyName] = useState('')
   const [genderRatio, setGenderRatio] = useState('')
   const [companyDescription, setCompanyDescription] = useState('')
@@ -19,20 +21,24 @@ const CompanySignUp = () => {
   const [rating, setRating] = useState('')
   const [error, setError] = useState(false)
   const [userState, setUserState] = useState('')
+
+  const hasCompany1 = useSelector((store) => store.user.hasCompany)
+  console.log('hasCompany in signup', hasCompany1)
+
   const [mode, setMode] = useState('new')
-  const [hasCompany, setHasCompany] = useState(false)
+
+  const [hasCompany, setHasCompany] = useState(hasCompany1)
 
   const errorMess = useSelector((store) => store.user.error)
 
-  const hasCompany1 = useSelector((store) => store.user.hasCompany)
-  console.log('hasCompany in signup', hasCompany)
-
   const companyData = useSelector((store) => store.company)
-
-  console.log('companyData2', companyData)
+  console.log('companyData', companyData)
 
   const profileId = useSelector((store) => store.user.userId)
   console.log('profileId', profileId)
+
+  const companyStoreId = useSelector((store) => store.company.companyId)
+  console.log('companyStoreId', companyStoreId)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -41,6 +47,7 @@ const CompanySignUp = () => {
     setUserState(profileId)
     if (hasCompany1) {
       setMode('edit')
+      setCompanyName(companyData.companyId)
       setCompanyName(companyData.companyName)
       setGenderRatio(companyData.genderRatio)
       setCompanyDescription(companyData.companyDescription)
@@ -62,7 +69,7 @@ const CompanySignUp = () => {
     console.log('onformsubmit mode', mode)
     event.preventDefault()
 
-    //Fetch if new company
+    //Patch user and fetch if new company
     if (mode === 'new') {
       // PATCH the user
 
@@ -120,6 +127,7 @@ const CompanySignUp = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          companyId,
           companyName,
           genderRatio,
           user: userState,
@@ -130,9 +138,10 @@ const CompanySignUp = () => {
         }),
       }
 
-      fetch(TEST_API(`company/${profileId}`), options)
+      fetch(TEST_API(`company/${companyStoreId}`), options)
         .then((res) => res.json())
         .then((data) => {
+          console.log('PATCH COMPANY', data)
           if (data.success) {
             batch(() => {
               dispatch(company.actions.setUserId(data.response.user))

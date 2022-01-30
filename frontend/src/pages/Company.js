@@ -13,8 +13,6 @@ import company from '../reducers/company'
 import profile from '../reducers/profile'
 
 const Company = () => {
-  const [companyLocal, setCompanyLocal] = useState('')
-
   const profileId = useSelector((store) => store.user.userId)
   const postCompany = useSelector((store) => store.company)
   const accessToken = useSelector((store) => store.user.accessToken)
@@ -51,6 +49,9 @@ const Company = () => {
           batch(() => {
             //  dispatch(company.actions.setUserId(data.response.newCompany.userId))
             dispatch(
+              company.actions.setCompanyId(data.response.getCompany[0]._id),
+            )
+            dispatch(
               company.actions.setCompanyName(
                 data.response.getCompany[0].companyName,
               ),
@@ -78,6 +79,7 @@ const Company = () => {
               'company',
               JSON.stringify({
                 user: data.response.getCompany[0].companyName,
+                companyId: data.response.getCompany[0].companyName,
                 companyName: data.response.getCompany[0].companyName,
                 companyDescription:
                   data.response.getCompany[0].companyDescription,
@@ -90,6 +92,7 @@ const Company = () => {
           })
         } else {
           batch(() => {
+            dispatch(company.actions.setCompanyId(null))
             dispatch(company.actions.setCompanyName(null))
             dispatch(company.actions.setGenderRatio(null))
             dispatch(company.actions.setCompanyDescription(null))
@@ -110,16 +113,22 @@ const Company = () => {
       <Header />
       <div>
         <p>FÖRETAGSSIDA.. </p>
+        {postCompany && (
+          <>
+            <p>Företagsnamn: {postCompany.companyName}</p>
+            <p>% kvinnliga ägare: {postCompany.genderRatio}</p>
+            <p>Beskrvning av företaget: {postCompany.companyDescription}</p>
 
-        <p>Företagsnamn: {postCompany.companyName}</p>
-        <p>% kvinnliga ägare{postCompany.genderRatio}</p>
-        <p>Beskrvning av företaget: {postCompany.companyDescription}</p>
+            <p>Location: {postCompany.location}</p>
+            <p>Hemsida: {postCompany.url}</p>
+            <p>
+              Skills eller produkter:{' '}
+              {postCompany.skills?.map((skill) => skill)}
+            </p>
 
-        <p>Location: {postCompany.location}</p>
-        <p>Hemsida: {postCompany.url}</p>
-        <p>Skills eller produkter{postCompany.skills?.map((skill) => skill)}</p>
-
-        {console.log('postcompany', postCompany)}
+            {console.log('postcompany', postCompany)}
+          </>
+        )}
       </div>
       <Button
         type="submit"

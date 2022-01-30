@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = localStorage.getItem('company')
   ? {
+      companyId: JSON.parse(localStorage.getItem('company')).companyId,
       company: JSON.parse(localStorage.getItem('company')).company,
       companyName: JSON.parse(localStorage.getItem('company')).companyName,
       genderRatio: JSON.parse(localStorage.getItem('company')).genderRatio,
@@ -13,6 +14,7 @@ const initialState = localStorage.getItem('company')
       rating: JSON.parse(localStorage.getItem('company')).rating,
     }
   : {
+      companyId: null,
       company: null,
       companyName: null,
       genderRatio: null,
@@ -27,15 +29,20 @@ const company = createSlice({
   name: 'company',
   initialState,
   reducers: {
-    setCompany: (store, action) => {
-      console.log('setCompany in reducer', action.payload)
-      store.company = action.payload
-      console.log('store.company', store.company)
-    },
+    // setCompany: (store, action) => {
+    //   console.log('setCompany in reducer', action.payload)
+    //   store.company = action.payload
+    //   console.log('store.company', store.company)
+    // },
     setUserId: (store, action) => {
       console.log('inside userId reducer', action.payload)
       store.username = action.payload
     },
+    setCompanyId: (store, action) => {
+      console.log('inside companyId reducer', action.payload)
+      store.companyId = action.payload
+    },
+
     setCompanyName: (store, action) => {
       console.log('inside companyName reducer', action.payload)
       store.companyName = action.payload

@@ -11,13 +11,15 @@ const Login = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
-  const [hasCompany, setHasCompany] = useState(false)
+
   const [mode, setMode] = useState('signin')
   const [error, setError] = useState(false)
 
   const errorMess = useSelector((store) => store.user.error)
 
   const accessToken = useSelector((store) => store.user.accessToken)
+  const { hasCompany } = useSelector((store) => store.user)
+  //const [hasCompany, setHasCompany] = useState(false)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
