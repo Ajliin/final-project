@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useSelector, useDispatch, batch } from 'react-redux'
+import { Navigate, useNavigate } from 'react-router-dom'
 
 import { Button, Typography, TextField } from '@material-ui/core'
 
@@ -8,20 +9,27 @@ import AvatarIcon from '../components/AvatarIcon'
 import { TEST_API } from '../utils/url'
 
 import companies from '../reducers/companies'
+import user from '../reducers/user'
 
 const LandingPage = () => {
-  const [user, setUser] = useState('')
+  //const [user, setUser] = useState('')
 
+  const { username } = useSelector((store) => store.user)
+  console.log('USERNAMEEEEEEEEE', username)
   const allCompanies = useSelector((store) => store.companies)
 
   const dispatch = useDispatch()
-  //const navigate = useNavigate()
+  const navigate = useNavigate()
+
+  const goToLogIn = () => {
+    navigate('/login')
+  }
 
   const getData = () => {
     fetch(TEST_API('allcompanies'))
       .then((res) => res.json())
       .then((data) => {
-        setUser(data.response[0].companyName)
+        // setUser(data.response[0].companyName)
         dispatch(companies.actions.setCompanies(data.response))
       })
   }
@@ -31,16 +39,19 @@ const LandingPage = () => {
       <Header />
       <div className="intro-text">
         <Typography variant="h6" component="h6">
-          FOAJÉ works as a commercial space where woman can sell and buy
-          products and services to and from each other. At FOAJÉ you are of
-          course also welcome only to be a part of the community and search for
-          services and products sold on the platform from female entrepreneurs.
+          FOAJÉ gör det lättare och roligare för dig att stötta kvinnliga
+          entreprenörer kreatörer och småföretagare.
         </Typography>
       </div>
       <div>
-        <Typography variant="h4" component="h4">
-          Yeah {user}, yeah!
-        </Typography>
+        {username ? (
+          <Typography variant="h4" component="h4">
+            Welcome {username}!
+          </Typography>
+        ) : (
+          <Button onClick={goToLogIn}>Log in</Button>
+        )}
+
         <div className="search-container">
           <TextField id="skills" label="Skills" variant="outlined" />
           <TextField id="city" label="City" variant="outlined" />

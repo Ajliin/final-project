@@ -61,6 +61,10 @@ const Profile = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log('fetch get edit-data', data)
+        console.log(
+          'fetch get edit-data.response.hasCompany',
+          data.response.hasCompany,
+        )
         dispatch(user.actions.setHasCompany(data.response.hasCompany))
       })
   }, [])
@@ -70,7 +74,11 @@ const Profile = () => {
       <Header />
       <AvatarIcon />
       <div>
-        <p>VÄLKOMSTSIDA </p>
+        <p>Välkommen {username} till FOAJÉ </p>
+        <p>
+          Här hittar du tjänster och produkter skapade av kvinnliga
+          entreprenörer, kreatörer och småföretagare.
+        </p>
         <p>{username}.. </p>
         <div>
           {description &&

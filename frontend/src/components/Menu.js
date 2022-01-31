@@ -1,9 +1,22 @@
-import * as React from 'react'
+import React, { useState } from 'react'
 import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
+import { AccountCircle } from '@material-ui/icons'
+import { Navigate, useNavigate } from 'react-router-dom'
+import { useDispatch, batch, useSelector } from 'react-redux'
+
+import company from '../reducers/company'
+import user from '../reducers/user'
+import profile from '../reducers/profile'
 
 export default function BasicMenu() {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const [mode, setMode] = useState('login')
+  const { userId, hasCompany } = useSelector((store) => store.user)
+
   const [anchorEl, setAnchorEl] = React.useState(null)
   const open = Boolean(anchorEl)
   const handleClick = (event) => {
@@ -11,6 +24,47 @@ export default function BasicMenu() {
   }
   const handleClose = () => {
     setAnchorEl(null)
+  }
+
+  const goToLandingPage = () => {
+    navigate('/')
+  }
+  const goToProfile = () => {
+    navigate('/profile')
+  }
+
+  const goToCompanyPage = () => {
+    navigate('/company')
+  }
+
+  const goToLogIn = () => {
+    navigate('/login')
+  }
+
+  const goToLogOut = () => {
+    batch(() => {
+      dispatch(user.actions.setUsername(null))
+      dispatch(user.actions.setUserId(null))
+      dispatch(user.actions.setAccessToken(null))
+      dispatch(user.actions.setEmail(null))
+      dispatch(user.actions.setHasCompany(null))
+      dispatch(user.actions.setError(null))
+      dispatch(profile.actions.setDescription(null))
+      dispatch(company.actions.setCompanyId(null))
+      dispatch(company.actions.setUserId(null))
+      dispatch(company.actions.setCompanyName(null))
+      dispatch(company.actions.setGenderRatio(null))
+      dispatch(company.actions.setCompanyDescription(null))
+      dispatch(company.actions.setLocation(null))
+      dispatch(company.actions.setSkills(null))
+      dispatch(company.actions.setUrl(null))
+      // dispatch(company.actions.setError(data.response))
+
+      //specify the data that we want to save in localStorage 'user' here
+      localStorage.removeItem('user')
+      localStorage.removeItem('profile')
+      localStorage.removeItem('company')
+    })
   }
 
   return (
@@ -22,7 +76,7 @@ export default function BasicMenu() {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        Dashboard
+        <AccountCircle />
       </Button>
       <Menu
         id="basic-menu"
@@ -33,9 +87,16 @@ export default function BasicMenu() {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem onClick={goToLandingPage}>Sök</MenuItem>
+        <MenuItem onClick={goToProfile}>Min profil</MenuItem>
+        {hasCompany && (
+          <MenuItem onClick={goToCompanyPage}>Mitt företag</MenuItem>
+        )}
+        {!userId ? (
+          <MenuItem onClick={goToLogIn}>Login</MenuItem>
+        ) : (
+          <MenuItem onClick={goToLogOut}>Logout</MenuItem>
+        )}
       </Menu>
     </div>
   )

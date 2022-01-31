@@ -26,7 +26,6 @@ const CompanySignUp = () => {
   console.log('hasCompany in signup', hasCompany1)
 
   const [mode, setMode] = useState('new')
-
   const [hasCompany, setHasCompany] = useState(hasCompany1)
 
   const errorMess = useSelector((store) => store.user.error)
@@ -35,6 +34,9 @@ const CompanySignUp = () => {
   console.log('companyData', companyData)
 
   const profileId = useSelector((store) => store.user.userId)
+  console.log('profileId', profileId)
+
+  const accessToken = useSelector((store) => store.user.accessToken)
   console.log('profileId', profileId)
 
   const companyStoreId = useSelector((store) => store.company.companyId)
@@ -58,6 +60,12 @@ const CompanySignUp = () => {
       setHasCompany(true)
     }
   }, [hasCompany, mode, profileId])
+
+  useEffect(() => {
+    if (accessToken === null) {
+      navigate('/login')
+    }
+  }, [accessToken, navigate])
 
   useEffect(() => {
     if (mode === 'done') {
@@ -236,7 +244,7 @@ const CompanySignUp = () => {
             value={url}
             onChange={(event) => setUrl(event.target.value)}
           />
-          {!companyData || companyData.length === 0 ? (
+          {!hasCompany1 ? (
             <Button type="submit" color="secondary" variant="contained">
               Submit
             </Button>

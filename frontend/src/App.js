@@ -8,6 +8,7 @@ import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
+import { createTheme, ThemeProvider } from '@mui/material/styles'
 
 import user from './reducers/user'
 import profile from './reducers/profile'
@@ -30,20 +31,35 @@ const reducer = combineReducers({
 
 const store = configureStore({ reducer })
 
+const theme = createTheme({
+  palette: {
+    primary: {
+      // Purple and green play nicely together.
+      main: '#11111',
+    },
+    secondary: {
+      // This is green.A700 as hex.
+      main: '#11cb5f',
+    },
+  },
+})
+
 export const App = () => {
   return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/company" element={<Company />} />
-          <Route path="/company-sign-up" element={<CompanySignUp />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </Provider>
+    <ThemeProvider theme={theme}>
+      <Provider store={store}>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/company" element={<Company />} />
+            <Route path="/company-sign-up" element={<CompanySignUp />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </Provider>
+    </ThemeProvider>
   )
 }
 

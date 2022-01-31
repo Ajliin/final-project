@@ -83,6 +83,14 @@ const Login = () => {
     <>
       <Header />
       <section position="static" color="secondary">
+        <Typography>
+          Genom att bli medlem i FOAJÉ blir du en del av Sveriges största
+          marknadsplats för kvinnliga entreprenörer, kreatörer och
+          småföretagare. Här kan du: Hitta och Köpa produkter och tjänster från
+          företag drivna av kvinnor. Registrera ditt bolag eller dig själv om du
+          har tjänster och produkter som du vill sälja. Det går att bli en
+          säljare oavsett om du har ett bolag eller är frilansare.
+        </Typography>
         <form onSubmit={onFormSubmit}>
           {mode === 'signup' && (
             <TextField
