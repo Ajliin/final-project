@@ -7,6 +7,7 @@ import { Button, Typography, TextField } from '@material-ui/core'
 import { TEST_API } from '../utils/url'
 import Header from '../components/Header'
 import LogOutBtn from '../components/LogOutBtn'
+import PieChart1 from '../components/PieChart'
 
 import user from '../reducers/user'
 import company from '../reducers/company'
@@ -116,7 +117,8 @@ const Company = () => {
         {postCompany && (
           <>
             <p>Företagsnamn: {postCompany.companyName}</p>
-            <p>% kvinnliga ägare: {postCompany.genderRatio}</p>
+            <p>Kvinnliga ägare: {postCompany.genderRatio} %</p>
+            <PieChart1 />
             <p>Beskrvning av företaget: {postCompany.companyDescription}</p>
 
             <p>Location: {postCompany.location}</p>
