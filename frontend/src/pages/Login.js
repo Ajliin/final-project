@@ -8,7 +8,8 @@ import user from '../reducers/user'
 import Header from '../components/Header'
 
 const Login = () => {
-  const [username, setUsername] = useState('')
+  const [firstname, setFirstname] = useState('')
+  const [lastname, setLastname] = useState('')
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
 
@@ -38,7 +39,13 @@ const Login = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ username, password, email, hasCompany }),
+      body: JSON.stringify({
+        firstname,
+        lastname,
+        password,
+        email,
+        hasCompany,
+      }),
     }
 
     fetch(TEST_API(mode), options)
@@ -49,7 +56,8 @@ const Login = () => {
         if (data.success) {
           batch(() => {
             dispatch(user.actions.setUserId(data.response.userId))
-            dispatch(user.actions.setUsername(data.response.username))
+            dispatch(user.actions.setFirstname(data.response.firstname))
+            dispatch(user.actions.setLastname(data.response.lastname))
             dispatch(user.actions.setAccessToken(data.response.accessToken))
             dispatch(user.actions.setEmail(data.response.email))
             dispatch(user.actions.setHasCompany(data.response.hasCompany))
@@ -59,7 +67,8 @@ const Login = () => {
               'user',
               JSON.stringify({
                 userId: data.response.userId,
-                username: data.response.username,
+                firstname: data.response.firstname,
+                lastname: data.response.lastname,
                 email: data.response.email,
                 accessToken: data.response.accessToken,
                 hasCompany: data.response.hasCompany,
@@ -69,7 +78,8 @@ const Login = () => {
         } else {
           batch(() => {
             dispatch(user.actions.setUserId(null))
-            dispatch(user.actions.setUsername(null))
+            dispatch(user.actions.setFirstname(null))
+            dispatch(user.actions.setLastname(null))
             dispatch(user.actions.setAccessToken(null))
             dispatch(user.actions.setEmail(null))
             dispatch(user.actions.setError(data.response))
@@ -82,7 +92,7 @@ const Login = () => {
   return (
     <>
       <Header />
-      <section position="static" color="secondary">
+      <section className="app-container" position="static" color="secondary">
         <Typography>
           Genom att bli medlem i FOAJÉ blir du en del av Sveriges största
           marknadsplats för kvinnliga entreprenörer, kreatörer och
@@ -93,13 +103,22 @@ const Login = () => {
         </Typography>
         <form onSubmit={onFormSubmit}>
           {mode === 'signup' && (
-            <TextField
-              id="username"
-              label="Förnamn *"
-              variant="outlined"
-              value={username}
-              onChange={(event) => setUsername(event.target.value)}
-            />
+            <>
+              <TextField
+                id="firstname"
+                label="Förnamn *"
+                variant="outlined"
+                value={firstname}
+                onChange={(event) => setFirstname(event.target.value)}
+              />
+              <TextField
+                id="lastname"
+                label="Efternamn *"
+                variant="outlined"
+                value={lastname}
+                onChange={(event) => setLastname(event.target.value)}
+              />
+            </>
           )}
 
           <TextField
@@ -119,28 +138,32 @@ const Login = () => {
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />
-          <Button type="submit" color="secondary" variant="contained">
-            Submit
-          </Button>
-          {mode === 'signup' ? (
-            <Button
-              type="button"
-              color="primary"
-              variant="contained"
-              onClick={() => setMode('signin')}
-            >
-              Already a an account?
+          <div className="btn-container">
+            <Button type="submit" color="secondary" variant="contained">
+              Submit
             </Button>
-          ) : (
-            <Button
-              type="button"
-              color="primary"
-              variant="contained"
-              onClick={() => setMode('signup')}
-            >
-              Want to become a new member?
-            </Button>
-          )}
+            {errorMess && <p color="red">{errorMess}</p>}
+
+            {mode === 'signup' ? (
+              <Button
+                type="button"
+                color="primary"
+                variant="contained"
+                onClick={() => setMode('signin')}
+              >
+                Har du redan ett konto? Logga in
+              </Button>
+            ) : (
+              <Button
+                type="button"
+                color="primary"
+                variant="contained"
+                onClick={() => setMode('signup')}
+              >
+                Vill du bli ny medlem? Signa upp
+              </Button>
+            )}
+          </div>
         </form>
       </section>
     </>

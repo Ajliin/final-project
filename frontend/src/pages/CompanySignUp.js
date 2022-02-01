@@ -190,7 +190,7 @@ const CompanySignUp = () => {
   return (
     <>
       <Header />
-      <section position="static" color="secondary">
+      <section className="app-container" position="static" color="secondary">
         <form onSubmit={onFormSubmit}>
           <TextField
             id="companyName"

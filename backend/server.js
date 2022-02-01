@@ -17,7 +17,10 @@ mongoose.Promise = Promise
 // *************** Schemas **************
 
 const UserSchema = new mongoose.Schema({
-  username: {
+  firstname: {
+    type: String,
+  },
+  lastname: {
     type: String,
   },
   email: {
@@ -130,7 +133,7 @@ const authenticateUser = async (req, res, next) => {
 //Signup endpoint
 
 app.post('/signup', async (req, res) => {
-  const { username, password, email, hasCompany } = req.body
+  const { firstname, lastname, password, email, hasCompany } = req.body
 
   try {
     const salt = bcrypt.genSaltSync()
@@ -140,7 +143,8 @@ app.post('/signup', async (req, res) => {
     }
 
     const newUser = await new User({
-      username,
+      firstname,
+      lastname,
       password: bcrypt.hashSync(password, salt),
       email,
       hasCompany: false,
@@ -149,7 +153,8 @@ app.post('/signup', async (req, res) => {
     res.status(201).json({
       response: {
         userId: newUser._id,
-        username: newUser.username,
+        firstname: newUser.firstname,
+        lastname: newUser.lastname,
         email: newUser.email,
         accessToken: newUser.accessToken,
         hasCompany: newUser.hasCompany,
@@ -172,7 +177,7 @@ app.post('/signin', async (req, res) => {
       res.status(200).json({
         response: {
           userId: user._id,
-          username: user.username,
+          //username: user.username,
           email: user.email,
           accessToken: user.accessToken,
           hasCompany: user.hasCompany,
@@ -181,7 +186,7 @@ app.post('/signin', async (req, res) => {
       })
     } else {
       res.status(404).json({
-        response: "Username or password doesn't match",
+        response: "Email or password doesn't match",
         success: false,
       })
     }
@@ -386,6 +391,31 @@ app.get('/allcompanies', async (req, res) => {
     res.status(200).json({ response: companies, success: true })
   } catch (error) {
     res.status(400).json({ response: error, success: false })
+  }
+})
+
+//all netflix titles here, be able to searc for a title and type
+app.get('/result-companies', async (req, res) => {
+  const title = req.query.title?.toLowerCase()
+  const type = req.query.type?.toLowerCase()
+
+  const findFilter = {}
+
+  if (title) {
+    findFilter.title = { $regex: new RegExp(title, 'i') }
+  }
+
+  if (type) {
+    findFilter.type = { $regex: new RegExp(type, 'i') }
+  }
+
+  const allTitles = Title.find(findFilter)
+  const netflixTitles = await allTitles.limit(50)
+
+  if (netflixTitles.length !== 0) {
+    res.json(netflixTitles)
+  } else {
+    res.status(404).json('title not found')
   }
 })
 

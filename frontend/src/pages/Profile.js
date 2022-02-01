@@ -15,7 +15,7 @@ import AvatarIcon from '../components/AvatarIcon'
 const Profile = () => {
   const [name, setName] = useState('')
 
-  const { userId, accessToken, username, hasCompany } = useSelector(
+  const { userId, accessToken, firstname, lastname, hasCompany } = useSelector(
     (store) => store.user,
   )
   const description = useSelector((store) => store.profile.description)
@@ -23,7 +23,7 @@ const Profile = () => {
   const profileId = useSelector((store) => store.user.userId)
 
   console.log('userId', userId)
-  console.log('username', username)
+  console.log('firstname', firstname)
   //console.log('accessToken', accessToken)
   console.log('hasCompany', hasCompany)
 
@@ -72,45 +72,49 @@ const Profile = () => {
   return (
     <>
       <Header />
-      <AvatarIcon />
-      <div>
-        <p>Välkommen {username} till FOAJÉ </p>
-        <p>
-          Här hittar du tjänster och produkter skapade av kvinnliga
-          entreprenörer, kreatörer och småföretagare.
-        </p>
-        <p>{username}.. </p>
+      <section className="app-container">
+        <AvatarIcon />
         <div>
-          {description &&
-            description?.map((item) => (
-              <>
-                <p key={item.description}>{item.description}</p>
-              </>
-            ))}
+          <p>Välkommen {firstname} till FOAJÉ </p>
+          <p>
+            Här hittar du tjänster och produkter skapade av kvinnliga
+            entreprenörer, kreatörer och småföretagare.
+          </p>
+          <p>
+            {firstname}
+            {lastname}..{' '}
+          </p>
+          <div>
+            {description &&
+              description?.map((item) => (
+                <>
+                  <p key={item.description}>{item.description}</p>
+                </>
+              ))}
+          </div>
         </div>
-      </div>
-      <LogOutBtn />
+        <LogOutBtn />
 
-      {!hasCompany ? (
-        <Button
-          type="submit"
-          color="secondary"
-          variant="contained"
-          onClick={() => navigate('/company-sign-up')}
-        >
-          Sign up a new company?
-        </Button>
-      ) : (
-        <Button
-          type="submit"
-          color="secondary"
-          variant="contained"
-          onClick={() => navigate('/company')}
-        >
-          Go to your company
-        </Button>
-      )}
-      {/* <Button
+        {!hasCompany ? (
+          <Button
+            type="submit"
+            color="secondary"
+            variant="contained"
+            onClick={() => navigate('/company-sign-up')}
+          >
+            Sign up a new company?
+          </Button>
+        ) : (
+          <Button
+            type="submit"
+            color="secondary"
+            variant="contained"
+            onClick={() => navigate('/company')}
+          >
+            Go to your company
+          </Button>
+        )}
+        {/* <Button
         type="submit"
         color="secondary"
         variant="contained"
@@ -118,6 +122,7 @@ const Profile = () => {
       >
         Go to your company
       </Button> */}
+      </section>
     </>
   )
 }

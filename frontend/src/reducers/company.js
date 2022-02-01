@@ -36,7 +36,7 @@ const company = createSlice({
     // },
     setUserId: (store, action) => {
       console.log('inside userId reducer', action.payload)
-      store.username = action.payload
+      store.userId = action.payload
     },
     setCompanyId: (store, action) => {
       console.log('inside companyId reducer', action.payload)

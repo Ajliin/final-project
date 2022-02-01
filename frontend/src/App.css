@@ -27,6 +27,10 @@
   margin: 0 auto;
 }
 
+.app-container {
+  margin: 20px;
+}
+
 .App-link {
   color: #61dafb;
 }

@@ -5,8 +5,8 @@ import { useSelector } from 'react-redux'
 import user from '../reducers/user'
 
 const AvatarIcon = () => {
-  const username = useSelector((store) => store.user.username)
-  console.log('avatarusername', username)
+  const { firstname, lastname } = useSelector((store) => store.user)
+  console.log('avatarfirstname', firstname)
 
   const stringToColor = (string) => {
     let hash = 0
@@ -39,7 +39,7 @@ const AvatarIcon = () => {
 
   return (
     <>
-      <Avatar {...stringAvatar(`${username} ${username}`)} />
+      <Avatar {...stringAvatar(`${firstname} ${lastname}`)} />
     </>
   )
 }

@@ -12,6 +12,10 @@ code {
     monospace;
 }
 
+.app-container {
+  margin: 20px;
+}
+
 .landing-page-container {
   display: flex;
   flex-direction: column;

@@ -43,7 +43,8 @@ export default function BasicMenu() {
 
   const goToLogOut = () => {
     batch(() => {
-      dispatch(user.actions.setUsername(null))
+      dispatch(user.actions.setFirstname(null))
+      dispatch(user.actions.setLastname(null))
       dispatch(user.actions.setUserId(null))
       dispatch(user.actions.setAccessToken(null))
       dispatch(user.actions.setEmail(null))
@@ -76,7 +77,7 @@ export default function BasicMenu() {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        <AccountCircle />
+        <AccountCircle color="secondary" />
       </Button>
       <Menu
         id="basic-menu"

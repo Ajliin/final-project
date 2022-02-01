@@ -3,14 +3,16 @@ import { createSlice } from '@reduxjs/toolkit'
 const initialState = localStorage.getItem('user')
   ? {
       userId: JSON.parse(localStorage.getItem('user')).userId,
-      username: JSON.parse(localStorage.getItem('user')).username,
+      firstname: JSON.parse(localStorage.getItem('user')).firstname,
+      lastname: JSON.parse(localStorage.getItem('user')).lastname,
       email: JSON.parse(localStorage.getItem('user')).email,
       accessToken: JSON.parse(localStorage.getItem('user')).accessToken,
       hasCompany: JSON.parse(localStorage.getItem('user')).hasCompany,
     }
   : {
       userId: null,
-      username: null,
+      firstname: null,
+      lastname: null,
       accessToken: null,
       email: null,
       hasCompany: null,
@@ -24,9 +26,13 @@ const user = createSlice({
     setUserId: (store, action) => {
       store.userId = action.payload
     },
-    setUsername: (store, action) => {
+    setFirstname: (store, action) => {
       console.log('inside setUsername reducer', action.payload)
-      store.username = action.payload
+      store.firstname = action.payload
+    },
+    setLastname: (store, action) => {
+      console.log('inside setUsername reducer', action.payload)
+      store.lastname = action.payload
     },
     setAccessToken: (store, action) => {
       store.accessToken = action.payload

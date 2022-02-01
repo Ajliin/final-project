@@ -112,35 +112,37 @@ const Company = () => {
   return (
     <>
       <Header />
-      <div>
-        <p>FÖRETAGSSIDA.. </p>
-        {postCompany && (
-          <>
-            <p>Företagsnamn: {postCompany.companyName}</p>
-            <p>Kvinnliga ägare: {postCompany.genderRatio} %</p>
-            <PieChart1 />
-            <p>Beskrvning av företaget: {postCompany.companyDescription}</p>
+      <section className="app-container">
+        <div>
+          <p>FÖRETAGSSIDA.. </p>
+          {postCompany && (
+            <>
+              <p>Företagsnamn: {postCompany.companyName}</p>
+              <p>Kvinnliga ägare: {postCompany.genderRatio} %</p>
+              <PieChart1 />
+              <p>Beskrvning av företaget: {postCompany.companyDescription}</p>
 
-            <p>Location: {postCompany.location}</p>
-            <p>Hemsida: {postCompany.url}</p>
-            <p>
-              Skills eller produkter:{' '}
-              {postCompany.skills?.map((skill) => skill)}
-            </p>
+              <p>Location: {postCompany.location}</p>
+              <p>Hemsida: {postCompany.url}</p>
+              <p>
+                Skills eller produkter:{' '}
+                {postCompany.skills?.map((skill) => skill)}
+              </p>
 
-            {console.log('postcompany', postCompany)}
-          </>
-        )}
-      </div>
-      <Button
-        type="submit"
-        color="secondary"
-        variant="contained"
-        onClick={() => navigate('/company-sign-up')}
-      >
-        Edit company profile
-      </Button>
-      <LogOutBtn />
+              {console.log('postcompany', postCompany)}
+            </>
+          )}
+        </div>
+        <Button
+          type="submit"
+          color="secondary"
+          variant="contained"
+          onClick={() => navigate('/company-sign-up')}
+        >
+          Edit company profile
+        </Button>
+        <LogOutBtn />
+      </section>
     </>
   )
 }

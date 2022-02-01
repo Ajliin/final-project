@@ -14,8 +14,8 @@ import user from '../reducers/user'
 const LandingPage = () => {
   //const [user, setUser] = useState('')
 
-  const { username } = useSelector((store) => store.user)
-  console.log('USERNAMEEEEEEEEE', username)
+  const { firstname } = useSelector((store) => store.user)
+
   const allCompanies = useSelector((store) => store.companies)
 
   const dispatch = useDispatch()
@@ -44,9 +44,9 @@ const LandingPage = () => {
         </Typography>
       </div>
       <div>
-        {username ? (
+        {firstname ? (
           <Typography variant="h4" component="h4">
-            Welcome {username}!
+            Välkommen {firstname}!
           </Typography>
         ) : (
           <Button onClick={goToLogIn}>Log in</Button>
@@ -59,9 +59,7 @@ const LandingPage = () => {
             Hitta
           </Button>
         </div>
-        <div>
-          <p>Let us talk about this</p>
-        </div>
+        <div></div>
         {/* <div className="category-container">
           <AvatarIcon />
         </div> */}

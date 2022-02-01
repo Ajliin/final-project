@@ -8,7 +8,7 @@ import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
-import { createTheme, ThemeProvider } from '@mui/material/styles'
+import { ThemeProvider } from '@mui/material/styles'
 
 import user from './reducers/user'
 import profile from './reducers/profile'
@@ -22,6 +22,8 @@ import Login from './pages/Login'
 import NotFound from './pages/NotFound'
 import Profile from './pages/Profile'
 
+import { theme } from './utils/theme'
+
 const reducer = combineReducers({
   user: user.reducer,
   profile: profile.reducer,
@@ -30,19 +32,6 @@ const reducer = combineReducers({
 })
 
 const store = configureStore({ reducer })
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      // Purple and green play nicely together.
-      main: '#11111',
-    },
-    secondary: {
-      // This is green.A700 as hex.
-      main: '#11cb5f',
-    },
-  },
-})
 
 export const App = () => {
   return (
