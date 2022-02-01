@@ -109,7 +109,7 @@ const authenticateUser = async (req, res, next) => {
 
   try {
     const user = await User.findOne({ accessToken })
-    console.log('auten user', user)
+    // console.log('auten user', user)
     if (user) {
       next()
     } else {
@@ -197,9 +197,9 @@ app.post('/signin', async (req, res) => {
 //Edit hasCompany
 app.patch('/user-edit/:userId', async (req, res) => {
   const { userId } = req.params
-  console.log('userId in patch', userId)
+  //console.log('userId in patch', userId)
   const updatedInfo = req.body
-  console.log('updatedInfo', updatedInfo)
+  //console.log('updatedInfo', updatedInfo)
 
   try {
     const updatedUser = await User.findOneAndUpdate(
@@ -207,7 +207,7 @@ app.patch('/user-edit/:userId', async (req, res) => {
       { $set: updatedInfo },
       { new: true },
     )
-    console.log('updatedUser!!!!!!!!!!!', updatedUser)
+    //console.log('updatedUser!!!!!!!!!!!', updatedUser)
 
     res.status(200).json({
       response: { hasCompany: updatedUser },
@@ -396,26 +396,28 @@ app.get('/allcompanies', async (req, res) => {
 
 //all netflix titles here, be able to searc for a title and type
 app.get('/result-companies', async (req, res) => {
-  const title = req.query.title?.toLowerCase()
-  const type = req.query.type?.toLowerCase()
+  const companyName = req.query.companyName?.toLowerCase()
+  const location = req.query.location?.toLowerCase()
+  console.log('companyName inside result-get', companyName)
+  console.log('location inside result-get', location)
 
   const findFilter = {}
 
-  if (title) {
-    findFilter.title = { $regex: new RegExp(title, 'i') }
+  if (companyName) {
+    findFilter.companyName = { $regex: new RegExp(companyName, 'i') }
   }
 
-  if (type) {
-    findFilter.type = { $regex: new RegExp(type, 'i') }
+  if (location) {
+    findFilter.location = { $regex: new RegExp(location, 'i') }
   }
 
-  const allTitles = Title.find(findFilter)
-  const netflixTitles = await allTitles.limit(50)
+  const allCompanyname = Company.find(findFilter)
+  const resultCompany = await allCompanyname.limit(50)
 
-  if (netflixTitles.length !== 0) {
-    res.json(netflixTitles)
+  if (resultCompany.length !== 0) {
+    res.status(200).json({ response: resultCompany, success: true })
   } else {
-    res.status(404).json('title not found')
+    res.status(404).json({ response: 'No companies found', success: false })
   }
 })
 

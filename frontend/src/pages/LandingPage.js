@@ -12,7 +12,8 @@ import companies from '../reducers/companies'
 import user from '../reducers/user'
 
 const LandingPage = () => {
-  //const [user, setUser] = useState('')
+  const [searchCompany, setSearchCompany] = useState('')
+  const [searchLocation, setSearchLocation] = useState('')
 
   const { firstname } = useSelector((store) => store.user)
 
@@ -25,11 +26,27 @@ const LandingPage = () => {
     navigate('/login')
   }
 
-  const getData = () => {
-    fetch(TEST_API('allcompanies'))
+  // const getData = () => {
+  //   fetch(TEST_API('allcompanies'))
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       // setUser(data.response[0].companyName)
+  //       dispatch(companies.actions.setCompanies(data.response))
+  //     })
+  // }
+
+  const getCompanyData = (event) => {
+    event.preventDefault()
+
+    fetch(
+      TEST_API(
+        `result-companies?companyName=${searchCompany}&&location=${searchLocation}`,
+      ),
+    )
       .then((res) => res.json())
       .then((data) => {
-        // setUser(data.response[0].companyName)
+        console.log(data)
+        //setUser(data.response[0].companyName)
         dispatch(companies.actions.setCompanies(data.response))
       })
   }
@@ -54,10 +71,31 @@ const LandingPage = () => {
 
         <div className="search-container">
           <TextField id="skills" label="Skills" variant="outlined" />
-          <TextField id="city" label="City" variant="outlined" />
-          <Button color="secondary" variant="contained" onClick={getData}>
-            Hitta
+          <TextField
+            id="city"
+            label="City"
+            variant="outlined"
+            value={searchLocation}
+            onChange={(event) => setSearchLocation(event.target.value)}
+          />
+          <TextField
+            id="companyName"
+            label="Företag"
+            variant="outlined"
+            value={searchCompany}
+            onChange={(event) => setSearchCompany(event.target.value)}
+          />
+          <Button
+            type="submit"
+            color="secondary"
+            variant="contained"
+            onClick={getCompanyData}
+          >
+            Hitta företag
           </Button>
+          {/* <Button color="secondary" variant="contained" onClick={getData}>
+            Hitta alla
+          </Button> */}
         </div>
         <div></div>
         {/* <div className="category-container">
@@ -66,7 +104,11 @@ const LandingPage = () => {
         <div>
           <p>Sökresultat:</p>
           {allCompanies?.companies?.map((company) => (
-            <p key={company._id}>{company.companyName}</p>
+            <div className="search-card-container" key={company._id}>
+              <p>{company.companyName}</p>
+              <p>{company.location}</p>
+              <p>{company.genderRatio}</p>
+            </div>
           ))}
         </div>
       </div>
