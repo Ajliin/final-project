@@ -17,7 +17,8 @@ const LandingPage = () => {
 
   const { firstname } = useSelector((store) => store.user)
 
-  const allCompanies = useSelector((store) => store.companies)
+  const allCompanies = useSelector((store) => store.companies.companies)
+  console.log('allCompanies', allCompanies)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -103,13 +104,17 @@ const LandingPage = () => {
         </div> */}
         <div>
           <p>Sökresultat:</p>
-          {allCompanies?.companies?.map((company) => (
-            <div className="search-card-container" key={company._id}>
-              <p>{company.companyName}</p>
-              <p>{company.location}</p>
-              <p>{company.genderRatio}</p>
-            </div>
-          ))}
+          {allCompanies.length === 0 ? (
+            <p>No companies in that location</p>
+          ) : (
+            allCompanies?.map((company) => (
+              <div className="search-card-container" key={company._id}>
+                <p>{company.companyName}</p>
+                <p>{company.location}</p>
+                <p>{company.genderRatio}</p>
+              </div>
+            ))
+          )}
         </div>
       </div>
     </section>

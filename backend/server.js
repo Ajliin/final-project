@@ -401,23 +401,23 @@ app.get('/result-companies', async (req, res) => {
   console.log('companyName inside result-get', companyName)
   console.log('location inside result-get', location)
 
-  const findFilter = {}
+  try {
+    const findFilter = {}
 
-  if (companyName) {
-    findFilter.companyName = { $regex: new RegExp(companyName, 'i') }
-  }
+    if (companyName) {
+      findFilter.companyName = { $regex: new RegExp(companyName, 'i') }
+    }
 
-  if (location) {
-    findFilter.location = { $regex: new RegExp(location, 'i') }
-  }
+    if (location) {
+      findFilter.location = { $regex: new RegExp(location, 'i') }
+    }
 
-  const allCompanyname = Company.find(findFilter)
-  const resultCompany = await allCompanyname.limit(50)
+    const allCompanyname = Company.find(findFilter)
+    const resultCompany = await allCompanyname.limit(50)
 
-  if (resultCompany.length !== 0) {
     res.status(200).json({ response: resultCompany, success: true })
-  } else {
-    res.status(404).json({ response: 'No companies found', success: false })
+  } catch (error) {
+    res.status(404).json({ response: error, success: false })
   }
 })
 
