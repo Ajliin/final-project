@@ -75,6 +75,7 @@ const CompanySchema = new mongoose.Schema({
   },
   rating: {
     type: Number,
+    default: 0,
   },
   genderRatio: {
     type: Number,
@@ -84,6 +85,11 @@ const CompanySchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
+  },
+
+  memberSince: {
+    type: Number,
+    default: () => Date.now(),
   },
 })
 
@@ -398,8 +404,9 @@ app.get('/allcompanies', async (req, res) => {
 app.get('/result-companies', async (req, res) => {
   const companyName = req.query.companyName?.toLowerCase()
   const location = req.query.location?.toLowerCase()
+  const skills = req.query.skills?.toLowerCase()
   console.log('companyName inside result-get', companyName)
-  console.log('location inside result-get', location)
+  console.log('skills inside result-get', skills)
 
   try {
     const findFilter = {}
@@ -412,12 +419,39 @@ app.get('/result-companies', async (req, res) => {
       findFilter.location = { $regex: new RegExp(location, 'i') }
     }
 
+    if (skills) {
+      findFilter.skills = { $regex: new RegExp(skills, 'i') }
+    }
+
     const allCompanyname = Company.find(findFilter)
     const resultCompany = await allCompanyname.limit(50)
 
     res.status(200).json({ response: resultCompany, success: true })
   } catch (error) {
     res.status(404).json({ response: error, success: false })
+  }
+})
+
+app.post('/rating/:companyId', async (req, res) => {
+  const { companyId } = req.params
+
+  try {
+    //mongo operator
+    const updatedRating = await Company.findByIdAndUpdate(
+      { _id: companyId },
+      {
+        $inc: {
+          rating: 1,
+        },
+      },
+      {
+        new: true, //updated document directly- find in documentary
+      },
+    )
+    console.log('req body', req.body)
+    res.status(200).json({ response: updatedRating, success: true })
+  } catch (error) {
+    res.status(400).json({ response: 'No company with that ID', sucess: false })
   }
 })
 

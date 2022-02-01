@@ -85,12 +85,12 @@ const Profile = () => {
             {lastname}..{' '}
           </p>
           <div>
-            {description &&
+            {/* {description &&
               description?.map((item) => (
                 <>
                   <p key={item.description}>{item.description}</p>
                 </>
-              ))}
+              ))} */}
           </div>
         </div>
         <LogOutBtn />

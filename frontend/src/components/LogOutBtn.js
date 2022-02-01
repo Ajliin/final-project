@@ -16,7 +16,7 @@ const LogOutBtn = () => {
     batch(() => {
       dispatch(user.actions.setUserId(null))
       dispatch(user.actions.setFirstname(null))
-      dispatch(user.actions.setlastname(null))
+      dispatch(user.actions.setLastname(null))
       dispatch(user.actions.setAccessToken(null))
       dispatch(user.actions.setEmail(null))
       dispatch(user.actions.setHasCompany(null))

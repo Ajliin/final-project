@@ -12,6 +12,7 @@ import companies from '../reducers/companies'
 import user from '../reducers/user'
 
 const LandingPage = () => {
+  const [searchSkills, setSearchSkills] = useState('')
   const [searchCompany, setSearchCompany] = useState('')
   const [searchLocation, setSearchLocation] = useState('')
 
@@ -41,7 +42,7 @@ const LandingPage = () => {
 
     fetch(
       TEST_API(
-        `result-companies?companyName=${searchCompany}&&location=${searchLocation}`,
+        `result-companies?companyName=${searchCompany}&&location=${searchLocation}&&skills=${searchSkills}`,
       ),
     )
       .then((res) => res.json())
@@ -71,14 +72,6 @@ const LandingPage = () => {
         )}
 
         <div className="search-container">
-          <TextField id="skills" label="Skills" variant="outlined" />
-          <TextField
-            id="city"
-            label="City"
-            variant="outlined"
-            value={searchLocation}
-            onChange={(event) => setSearchLocation(event.target.value)}
-          />
           <TextField
             id="companyName"
             label="Företag"
@@ -86,6 +79,21 @@ const LandingPage = () => {
             value={searchCompany}
             onChange={(event) => setSearchCompany(event.target.value)}
           />
+          <TextField
+            id="skills"
+            label="Skills"
+            variant="outlined"
+            value={searchSkills}
+            onChange={(event) => setSearchSkills(event.target.value)}
+          />
+          <TextField
+            id="city"
+            label="City"
+            variant="outlined"
+            value={searchLocation}
+            onChange={(event) => setSearchLocation(event.target.value)}
+          />
+
           <Button
             type="submit"
             color="secondary"
@@ -105,12 +113,13 @@ const LandingPage = () => {
         <div>
           <p>Sökresultat:</p>
           {allCompanies.length === 0 ? (
-            <p>No companies in that location</p>
+            <p>Inga Foajé medlemmar matchar din efterfrågan</p>
           ) : (
             allCompanies?.map((company) => (
               <div className="search-card-container" key={company._id}>
                 <p>{company.companyName}</p>
                 <p>{company.location}</p>
+                <p>{company.skills}</p>
                 <p>{company.genderRatio}</p>
               </div>
             ))
