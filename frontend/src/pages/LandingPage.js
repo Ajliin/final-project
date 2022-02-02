@@ -20,12 +20,22 @@ const LandingPage = () => {
 
   const allCompanies = useSelector((store) => store.companies.companies)
   console.log('allCompanies', allCompanies)
-
+  const { searchedCompany } = useSelector((store) => store.companies)
+  console.log('searched comapany from landingpage', searchedCompany)
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   const goToLogIn = () => {
     navigate('/login')
+  }
+
+  const goToCompany = (paramId, companyName) => {
+    console.log('paramId on Landingpage before navigaton', paramId)
+    console.log('companyname on Landingpage before navigaton', companyName)
+    //dispatch(companies.actions.setSearchedCompany(companyId))
+    navigate(`/company/${paramId}`)
+    //navigate(`/company/${companyName}`, { state: paramId })
+    // console.log(companyId)
   }
 
   // const getData = () => {
@@ -117,7 +127,11 @@ const LandingPage = () => {
           ) : (
             allCompanies?.map((company) => (
               <div className="search-card-container" key={company._id}>
-                <p>{company.companyName}</p>
+                <Button
+                  onClick={() => goToCompany(company._id, company.companyName)}
+                >
+                  {company.companyName}
+                </Button>
                 <p>{company.location}</p>
                 <p>{company.skills}</p>
                 <p>{company.genderRatio}</p>

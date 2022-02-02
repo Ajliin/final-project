@@ -329,6 +329,33 @@ app.post('/company', async (req, res) => {
 
 // to get all companies from one unser
 
+app.get('/company-result/:companyId', async (req, res) => {
+  const { companyId } = req.params
+
+  try {
+    const getCompany = await Company.findById(companyId)
+    // console.log('userID get companypage', userId)
+    //console.log('company get companypage', getCompany)
+    res.status(200).json({
+      response: {
+        companyId: getCompany._id,
+        companyName: getCompany.companyName,
+        companyDescription: getCompany.companyDescription,
+        genderRatio: getCompany.genderRatio,
+        location: getCompany.location,
+        memberSince: getCompany.membersince,
+        rating: getCompany.rating,
+        skills: getCompany.skills,
+        url: getCompany.url,
+        user: getCompany.user,
+      },
+      success: true,
+    })
+  } catch (error) {
+    res.status(400).json({ response: error, success: false })
+  }
+})
+
 //app.get('/company/:userId', authenticateUser)
 app.get('/company/:userId', async (req, res) => {
   const { userId } = req.params
@@ -336,7 +363,7 @@ app.get('/company/:userId', async (req, res) => {
   try {
     const getCompany = await Company.find({ user: userId })
     // console.log('userID get companypage', userId)
-    //console.log('company get companypage', getCompany)
+    console.log('company get companypage', getCompany)
     res.status(200).json({ response: { getCompany }, success: true })
   } catch (error) {
     res.status(400).json({ response: error, success: false })
@@ -434,6 +461,7 @@ app.get('/result-companies', async (req, res) => {
 
 app.post('/rating/:companyId', async (req, res) => {
   const { companyId } = req.params
+  // const { companyName } = req.body
 
   try {
     //mongo operator
@@ -449,6 +477,7 @@ app.post('/rating/:companyId', async (req, res) => {
       },
     )
     console.log('req body', req.body)
+    console.log(updatedRating)
     res.status(200).json({ response: updatedRating, success: true })
   } catch (error) {
     res.status(400).json({ response: 'No company with that ID', sucess: false })

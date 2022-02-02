@@ -14,6 +14,7 @@ import user from './reducers/user'
 import profile from './reducers/profile'
 import company from './reducers/company'
 import companies from './reducers/companies'
+import searchedCompany from './reducers/searchedCompany'
 
 import Company from './pages/Company'
 import CompanySignUp from './pages/CompanySignUp'
@@ -29,6 +30,7 @@ const reducer = combineReducers({
   profile: profile.reducer,
   company: company.reducer,
   companies: companies.reducer,
+  searchedCompany: searchedCompany.reducer,
 })
 
 const store = configureStore({ reducer })
@@ -40,7 +42,7 @@ export const App = () => {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<LandingPage />} />
-            <Route path="/company" element={<Company />} />
+            <Route path="/company/:paramId" exact element={<Company />} />
             <Route path="/company-sign-up" element={<CompanySignUp />} />
             <Route path="/login" element={<Login />} />
             <Route path="/profile" element={<Profile />} />

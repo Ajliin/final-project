@@ -4,6 +4,7 @@ const initialState = {
   //   userId: null,
   //   username: null,
   //   accessToken: null,
+  searchedCompany: null,
   companies: [],
 }
 
@@ -14,6 +15,10 @@ const companies = createSlice({
     setCompanies: (store, action) => {
       store.companies = action.payload
       console.log('inside reducer', store.companies)
+    },
+    setSearchedCompany: (store, action) => {
+      store.searchedCompany = action.payload
+      console.log('inside reducer searchedCompanies', store.searchedCompany)
     },
     setError: (store, action) => {
       store.error = action.payload

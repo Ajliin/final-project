@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch, batch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 import { TEST_API } from '../utils/url'
 import Header from '../components/Header'
@@ -15,12 +15,17 @@ import AvatarIcon from '../components/AvatarIcon'
 const Profile = () => {
   const [name, setName] = useState('')
 
-  const { userId, accessToken, firstname, lastname, hasCompany } = useSelector(
-    (store) => store.user,
-  )
+  const {
+    userId,
+    accessToken,
+    firstname,
+    lastname,
+    hasCompany,
+    email,
+  } = useSelector((store) => store.user)
   const description = useSelector((store) => store.profile.description)
 
-  const profileId = useSelector((store) => store.user.userId)
+  const { companyName } = useSelector((store) => store.company)
 
   console.log('userId', userId)
   console.log('firstname', firstname)
@@ -60,11 +65,6 @@ const Profile = () => {
     fetch(TEST_API(`user-edit/${userId}`), options2)
       .then((res) => res.json())
       .then((data) => {
-        console.log('fetch get edit-data', data)
-        console.log(
-          'fetch get edit-data.response.hasCompany',
-          data.response.hasCompany,
-        )
         dispatch(user.actions.setHasCompany(data.response.hasCompany))
       })
   }, [])
@@ -76,6 +76,8 @@ const Profile = () => {
         <AvatarIcon />
         <div>
           <p>Välkommen {firstname} till FOAJÉ </p>
+          <p>Din email: {email} </p>
+
           <p>
             Här hittar du tjänster och produkter skapade av kvinnliga
             entreprenörer, kreatörer och småföretagare.
@@ -109,7 +111,7 @@ const Profile = () => {
             type="submit"
             color="secondary"
             variant="contained"
-            onClick={() => navigate('/company')}
+            onClick={() => navigate(`/company/${userId}`)}
           >
             Go to your company
           </Button>

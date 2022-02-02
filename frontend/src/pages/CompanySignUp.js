@@ -69,7 +69,7 @@ const CompanySignUp = () => {
 
   useEffect(() => {
     if (mode === 'done') {
-      navigate('/company')
+      navigate(`/company/${profileId}`)
     }
   }, [mode, navigate])
 
@@ -121,6 +121,7 @@ const CompanySignUp = () => {
       fetch(TEST_API('company'), options)
         .then((res) => res.json())
         .then((data) => {
+          dispatch(company.actions.setCompanyId(data.response.companyId))
           console.log('data inside POST new Company', data)
         })
 

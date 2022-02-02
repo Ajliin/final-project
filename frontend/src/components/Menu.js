@@ -34,7 +34,7 @@ export default function BasicMenu() {
   }
 
   const goToCompanyPage = () => {
-    navigate('/company')
+    navigate(`/company/${userId}`)
   }
 
   const goToLogIn = () => {
