@@ -102,7 +102,7 @@ const Profile = () => {
             type="submit"
             color="secondary"
             variant="contained"
-            onClick={() => navigate('/company-sign-up')}
+            onClick={() => navigate('/company-form')}
           >
             Sign up a new company?
           </Button>

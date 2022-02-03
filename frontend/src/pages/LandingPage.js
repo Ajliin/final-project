@@ -2,11 +2,19 @@ import React, { useState } from 'react'
 import { useSelector, useDispatch, batch } from 'react-redux'
 import { Navigate, useNavigate } from 'react-router-dom'
 
-import { Button, Typography, TextField } from '@material-ui/core'
+import {
+  Button,
+  Typography,
+  TextField,
+  Container,
+  Grid,
+  Box,
+} from '@material-ui/core'
 
 import Header from '../components/Header'
 import AvatarIcon from '../components/AvatarIcon'
 import { TEST_API } from '../utils/url'
+import Card from '../components/Card'
 
 import companies from '../reducers/companies'
 import user from '../reducers/user'
@@ -16,7 +24,7 @@ const LandingPage = () => {
   const [searchCompany, setSearchCompany] = useState('')
   const [searchLocation, setSearchLocation] = useState('')
 
-  const { firstname } = useSelector((store) => store.user)
+  const { email, firstname } = useSelector((store) => store.user)
 
   const allCompanies = useSelector((store) => store.companies.companies)
   console.log('allCompanies', allCompanies)
@@ -64,24 +72,48 @@ const LandingPage = () => {
   }
 
   return (
-    <section className="landing-page-container">
+    <>
       <Header />
-      <div className="intro-text">
-        <Typography variant="h6" component="h6">
-          FOAJÉ gör det lättare och roligare för dig att stötta kvinnliga
-          entreprenörer kreatörer och småföretagare.
-        </Typography>
-      </div>
-      <div>
-        {firstname ? (
-          <Typography variant="h4" component="h4">
-            Välkommen {firstname}!
+      <Container>
+        <Box
+          sx={{
+            marginY: 5,
+            paddingX: 20,
+            backgroundColor: 'lightgrey',
+          }}
+        >
+          <Typography variant="h6" component="h2">
+            FOAJÉ gör det lättare och roligare för dig att stötta kvinnliga
+            entreprenörer kreatörer och småföretagare.
           </Typography>
-        ) : (
-          <Button onClick={goToLogIn}>Log in</Button>
-        )}
+        </Box>
+        <Box
+          sx={{
+            marginY: 2,
+            paddingX: 20,
+            //  backgroundColor: 'beige',
+          }}
+        >
+          {email ? (
+            <Typography variant="h5" component="h3">
+              Välkommen {firstname}!
+            </Typography>
+          ) : (
+            <Button onClick={goToLogIn}>Log in</Button>
+          )}
+        </Box>
 
-        <div className="search-container">
+        <Box
+          sx={{
+            margin: 2,
+            paddingX: 20,
+            // backgroundColor: 'beige',
+            display: 'flex',
+            alignItems: 'around',
+            justifyContent: 'space-between',
+            width: 1100,
+          }}
+        >
           <TextField
             id="companyName"
             label="Företag"
@@ -112,35 +144,30 @@ const LandingPage = () => {
           >
             Hitta företag
           </Button>
-          {/* <Button color="secondary" variant="contained" onClick={getData}>
-            Hitta alla
-          </Button> */}
-        </div>
-        <div></div>
-        {/* <div className="category-container">
-          <AvatarIcon />
-        </div> */}
-        <div>
-          <p>Sökresultat:</p>
+        </Box>
+
+        <Box
+          sx={{
+            marginY: 2,
+            paddingX: 20,
+            //backgroundColor: 'beige',
+          }}
+        >
+          <Typography variant="h6" component="h2">
+            Sökresultat:
+          </Typography>
           {allCompanies.length === 0 ? (
             <p>Inga Foajé medlemmar matchar din efterfrågan</p>
           ) : (
-            allCompanies?.map((company) => (
-              <div className="search-card-container" key={company._id}>
-                <Button
-                  onClick={() => goToCompany(company._id, company.companyName)}
-                >
-                  {company.companyName}
-                </Button>
-                <p>{company.location}</p>
-                <p>{company.skills}</p>
-                <p>{company.genderRatio}</p>
-              </div>
-            ))
+            <>
+              <Grid container spacing={3}>
+                <Card />
+              </Grid>
+            </>
           )}
-        </div>
-      </div>
-    </section>
+        </Box>
+      </Container>
+    </>
   )
 }
 

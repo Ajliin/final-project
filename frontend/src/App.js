@@ -9,6 +9,7 @@ import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
 import { ThemeProvider } from '@mui/material/styles'
+import { Container } from '@mui/material/'
 
 import user from './reducers/user'
 import profile from './reducers/profile'
@@ -43,7 +44,7 @@ export const App = () => {
           <Routes>
             <Route path="/" element={<LandingPage />} />
             <Route path="/company/:paramId" exact element={<Company />} />
-            <Route path="/company-sign-up" element={<CompanySignUp />} />
+            <Route path="/company-form" element={<CompanySignUp />} />
             <Route path="/login" element={<Login />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="*" element={<NotFound />} />

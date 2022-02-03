@@ -21,13 +21,12 @@ const CompanySignUp = () => {
   const [rating, setRating] = useState('')
   const [error, setError] = useState(false)
   const [userState, setUserState] = useState('')
+  const [mode, setMode] = useState('new')
+  const [hasCompany, setHasCompany] = useState()
 
+  //useSelector
   const hasCompany1 = useSelector((store) => store.user.hasCompany)
   console.log('hasCompany in signup', hasCompany1)
-
-  const [mode, setMode] = useState('new')
-  const [hasCompany, setHasCompany] = useState(hasCompany1)
-
   const errorMess = useSelector((store) => store.user.error)
 
   const companyData = useSelector((store) => store.company)
@@ -42,12 +41,15 @@ const CompanySignUp = () => {
   const companyStoreId = useSelector((store) => store.company.companyId)
   console.log('companyStoreId', companyStoreId)
 
+  // end of Hooks
+
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
   useEffect(() => {
     setUserState(profileId)
     if (hasCompany1) {
+      setHasCompany(true)
       setMode('edit')
       setCompanyName(companyData.companyId)
       setCompanyName(companyData.companyName)

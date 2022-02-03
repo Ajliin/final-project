@@ -12,6 +12,8 @@ const initialState = localStorage.getItem('company')
       skills: JSON.parse(localStorage.getItem('company')).skills,
       url: JSON.parse(localStorage.getItem('company')).url,
       rating: JSON.parse(localStorage.getItem('company')).rating,
+      countRating: JSON.parse(localStorage.getItem('company')).countRating,
+      reviews: JSON.parse(localStorage.getItem('company')).reviews,
     }
   : {
       companyId: null,
@@ -23,6 +25,8 @@ const initialState = localStorage.getItem('company')
       skills: [],
       url: null,
       rating: null,
+      countRating: null,
+      reviews: [],
     }
 
 const company = createSlice({
@@ -65,6 +69,12 @@ const company = createSlice({
     },
     setRating: (store, action) => {
       store.rating = action.payload
+    },
+    setCountRating: (store, action) => {
+      store.countRating = action.payload
+    },
+    setReviews: (store, action) => {
+      store.reviews = action.payload
     },
     setError: (store, action) => {
       store.error = action.payload
