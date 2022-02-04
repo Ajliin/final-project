@@ -15,7 +15,6 @@ const Header = () => {
     <AppBar position="static" color="inherit">
       <Toolbar>
         <Box
-          Box
           sx={{
             padding: 2,
             display: 'flex',

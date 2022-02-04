@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
+import { Box } from '@material-ui/core'
 import { AccountCircle } from '@material-ui/icons'
 import { Navigate, useNavigate } from 'react-router-dom'
 import { useDispatch, batch, useSelector } from 'react-redux'
@@ -69,7 +70,7 @@ export default function BasicMenu() {
   }
 
   return (
-    <div>
+    <Box>
       <Button
         id="basic-button"
         aria-controls={open ? 'basic-menu' : undefined}
@@ -90,18 +91,18 @@ export default function BasicMenu() {
       >
         <MenuItem onClick={goToLandingPage}>Sök</MenuItem>
 
-        {hasCompany && (
-          <MenuItem onClick={goToCompanyPage}>Mitt företag</MenuItem>
-        )}
         {!userId ? (
           <MenuItem onClick={goToLogIn}>Login</MenuItem>
         ) : (
-          <>
+          <Box>
             <MenuItem onClick={goToProfile}>Min profil</MenuItem>
+            {hasCompany && (
+              <MenuItem onClick={goToCompanyPage}>Mitt företag</MenuItem>
+            )}
             <MenuItem onClick={goToLogOut}>Logout</MenuItem>
-          </>
+          </Box>
         )}
       </Menu>
-    </div>
+    </Box>
   )
 }

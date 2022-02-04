@@ -18,6 +18,7 @@ import LogOutBtn from '../components/LogOutBtn'
 import { PieChart1, PieChart2 } from '../components/PieChart'
 import Modal from '../components/Modal'
 import AvatarIcon from '../components/AvatarIcon'
+import DoRating from '../components/DoRating'
 
 import user from '../reducers/user'
 import company from '../reducers/company'
@@ -27,15 +28,13 @@ import searchedCompany from '../reducers/searchedCompany'
 
 const Company = () => {
   const [mode, setMode] = useState('')
-  const [chosenVariable, setChosenVariable] = useState('')
-  console.log('modemodemodemdeomdeomdomde', mode)
 
   //useSelector
   const profileId = useSelector((store) => store.user.userId)
-
   const myCompany = useSelector((store) => store.company)
   const accessToken = useSelector((store) => store.user.accessToken)
   const sCompany = useSelector((store) => store.searchedCompany)
+
   //useParams
   const { paramId } = useParams()
   console.log('paramId', paramId)
@@ -52,12 +51,10 @@ const Company = () => {
   useEffect(() => {
     if (paramId === profileId) {
       setMode('profile')
-      setChosenVariable('myCompany')
     } else {
       setMode('searched')
-      setChosenVariable('sCompany')
     }
-  }, [mode, paramId, profileId, chosenVariable])
+  }, [mode, paramId, profileId])
 
   //if mode === profile
   useEffect(() => {
@@ -204,9 +201,9 @@ const Company = () => {
                   location: data.response.location,
                   skills: data.response.skills,
                   url: data.response.url,
-                  rating: data.resonse.rating,
-                  countRating: data.resonse.countRating,
-                  reviews: data.resonse.reviews,
+                  rating: data.response.rating,
+                  countRating: data.response.countRating,
+                  reviews: data.response.reviews,
                 }),
               )
             })

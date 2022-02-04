@@ -27,6 +27,7 @@ const initialState = localStorage.getItem('company')
       rating: null,
       countRating: null,
       reviews: [],
+      thisReview: null,
     }
 
 const company = createSlice({
@@ -76,6 +77,9 @@ const company = createSlice({
     setReviews: (store, action) => {
       console.log('inside genderRatio reducer', action.payload)
       store.reviews = action.payload
+    },
+    setThisReview: (store, action) => {
+      store.thisReview = action.payload
     },
     setError: (store, action) => {
       store.error = action.payload

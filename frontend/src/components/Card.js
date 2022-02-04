@@ -24,6 +24,8 @@ const Card = () => {
     // console.log(companyId)
   }
 
+  let ratingDec = 0
+
   return allCompanies?.map((company, index) => (
     <>
       <Grid key={company._id} item xs={12}>

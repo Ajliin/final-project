@@ -6,16 +6,26 @@ import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+
+import DoRating from './DoRating'
+
+import searchedCompany from '../reducers/searchedCompany'
+import company from '../reducers/company'
 
 import { TEST_API } from '../utils/url'
 
 export default function FormDialog() {
   const [open, setOpen] = useState(false)
-  const [rating, setRating] = useState(0)
+  //const [rating, setRating] = useState(0)
+  const [review, setReview] = useState('')
 
   const userReview = useSelector((store) => store.user.firstname)
-  const { companyId } = useSelector((store) => store.searchedCompany)
+  const { companyId, thisReview } = useSelector(
+    (store) => store.searchedCompany,
+  )
+
+  const dispatch = useDispatch()
 
   const handleClickOpen = () => {
     setOpen(true)
@@ -27,24 +37,26 @@ export default function FormDialog() {
 
   //RATE COMPANY
   const rateCompany = () => {
-    const options3 = {
+    const options = {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        newRating: rating,
-        comment: 'Hello',
+        newRating: thisReview,
+        comment: review,
         reviewer: userReview,
       }),
     }
 
-    fetch(TEST_API(`rating/${companyId}`), options3)
+    fetch(TEST_API(`rating/${companyId}`), options)
       .then((res) => res.json())
       .then((data) => {
-        console.log('ratingdata!!!!!!!!!', data)
-        setRating(data.response.rating)
+        console.log('REVIEWS!!!', data.response.reviews)
+        dispatch(company.actions.setReviews(data.response.reviews))
       })
+    dispatch(searchedCompany.actions.setThisReview(null))
+    setReview('')
     setOpen(false)
   }
 
@@ -56,19 +68,22 @@ export default function FormDialog() {
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Rating</DialogTitle>
         <DialogContent>
+          <DoRating />
+
           <DialogContentText>
             To rate to this company, please your amount of stars here.
           </DialogContentText>
+          <DialogContentText>{thisReview}</DialogContentText>
           <TextField
             autoFocus
             margin="dense"
-            id="name"
-            label="Number of stars"
-            type="Number"
+            id="review"
+            label="Recension"
+            type="String"
             fullWidth
             variant="standard"
-            value={rating}
-            onChange={(event) => setRating(event.target.value)}
+            value={review}
+            onChange={(event) => setReview(event.target.value)}
           />
         </DialogContent>
         <DialogActions>
