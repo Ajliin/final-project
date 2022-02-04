@@ -32,6 +32,8 @@ const AvatarIcon = () => {
     return {
       sx: {
         bgcolor: stringToColor(name),
+        width: 100,
+        height: 100,
       },
       children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
     }

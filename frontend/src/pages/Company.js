@@ -8,13 +8,16 @@ import {
   TextField,
   Container,
   Box,
+  Grid,
 } from '@material-ui/core'
+import { LocationOnOutlined } from '@material-ui/icons'
 
 import { TEST_API } from '../utils/url'
 import Header from '../components/Header'
 import LogOutBtn from '../components/LogOutBtn'
-import PieChart1 from '../components/PieChart'
+import { PieChart1, PieChart2 } from '../components/PieChart'
 import Modal from '../components/Modal'
+import AvatarIcon from '../components/AvatarIcon'
 
 import user from '../reducers/user'
 import company from '../reducers/company'
@@ -249,54 +252,126 @@ const Company = () => {
                   }}
                 >
                   <Typography variant="h3" component="h1">
-                    Företagsnamn: {myCompany.companyName}
+                    {myCompany.companyName}
                   </Typography>
                 </Box>
-                <p>Kvinnliga ägare: {myCompany.genderRatio} %</p>
-                <PieChart1 />
-                <p>Beskrvning av företaget: {myCompany.companyDescription}</p>
-
-                <p>Location: {myCompany.location}</p>
-                <p>Hemsida: {myCompany.url}</p>
-                <p>Rating: {myCompany.rating}</p>
-                <p>
-                  Skills eller produkter:
-                  {myCompany.skills?.map((skill) => skill)}
-                </p>
+                <Grid container spacing={2} backgroundColor={'red'}>
+                  <Grid item xs={4}>
+                    <AvatarIcon />
+                    <Box
+                      sx={{
+                        padding: 2,
+                        display: 'flex',
+                      }}
+                    >
+                      <LocationOnOutlined />
+                      <p>{myCompany.location}</p>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <PieChart1 />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <p>Hemsida: {myCompany.url}</p>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <p>Rating: {myCompany.rating}</p>
+                  </Grid>
+                  <Grid item xs={8}>
+                    <p>
+                      Skills eller produkter:
+                      {myCompany.skills?.map((skill) => skill)}
+                    </p>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Button
+                      type="submit"
+                      color="secondary"
+                      variant="contained"
+                      onClick={() => navigate('/company-form')}
+                    >
+                      Edit company profile
+                    </Button>
+                  </Grid>
+                  <Grid
+                    sx={{
+                      padding: 2,
+                      backgroundColor: 'lightgrey',
+                    }}
+                    item
+                    xs={4}
+                  >
+                    <p>
+                      Beskrivning av företaget: {myCompany.companyDescription}
+                    </p>
+                  </Grid>
+                </Grid>
               </Box>
-              <Button
-                type="submit"
-                color="secondary"
-                variant="contained"
-                onClick={() => navigate('/company-form')}
-              >
-                Edit company profile
-              </Button>
+
               <LogOutBtn />
             </>
           ) : (
-            <>
-              <p>Företagsnamn: {sCompany.companyName}</p>
-              <p>Kvinnliga ägare: {sCompany.genderRatio} %</p>
-              <PieChart1 />
-              <p>Beskrvning av företaget: {sCompany.companyDescription}</p>
+            // ***********************Searched Company ****************
 
-              <p>Location: {sCompany.location}</p>
-              <p>Hemsida: {sCompany.url}</p>
-              <p>Rating: {sCompany.rating}</p>
-              <p>
-                Skills eller produkter:
-                {sCompany.skills?.map((skill) => skill)}
-              </p>
+            <>
+              <Box
+                sx={{
+                  padding: 2,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'space-around',
+                }}
+              >
+                <Box
+                  sx={{
+                    marginBottom: 50,
+                  }}
+                >
+                  <Typography variant="h3" component="h1">
+                    {sCompany.companyName}
+                  </Typography>
+                </Box>
+                <Grid container spacing={2}>
+                  <Grid item xs={4}>
+                    <AvatarIcon />
+                    <Box
+                      sx={{
+                        padding: 2,
+                        display: 'flex',
+                      }}
+                    >
+                      <LocationOnOutlined />
+                      <p>{sCompany.location}</p>
+                    </Box>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <PieChart2 />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <p>Hemsida: {sCompany.url}</p>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <p>Rating: {sCompany.rating}</p>
+                  </Grid>
+                  <Grid item xs={8}>
+                    <p>
+                      Skills eller produkter:
+                      {sCompany.skills?.map((skill) => skill)}
+                    </p>
+                  </Grid>
+                  <Grid item xs={4}>
+                    <Modal />
+                  </Grid>
+                  <Grid item xs={4}>
+                    <p>
+                      Beskrvning av företaget: {sCompany.companyDescription}
+                    </p>
+                  </Grid>
+                </Grid>
+              </Box>
             </>
           )}
-          <>
-            {mode === 'searched' && (
-              <>
-                <Modal />
-              </>
-            )}
-          </>
         </div>
       </Container>
     </>

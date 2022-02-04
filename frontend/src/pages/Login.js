@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch, batch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { Button, Typography, TextField } from '@material-ui/core'
+import {
+  Button,
+  Typography,
+  TextField,
+  Box,
+  Container,
+} from '@material-ui/core'
 
 import { TEST_API } from '../utils/url'
 import user from '../reducers/user'
@@ -92,80 +98,96 @@ const Login = () => {
   return (
     <>
       <Header />
-      <section className="app-container" position="static" color="secondary">
-        <Typography>
-          Genom att bli medlem i FOAJÉ blir du en del av Sveriges största
-          marknadsplats för kvinnliga entreprenörer, kreatörer och
-          småföretagare. Här kan du: Hitta och Köpa produkter och tjänster från
-          företag drivna av kvinnor. Registrera ditt bolag eller dig själv om du
-          har tjänster och produkter som du vill sälja. Det går att bli en
-          säljare oavsett om du har ett bolag eller är frilansare.
-        </Typography>
+      <Container>
+        <Box>
+          <Typography>
+            Genom att bli medlem i FOAJÉ blir du en del av Sveriges största
+            marknadsplats för kvinnliga entreprenörer, kreatörer och
+            småföretagare. Här kan du: Hitta och Köpa produkter och tjänster
+            från företag drivna av kvinnor. Registrera ditt bolag eller dig
+            själv om du har tjänster och produkter som du vill sälja. Det går
+            att bli en säljare oavsett om du har ett bolag eller är frilansare.
+          </Typography>
+        </Box>
+
         <form onSubmit={onFormSubmit}>
-          {mode === 'signup' && (
-            <>
-              <TextField
-                id="firstname"
-                label="Förnamn *"
-                variant="outlined"
-                value={firstname}
-                onChange={(event) => setFirstname(event.target.value)}
-              />
-              <TextField
-                id="lastname"
-                label="Efternamn *"
-                variant="outlined"
-                value={lastname}
-                onChange={(event) => setLastname(event.target.value)}
-              />
-            </>
-          )}
-
-          <TextField
-            id="email"
-            type="email"
-            type="text"
-            label="Email *"
-            variant="outlined"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-          />
-          <TextField
-            id="password"
-            type="password"
-            label="Password *"
-            variant="outlined"
-            value={password}
-            onChange={(event) => setPassword(event.target.value)}
-          />
-          <div className="btn-container">
-            <Button type="submit" color="secondary" variant="contained">
-              Submit
-            </Button>
-            {errorMess && <p color="red">{errorMess}</p>}
-
-            {mode === 'signup' ? (
-              <Button
-                type="button"
-                color="primary"
-                variant="contained"
-                onClick={() => setMode('signin')}
-              >
-                Har du redan ett konto? Logga in
-              </Button>
-            ) : (
-              <Button
-                type="button"
-                color="primary"
-                variant="contained"
-                onClick={() => setMode('signup')}
-              >
-                Vill du bli ny medlem? Signa upp
-              </Button>
+          <Box
+            sx={{
+              margin: 2,
+              paddingX: 20,
+              // backgroundColor: 'beige',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'around',
+              justifyContent: 'space-between',
+              width: 1100,
+            }}
+          >
+            {mode === 'signup' && (
+              <>
+                <TextField
+                  id="firstname"
+                  label="Förnamn *"
+                  variant="outlined"
+                  value={firstname}
+                  onChange={(event) => setFirstname(event.target.value)}
+                />
+                <TextField
+                  id="lastname"
+                  label="Efternamn *"
+                  variant="outlined"
+                  value={lastname}
+                  onChange={(event) => setLastname(event.target.value)}
+                />
+              </>
             )}
-          </div>
+
+            <TextField
+              id="email"
+              type="email"
+              type="text"
+              label="Email *"
+              variant="outlined"
+              value={email}
+              onChange={(event) => setEmail(event.target.value)}
+            />
+            <TextField
+              id="password"
+              type="password"
+              label="Password *"
+              variant="outlined"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+            />
+            <div className="btn-container">
+              <Button type="submit" color="secondary" variant="contained">
+                Submit
+              </Button>
+              {errorMess && <p color="red">{errorMess}</p>}
+
+              {mode === 'signup' ? (
+                <Button
+                  type="button"
+                  color="primary"
+                  variant="contained"
+                  onClick={() => setMode('signin')}
+                >
+                  Har du redan ett konto? Logga in
+                </Button>
+              ) : (
+                <Button
+                  type="button"
+                  color="primary"
+                  variant="contained"
+                  onClick={() => setMode('signup')}
+                >
+                  Vill du bli ny medlem? Signa upp
+                </Button>
+              )}
+            </div>
+          </Box>
         </form>
-      </section>
+      </Container>
     </>
   )
 }

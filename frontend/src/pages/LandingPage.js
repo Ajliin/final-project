@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch, batch } from 'react-redux'
 import { Navigate, useNavigate } from 'react-router-dom'
 
@@ -23,6 +23,7 @@ const LandingPage = () => {
   const [searchSkills, setSearchSkills] = useState('')
   const [searchCompany, setSearchCompany] = useState('')
   const [searchLocation, setSearchLocation] = useState('')
+  const [mode, setMode] = useState('')
 
   const { email, firstname } = useSelector((store) => store.user)
 
@@ -32,6 +33,10 @@ const LandingPage = () => {
   console.log('searched comapany from landingpage', searchedCompany)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+
+  useEffect(() => {
+    setMode('')
+  }, [])
 
   const goToLogIn = () => {
     navigate('/login')
@@ -46,17 +51,9 @@ const LandingPage = () => {
     // console.log(companyId)
   }
 
-  // const getData = () => {
-  //   fetch(TEST_API('allcompanies'))
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       // setUser(data.response[0].companyName)
-  //       dispatch(companies.actions.setCompanies(data.response))
-  //     })
-  // }
-
   const getCompanyData = (event) => {
     event.preventDefault()
+    setMode('searched')
 
     fetch(
       TEST_API(
@@ -109,6 +106,7 @@ const LandingPage = () => {
             paddingX: 20,
             // backgroundColor: 'beige',
             display: 'flex',
+
             alignItems: 'around',
             justifyContent: 'space-between',
             width: 1100,
@@ -116,21 +114,21 @@ const LandingPage = () => {
         >
           <TextField
             id="companyName"
-            label="Företag"
+            label="Alla företag"
             variant="outlined"
             value={searchCompany}
             onChange={(event) => setSearchCompany(event.target.value)}
           />
           <TextField
             id="skills"
-            label="Skills"
+            label="Alla skills"
             variant="outlined"
             value={searchSkills}
             onChange={(event) => setSearchSkills(event.target.value)}
           />
           <TextField
             id="city"
-            label="City"
+            label="Hela Sverige"
             variant="outlined"
             value={searchLocation}
             onChange={(event) => setSearchLocation(event.target.value)}
@@ -156,7 +154,9 @@ const LandingPage = () => {
           <Typography variant="h6" component="h2">
             Sökresultat:
           </Typography>
-          {allCompanies.length === 0 ? (
+          {mode === '' ? (
+            <p>sök efter något!</p>
+          ) : allCompanies.length === 0 ? (
             <p>Inga Foajé medlemmar matchar din efterfrågan</p>
           ) : (
             <>

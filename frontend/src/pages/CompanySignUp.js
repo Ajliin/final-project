@@ -16,9 +16,14 @@ const CompanySignUp = () => {
   const [genderRatio, setGenderRatio] = useState('')
   const [companyDescription, setCompanyDescription] = useState('')
   const [location, setLocation] = useState('')
-  const [skills, setSkills] = useState([])
+  const [skills, setSkills] = useState('')
+  const [skills2, setSkills2] = useState('')
+  const [skills3, setSkills3] = useState('')
+  const [skills4, setSkills4] = useState('')
+
   const [url, setUrl] = useState('')
   const [rating, setRating] = useState('')
+  const [countRating, setCountRating] = useState('')
   const [error, setError] = useState(false)
   const [userState, setUserState] = useState('')
   const [mode, setMode] = useState('new')
@@ -55,7 +60,12 @@ const CompanySignUp = () => {
       setCompanyName(companyData.companyName)
       setGenderRatio(companyData.genderRatio)
       setCompanyDescription(companyData.companyDescription)
-      setSkills(companyData.skills)
+      setSkills(companyData.skills[0])
+      console.log('companyData.skills[0]', companyData.skills[0])
+      setSkills2(companyData.skills[1])
+      setSkills3(companyData.skills[2])
+      setSkills4(companyData.skills[3])
+
       setLocation(companyData.location)
       setUrl(companyData.url)
     } else {
@@ -115,8 +125,10 @@ const CompanySignUp = () => {
           user: userState,
           companyDescription,
           location,
-          skills,
+          skills: [skills, skills2, skills3, skills4],
           url,
+          rating,
+          countRating,
         }),
       }
 
@@ -144,7 +156,7 @@ const CompanySignUp = () => {
           user: userState,
           companyDescription,
           location,
-          skills,
+          skills: [skills, skills2, skills3, skills4],
           url,
         }),
       }
@@ -197,7 +209,7 @@ const CompanySignUp = () => {
         <form onSubmit={onFormSubmit}>
           <TextField
             id="companyName"
-            label="companyName *"
+            label="Företagsnamn*"
             variant="outlined"
             value={companyName}
             onChange={(event) => setCompanyName(event.target.value)}
@@ -206,7 +218,7 @@ const CompanySignUp = () => {
           <TextField
             id="genderRatio"
             type="text"
-            label="Gender ratio *"
+            label="Ägarandel kvinnor i %*"
             variant="outlined"
             value={genderRatio}
             onChange={(event) => setGenderRatio(event.target.value)}
@@ -215,7 +227,7 @@ const CompanySignUp = () => {
           <TextField
             id="companyDescription"
             type="text-area"
-            label="Company description"
+            label="Företagsbeskrivning"
             variant="outlined"
             value={companyDescription}
             onChange={(event) => setCompanyDescription(event.target.value)}
@@ -224,7 +236,7 @@ const CompanySignUp = () => {
           <TextField
             id="location"
             type="text"
-            label="Location"
+            label="Plats"
             variant="outlined"
             value={location}
             onChange={(event) => setLocation(event.target.value)}
@@ -238,11 +250,35 @@ const CompanySignUp = () => {
             value={skills}
             onChange={(event) => setSkills(event.target.value)}
           />
+          <TextField
+            id="skills2"
+            type="text"
+            label="Skills "
+            variant="outlined"
+            value={skills2}
+            onChange={(event) => setSkills2(event.target.value)}
+          />
+          <TextField
+            id="skills3"
+            type="text"
+            label="Skills "
+            variant="outlined"
+            value={skills3}
+            onChange={(event) => setSkills3(event.target.value)}
+          />
+          <TextField
+            id="skills2"
+            type="text"
+            label="Skills "
+            variant="outlined"
+            value={skills4}
+            onChange={(event) => setSkills4(event.target.value)}
+          />
 
           <TextField
             id="url"
             type="text"
-            label="Webb adress"
+            label="Webb-adress"
             variant="outlined"
             value={url}
             onChange={(event) => setUrl(event.target.value)}

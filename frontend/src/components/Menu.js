@@ -89,14 +89,17 @@ export default function BasicMenu() {
         }}
       >
         <MenuItem onClick={goToLandingPage}>Sök</MenuItem>
-        <MenuItem onClick={goToProfile}>Min profil</MenuItem>
+
         {hasCompany && (
           <MenuItem onClick={goToCompanyPage}>Mitt företag</MenuItem>
         )}
         {!userId ? (
           <MenuItem onClick={goToLogIn}>Login</MenuItem>
         ) : (
-          <MenuItem onClick={goToLogOut}>Logout</MenuItem>
+          <>
+            <MenuItem onClick={goToProfile}>Min profil</MenuItem>
+            <MenuItem onClick={goToLogOut}>Logout</MenuItem>
+          </>
         )}
       </Menu>
     </div>

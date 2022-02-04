@@ -7,7 +7,7 @@ import { Paper, Grid, Button, Typography, Chip, Box } from '@material-ui/core'
 
 import { LocationOnOutlined } from '@material-ui/icons'
 
-import PieChart1 from './PieChart'
+import { PieChart3 } from './PieChart'
 
 const Card = () => {
   const allCompanies = useSelector((store) => store.companies.companies)
@@ -65,17 +65,19 @@ const Card = () => {
                 </Typography>
               </Box>
               <Box>
-                {company.skills.map((skill) => (
-                  <Chip label={skill} />
-                ))}
-                <Chip label={company.skills} />
+                {company.skills.map((skill) => {
+                  if (skill === '') {
+                    return
+                  } else {
+                    return <Chip label={skill} />
+                  }
+                })}
               </Box>
             </Box>
             <Box padding={1}>
               <p>Ägandestruktur: {company.genderRatio}</p>
-              <PieChart1 />
-              {/* <p>Rating: {company.rating}</p> */}
-              {/* <Rating /> */}
+              <PieChart3 genderRatio={company.genderRatio} />
+
               <Rating
                 name="read-only"
                 defaultValue={0} //bara value sedan

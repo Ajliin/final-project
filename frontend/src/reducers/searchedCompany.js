@@ -6,8 +6,8 @@ const initialState = localStorage.getItem('company')
       company: JSON.parse(localStorage.getItem('company')).company,
       companyName: JSON.parse(localStorage.getItem('company')).companyName,
       genderRatio: JSON.parse(localStorage.getItem('company')).genderRatio,
-      companyDesciption: JSON.parse(localStorage.getItem('company'))
-        .companyDesciption,
+      companyDescription: JSON.parse(localStorage.getItem('company'))
+        .companyDescription,
       location: JSON.parse(localStorage.getItem('company')).location,
       skills: JSON.parse(localStorage.getItem('company')).skills,
       url: JSON.parse(localStorage.getItem('company')).url,
@@ -20,7 +20,7 @@ const initialState = localStorage.getItem('company')
       company: null,
       companyName: null,
       genderRatio: null,
-      companyDesciption: null,
+      companyDescription: null,
       location: null,
       skills: [],
       url: null,
@@ -56,7 +56,7 @@ const company = createSlice({
       store.genderRatio = action.payload
     },
     setCompanyDescription: (store, action) => {
-      store.companyDesciption = action.payload
+      store.companyDescription = action.payload
     },
     setLocation: (store, action) => {
       store.location = action.payload
@@ -74,6 +74,7 @@ const company = createSlice({
       store.countRating = action.payload
     },
     setReviews: (store, action) => {
+      console.log('inside genderRatio reducer', action.payload)
       store.reviews = action.payload
     },
     setError: (store, action) => {

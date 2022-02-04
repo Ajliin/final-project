@@ -190,7 +190,8 @@ app.post('/signin', async (req, res) => {
       res.status(200).json({
         response: {
           userId: user._id,
-          //username: user.username,
+          firstname: user.firstname,
+          lastname: user.lastname,
           email: user.email,
           accessToken: user.accessToken,
           hasCompany: user.hasCompany,

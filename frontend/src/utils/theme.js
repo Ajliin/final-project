@@ -1,7 +1,22 @@
 import React from 'react'
-import { createTheme } from '@material-ui/core'
+import { createTheme, Rating } from '@material-ui/core'
+import Typography from '@material-ui/core/Typography'
 
 export const theme = createTheme({
+  components: {
+    MuiTypography: {
+      variants: [
+        {
+          props: {
+            variant: 'body3',
+          },
+          style: {
+            fontSize: 9,
+          },
+        },
+      ],
+    },
+  },
   palette: {
     primary: {
       light: '#757ce8',
