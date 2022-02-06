@@ -4,7 +4,13 @@ import { useNavigate, useParams } from 'react-router-dom'
 
 import { TEST_API } from '../utils/url'
 import Header from '../components/Header'
-import { Button, Typography, TextField } from '@material-ui/core'
+import {
+  Button,
+  Typography,
+  TextField,
+  Container,
+  Box,
+} from '@material-ui/core'
 import LogOutBtn from '../components/LogOutBtn'
 
 import user from '../reducers/user'
@@ -13,8 +19,6 @@ import company from '../reducers/company'
 import AvatarIcon from '../components/AvatarIcon'
 
 const Profile = () => {
-  const [name, setName] = useState('')
-
   const {
     userId,
     accessToken,
@@ -26,11 +30,6 @@ const Profile = () => {
   const description = useSelector((store) => store.profile.description)
 
   const { companyName } = useSelector((store) => store.company)
-
-  console.log('userId', userId)
-  console.log('firstname', firstname)
-  //console.log('accessToken', accessToken)
-  console.log('hasCompany', hasCompany)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -55,6 +54,8 @@ const Profile = () => {
       .then((data) => {
         dispatch(profile.actions.setDescription(data.response))
       })
+
+    //get userData
     const options2 = {
       method: 'GET',
       headers: {
@@ -72,20 +73,21 @@ const Profile = () => {
   return (
     <>
       <Header />
-      <section className="app-container">
-        <AvatarIcon />
-        <div>
-          <p>Välkommen {firstname} till FOAJÉ </p>
-          <p>Din email: {email} </p>
+      <Container>
+        <Box>
+          <AvatarIcon />
+          <Typography variant="h5" component="h3">
+            Välkommen {firstname} till Foaje!
+          </Typography>
+          <Typography variant="h6" component="body1">
+            Din email: {email}
+          </Typography>
 
           <p>
             Här hittar du tjänster och produkter skapade av kvinnliga
             entreprenörer, kreatörer och småföretagare.
           </p>
-          <p>
-            {firstname}
-            {lastname}..{' '}
-          </p>
+
           <div>
             {/* {description &&
               description?.map((item) => (
@@ -94,7 +96,7 @@ const Profile = () => {
                 </>
               ))} */}
           </div>
-        </div>
+        </Box>
         <LogOutBtn />
 
         {!hasCompany ? (
@@ -116,15 +118,7 @@ const Profile = () => {
             Go to your company
           </Button>
         )}
-        {/* <Button
-        type="submit"
-        color="secondary"
-        variant="contained"
-        onClick={() => navigate('/company')}
-      >
-        Go to your company
-      </Button> */}
-      </section>
+      </Container>
     </>
   )
 }

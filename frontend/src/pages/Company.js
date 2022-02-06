@@ -9,10 +9,18 @@ import {
   Container,
   Box,
   Grid,
+  Card,
+  CardHeader,
+  CardMedia,
+  Chip,
 } from '@material-ui/core'
+import Rating from '@mui/material/Rating'
 import { LocationOnOutlined } from '@material-ui/icons'
+import { CardContent } from '@mui/material'
 
 import { TEST_API } from '../utils/url'
+import { styles } from '../utils/theme'
+
 import Header from '../components/Header'
 import LogOutBtn from '../components/LogOutBtn'
 import { PieChart1, PieChart2 } from '../components/PieChart'
@@ -59,6 +67,7 @@ const Company = () => {
   //if mode === profile
   useEffect(() => {
     if (mode === 'profile') {
+      //get myCompany
       const options = {
         method: 'GET',
         headers: {
@@ -72,7 +81,7 @@ const Company = () => {
           console.log('Data from get company/profileid in COMPANY', data)
           console.log(
             'Data.response.companyName from get company/profileid in COMPANY',
-            data.response.companyName,
+            data.response.reviews,
           )
 
           if (data.success) {
@@ -227,12 +236,150 @@ const Company = () => {
     }
   }, [dispatch, company, mode])
 
+  // const styles = {
+  //   CardHeaderMedia: {
+  //     backgroundImage: `url(https://source.unsplash.com/random/3000x300?sig=1)`,
+  //     height: 300,
+  //   },
+  //   CardHeader: {
+  //     padding: 2,
+  //     display: 'flex',
+  //     justifyContent: 'space-between',
+  //     padding: 20,
+  //   },
+  //   Card: { marginTop: 20 },
+  //   SmallCard: { padding: 20 },
+  // }
+
   return (
     <>
       <Header />
       <Container className="app-container">
         <div>
-          {mode === 'profile' ? (
+          {mode === 'searched' ? (
+            // ***********************Searched Company ****************
+            <>
+              {/* //HEADERKORT */}
+
+              <Grid container spacing={2}>
+                <Grid item xs={12}>
+                  <Card style={styles.Card}>
+                    <CardMedia style={styles.CardHeaderMedia}></CardMedia>
+                    <CardContent style={styles.CardHeader}>
+                      <Box
+                        sx={{
+                          padding: 2,
+                          display: 'flex',
+                        }}
+                      >
+                        <AvatarIcon />
+                        <Box
+                          sx={{
+                            marginLeft: 20,
+                          }}
+                        >
+                          <Typography variant="h4" component="h1">
+                            {sCompany.companyName}
+                          </Typography>
+                          <Box
+                            sx={{
+                              padding: 2,
+                              display: 'flex',
+                            }}
+                          >
+                            <LocationOnOutlined />
+                            <p>{sCompany.location}</p>
+                          </Box>
+                        </Box>
+                      </Box>
+
+                      <Box
+                        sx={{
+                          marginLeft: 20,
+                        }}
+                      >
+                        <PieChart2 />
+                      </Box>
+
+                      <Box
+                        sx={{
+                          marginLeft: 20,
+                        }}
+                      >
+                        <Button>Kontakta mig</Button>
+                      </Box>
+                    </CardContent>
+                  </Card>
+                </Grid>
+                <Grid item xs={4}>
+                  {/* SKILLSKORT */}
+                  <Card style={styles.SmallCard}>
+                    <Typography variant="h6" component="h2">
+                      Skills eller produkter
+                    </Typography>
+                    {sCompany.skills?.map((skill) => {
+                      if (skill === '') {
+                        return
+                      } else {
+                        return <Chip label={skill} />
+                      }
+                    })}
+                  </Card>
+                </Grid>
+                {/* BESKRIVNING AV FÖRETAG */}
+                <Grid item xs={8}>
+                  <Card style={styles.SmallCard}>
+                    <Typography variant="h6" component="h2">
+                      Beskrivning av företaget
+                    </Typography>
+                    <p>{sCompany.companyDescription}</p>
+                  </Card>
+                </Grid>
+
+                <Grid item xs={4}>
+                  {/* RATINGKORT */}
+                  <Card style={styles.SmallCard}>
+                    <Rating
+                      name="read-only"
+                      defaultValue={0} //bara value sedan
+                      value={sCompany.rating}
+                      readOnly
+                      precision={0.1}
+                    />
+                    <p>Rating: {Math.round(sCompany.rating * 10) / 10}</p>
+                    <Modal />
+                  </Card>
+                </Grid>
+
+                {/* HEMSIDA */}
+                <Grid item xs={4}>
+                  <Card style={styles.SmallCard}>
+                    <p>Hemsida: {sCompany.url}</p>
+                  </Card>
+                </Grid>
+                <Grid item xs={8}>
+                  <Card>
+                    <p>Recension</p>
+
+                    {sCompany.reviews &&
+                      sCompany.reviews.map((review) => (
+                        <Box
+                          sx={{
+                            padding: 2,
+                            display: 'flex',
+                          }}
+                        >
+                          <p>{review.rating}</p>
+                          <p>{review.comment}</p>
+                          <p>{review.reviewerId}</p>
+                        </Box>
+                      ))}
+                  </Card>
+                </Grid>
+              </Grid>
+            </>
+          ) : (
+            // ********************MY PAGE ************''
             <>
               <Box
                 sx={{
@@ -272,7 +419,14 @@ const Company = () => {
                     <p>Hemsida: {myCompany.url}</p>
                   </Grid>
                   <Grid item xs={4}>
-                    <p>Rating: {myCompany.rating}</p>
+                    <Rating
+                      name="read-only"
+                      defaultValue={0} //bara value sedan
+                      value={myCompany.rating}
+                      readOnly
+                      precision={0.1}
+                    />
+                    <p>Rating: {Math.round(myCompany.rating * 10) / 10}</p>
                   </Grid>
                   <Grid item xs={8}>
                     <p>
@@ -306,67 +460,6 @@ const Company = () => {
               </Box>
 
               <LogOutBtn />
-            </>
-          ) : (
-            // ***********************Searched Company ****************
-
-            <>
-              <Box
-                sx={{
-                  padding: 2,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'space-around',
-                }}
-              >
-                <Box
-                  sx={{
-                    marginBottom: 50,
-                  }}
-                >
-                  <Typography variant="h3" component="h1">
-                    {sCompany.companyName}
-                  </Typography>
-                </Box>
-                <Grid container spacing={2}>
-                  <Grid item xs={4}>
-                    <AvatarIcon />
-                    <Box
-                      sx={{
-                        padding: 2,
-                        display: 'flex',
-                      }}
-                    >
-                      <LocationOnOutlined />
-                      <p>{sCompany.location}</p>
-                    </Box>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <PieChart2 />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <p>Hemsida: {sCompany.url}</p>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <p>Rating: {sCompany.rating}</p>
-                  </Grid>
-                  <Grid item xs={8}>
-                    <p>
-                      Skills eller produkter:
-                      {sCompany.skills?.map((skill) => skill)}
-                    </p>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Modal />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <p>
-                      Beskrvning av företaget: {sCompany.companyDescription}
-                    </p>
-                  </Grid>
-                </Grid>
-              </Box>
             </>
           )}
         </div>

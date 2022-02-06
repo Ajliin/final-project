@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch, batch } from 'react-redux'
 import { Navigate, useNavigate } from 'react-router-dom'
+import { styles } from '../utils/theme'
 
 import {
   Button,
@@ -9,6 +10,8 @@ import {
   Container,
   Grid,
   Box,
+  Paper,
+  Link,
 } from '@material-ui/core'
 
 import Header from '../components/Header'
@@ -18,6 +21,7 @@ import Card from '../components/Card'
 
 import companies from '../reducers/companies'
 import user from '../reducers/user'
+import Category from '../components/Category'
 
 const LandingPage = () => {
   const [searchSkills, setSearchSkills] = useState('')
@@ -72,22 +76,29 @@ const LandingPage = () => {
     <>
       <Header />
       <Container>
-        <Box
-          sx={{
-            marginY: 5,
-            paddingX: 20,
-            backgroundColor: 'lightgrey',
-          }}
-        >
-          <Typography variant="h6" component="h2">
-            FOAJÉ gör det lättare och roligare för dig att stötta kvinnliga
-            entreprenörer kreatörer och småföretagare.
-          </Typography>
-        </Box>
+        <Paper>
+          <Box
+            sx={{
+              marginY: 2,
+              padding: 20,
+              display: 'flex',
+              justifyContent: 'center',
+              //  backgroundColor: 'beige',
+            }}
+          >
+            <Typography variant="h6" component="h2">
+              FOAJÉ gör det lättare och roligare för dig att stötta kvinnliga
+              entreprenörer kreatörer och småföretagare.
+            </Typography>
+          </Box>
+        </Paper>
+
         <Box
           sx={{
             marginY: 2,
-            paddingX: 20,
+            display: 'flex',
+            justifyContent: 'center',
+            // paddingX: 20,
             //  backgroundColor: 'beige',
           }}
         >
@@ -103,36 +114,50 @@ const LandingPage = () => {
         <Box
           sx={{
             margin: 2,
-            paddingX: 20,
-            // backgroundColor: 'beige',
             display: 'flex',
-
-            alignItems: 'around',
-            justifyContent: 'space-between',
-            width: 1100,
+            justifyContent: 'center',
+            marginY: 2,
           }}
         >
-          <TextField
-            id="companyName"
-            label="Alla företag"
-            variant="outlined"
-            value={searchCompany}
-            onChange={(event) => setSearchCompany(event.target.value)}
-          />
-          <TextField
-            id="skills"
-            label="Alla skills"
-            variant="outlined"
-            value={searchSkills}
-            onChange={(event) => setSearchSkills(event.target.value)}
-          />
-          <TextField
-            id="city"
-            label="Hela Sverige"
-            variant="outlined"
-            value={searchLocation}
-            onChange={(event) => setSearchLocation(event.target.value)}
-          />
+          <Box
+            sx={{
+              marginX: 2,
+            }}
+          >
+            <TextField
+              id="companyName"
+              label="Företag"
+              variant="outlined"
+              value={searchCompany}
+              onChange={(event) => setSearchCompany(event.target.value)}
+            />
+          </Box>
+          <Box
+            sx={{
+              marginX: 2,
+            }}
+          >
+            <TextField
+              id="skills"
+              label="Skills eller produkter"
+              variant="outlined"
+              value={searchSkills}
+              onChange={(event) => setSearchSkills(event.target.value)}
+            />
+          </Box>
+          <Box
+            sx={{
+              marginX: 2,
+            }}
+          >
+            <TextField
+              id="city"
+              label="Location"
+              variant="outlined"
+              value={searchLocation}
+              onChange={(event) => setSearchLocation(event.target.value)}
+            />
+          </Box>
 
           <Button
             type="submit"
@@ -147,24 +172,37 @@ const LandingPage = () => {
         <Box
           sx={{
             marginY: 2,
-            paddingX: 20,
+
             //backgroundColor: 'beige',
           }}
         >
           <Typography variant="h6" component="h2">
-            Sökresultat:
+            Sökresultat
           </Typography>
           {mode === '' ? (
-            <p>sök efter något!</p>
+            <p>Ingen sökning gjord</p>
           ) : allCompanies.length === 0 ? (
             <p>Inga Foajé medlemmar matchar din efterfrågan</p>
           ) : (
             <>
-              <Grid container spacing={3}>
-                <Card />
-              </Grid>
+              <Card />
             </>
           )}
+        </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            marginTop: 100,
+
+            //backgroundColor: 'beige',
+          }}
+        >
+          <Category category={'Kategori 1'} no={1} />
+          <Category category={'Kategori 2'} no={2} />
+          <Category category={'Kategori 3'} no={3} />
+          <Category category={'Kategori 4'} no={4} />
+          <Category category={'Kategori 5'} no={5} />
         </Box>
       </Container>
     </>

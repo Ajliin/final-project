@@ -75,7 +75,7 @@ const company = createSlice({
       store.countRating = action.payload
     },
     setReviews: (store, action) => {
-      console.log('inside genderRatio reducer', action.payload)
+      console.log('inside setReviews reducer', action.payload)
       store.reviews = action.payload
     },
     setThisReview: (store, action) => {

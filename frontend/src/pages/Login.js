@@ -7,18 +7,19 @@ import {
   TextField,
   Box,
   Container,
+  Paper,
 } from '@material-ui/core'
 
 import { TEST_API } from '../utils/url'
 import user from '../reducers/user'
 import Header from '../components/Header'
+import { styles } from '../utils/theme'
 
 const Login = () => {
   const [firstname, setFirstname] = useState('')
   const [lastname, setLastname] = useState('')
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
-
   const [mode, setMode] = useState('signin')
   const [error, setError] = useState(false)
 
@@ -26,7 +27,6 @@ const Login = () => {
 
   const accessToken = useSelector((store) => store.user.accessToken)
   const { hasCompany } = useSelector((store) => store.user)
-  //const [hasCompany, setHasCompany] = useState(false)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -99,94 +99,122 @@ const Login = () => {
     <>
       <Header />
       <Container>
-        <Box>
-          <Typography>
-            Genom att bli medlem i FOAJÉ blir du en del av Sveriges största
-            marknadsplats för kvinnliga entreprenörer, kreatörer och
-            småföretagare. Här kan du: Hitta och Köpa produkter och tjänster
-            från företag drivna av kvinnor. Registrera ditt bolag eller dig
-            själv om du har tjänster och produkter som du vill sälja. Det går
-            att bli en säljare oavsett om du har ett bolag eller är frilansare.
-          </Typography>
-        </Box>
-
-        <form onSubmit={onFormSubmit}>
+        <Paper style={styles.PaperForm}>
           <Box
             sx={{
-              margin: 2,
-              paddingX: 20,
-              // backgroundColor: 'beige',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'around',
-              justifyContent: 'space-between',
-              width: 1100,
+              width: '50%',
+              marginTop: 50,
             }}
           >
-            {mode === 'signup' && (
-              <>
+            <form onSubmit={onFormSubmit}>
+              <Box
+                sx={{
+                  margin: 2,
+                  paddingX: 20,
+                  // backgroundColor: 'beige',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  //alignItems: 'around',
+                  //justifyContent: 'space-between',
+                }}
+              >
+                {mode === 'signup' && (
+                  <>
+                    <TextField
+                      id="firstname"
+                      label="Förnamn"
+                      required
+                      variant="outlined"
+                      value={firstname}
+                      onChange={(event) => setFirstname(event.target.value)}
+                    />
+                    <TextField
+                      id="lastname"
+                      label="Efternamn"
+                      required
+                      variant="outlined"
+                      value={lastname}
+                      onChange={(event) => setLastname(event.target.value)}
+                    />
+                  </>
+                )}
+
+                {mode === 'signin' && (
+                  <>
+                    <Typography variant="h5" component="h2">
+                      Välkommen tillbaka
+                    </Typography>
+                    <Typography variant="body3" component="h5">
+                      Lorum ipsum
+                    </Typography>
+                  </>
+                )}
+
                 <TextField
-                  id="firstname"
-                  label="Förnamn *"
+                  id="email"
+                  type="email"
+                  type="email"
+                  label="Email"
+                  required
                   variant="outlined"
-                  value={firstname}
-                  onChange={(event) => setFirstname(event.target.value)}
+                  value={email}
+                  onChange={(event) => setEmail(event.target.value)}
                 />
                 <TextField
-                  id="lastname"
-                  label="Efternamn *"
+                  id="password"
+                  type="password"
+                  label="Password"
+                  required
                   variant="outlined"
-                  value={lastname}
-                  onChange={(event) => setLastname(event.target.value)}
+                  value={password}
+                  onChange={(event) => setPassword(event.target.value)}
                 />
-              </>
-            )}
+                <div className="btn-container">
+                  <Button type="submit" color="secondary" variant="contained">
+                    Submit
+                  </Button>
+                  {errorMess && <p color="red">{errorMess}</p>}
 
-            <TextField
-              id="email"
-              type="email"
-              type="text"
-              label="Email *"
-              variant="outlined"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-            />
-            <TextField
-              id="password"
-              type="password"
-              label="Password *"
-              variant="outlined"
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-            />
-            <div className="btn-container">
-              <Button type="submit" color="secondary" variant="contained">
-                Submit
-              </Button>
-              {errorMess && <p color="red">{errorMess}</p>}
-
-              {mode === 'signup' ? (
-                <Button
-                  type="button"
-                  color="primary"
-                  variant="contained"
-                  onClick={() => setMode('signin')}
-                >
-                  Har du redan ett konto? Logga in
-                </Button>
-              ) : (
-                <Button
-                  type="button"
-                  color="primary"
-                  variant="contained"
-                  onClick={() => setMode('signup')}
-                >
-                  Vill du bli ny medlem? Signa upp
-                </Button>
-              )}
-            </div>
+                  {mode === 'signup' ? (
+                    <Button
+                      type="button"
+                      color="primary"
+                      variant="contained"
+                      onClick={() => setMode('signin')}
+                    >
+                      Har du redan ett konto? Logga in
+                    </Button>
+                  ) : (
+                    <Button
+                      type="button"
+                      color="primary"
+                      variant="contained"
+                      onClick={() => setMode('signup')}
+                    >
+                      Vill du bli ny medlem? Signa upp
+                    </Button>
+                  )}
+                </div>
+              </Box>
+            </form>
           </Box>
-        </form>
+          <Box
+            sx={{
+              width: '50%',
+              padding: 30,
+            }}
+          >
+            <Typography>
+              Genom att bli medlem i FOAJÉ blir du en del av Sveriges största
+              marknadsplats för kvinnliga entreprenörer, kreatörer och
+              småföretagare. Här kan du: Hitta och Köpa produkter och tjänster
+              från företag drivna av kvinnor. Registrera ditt bolag eller dig
+              själv om du har tjänster och produkter som du vill sälja. Det går
+              att bli en säljare oavsett om du har ett bolag eller är
+              frilansare.
+            </Typography>
+          </Box>
+        </Paper>
       </Container>
     </>
   )

@@ -68,7 +68,9 @@ const company = createSlice({
       store.url = action.payload
     },
     setRating: (store, action) => {
-      store.rating = action.payload
+      store.rating = Math.round(action.payload)
+      console.log('Math.round(store.rating)', Math.round(store.rating))
+      console.log('inside setRating company reducer', store.rating)
     },
     setCountRating: (store, action) => {
       store.countRating = action.payload

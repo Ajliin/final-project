@@ -1,4 +1,11 @@
-import { AppBar, Toolbar, Typography, Button, Box } from '@material-ui/core'
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  Box,
+  Container,
+} from '@material-ui/core'
 import { AccountCircle } from '@material-ui/icons'
 import React from 'react'
 
@@ -13,25 +20,24 @@ const Header = () => {
 
   return (
     <AppBar position="static" color="inherit">
-      <Toolbar>
-        <Box
-          sx={{
-            padding: 2,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
-        >
-          <Button type="submit" onClick={() => navigate('/')}>
-            <Typography>FOAJÉ</Typography>
-          </Button>
-          <Menu />
-
-          {/* <Button type="submit" onClick={() => navigate('/login')}>
-            <AccountCircle />
-          </Button> */}
-        </Box>
-      </Toolbar>
+      <Container>
+        <Toolbar>
+          <Box
+            sx={{
+              padding: 2,
+              width: '100%',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+            }}
+          >
+            <Button type="submit" onClick={() => navigate('/')}>
+              <Typography>FOAJÉ</Typography>
+            </Button>
+            <Menu />
+          </Box>
+        </Toolbar>
+      </Container>
     </AppBar>
   )
 }

@@ -299,8 +299,6 @@ app.post('/company', async (req, res) => {
     skills,
     url,
     user,
-    rating,
-    countRating,
   } = req.body
 
   //console.log('user inside app.post', user)
@@ -315,8 +313,6 @@ app.post('/company', async (req, res) => {
       location,
       skills,
       url,
-      rating,
-      countRating,
     }).save()
 
     res.status(201).json({
@@ -328,8 +324,6 @@ app.post('/company', async (req, res) => {
         location: newCompany.location,
         skills: newCompany.skills,
         url: newCompany.url,
-        rating: newCompany.rating,
-        countRating: newCompany.countRating,
       },
       success: true,
     })
@@ -360,6 +354,9 @@ app.get('/company-result/:companyId', async (req, res) => {
         skills: getCompany.skills,
         url: getCompany.url,
         user: getCompany.user,
+        rating: getCompany.rating,
+        countRating: getCompany.countRating,
+        reviews: getCompany.reviews,
       },
       success: true,
     })
@@ -389,6 +386,9 @@ app.get('/company/:userId', async (req, res) => {
         skills: getCompany.skills,
         url: getCompany.url,
         user: getCompany.user,
+        rating: getCompany.rating,
+        countRating: getCompany.countRating,
+        reviews: getCompany.reviews,
       },
       success: true,
     })
@@ -492,8 +492,6 @@ app.post('/rating/:companyId', async (req, res) => {
 
     console.log(review)
 
-    //const reviews = []
-
     company.reviews.push(review)
 
     console.log('company.reviews', company.reviews)
@@ -506,56 +504,28 @@ app.post('/rating/:companyId', async (req, res) => {
       company.reviews.reduce((acc, item) => item.rating + acc, 0) /
       company.reviews.length
 
-    console.log('company.rating', company.rating)
+    // console.log(
+    //   'company.rating',
+    //   company.aggragate([
+    //     { $project: { roundedValue: { $round: ['$rating', 1] } } },
+    //   ]),
+    // )
 
     await company.save()
 
-    res.status(200).json({ response: company, success: true })
+    res.status(200).json({
+      response: {
+        companyName: company.companyName,
+        rating: Math.round(company.rating * 10) / 10,
+        countRating: company.countRating,
+        reviews: company.reviews,
+      },
+      success: true,
+    })
   } catch (error) {
     res.status(400).json({ response: 'No company with that ID', sucess: false })
   }
 })
-
-// app.post('/rating/:companyId', async (req, res) => {
-//   const { companyId } = req.params
-//   const { newRatingUser, prevRating, NewCountRating } = req.body
-
-//   const valueAll = prevRating * NewCountRating
-//   console.log('valueAll', valueAll)
-//   const x = +newRatingUser + +valueAll
-//   console.log('x', x)
-
-//   const newRating1 = x / (+NewCountRating + 1)
-//   console.log('newRating1', newRating1)
-
-//   try {
-//     //mongo operator
-//     const { rating, countRating } = await Company.findById(companyId)
-//     console.log('rating from Tobias company', rating)
-//     console.log('Countrating from Tobias company', countRating)
-//     const newRating =
-//       +newRatingUser + (+rating * +countRating) / (+countRating + 1)
-//     console.log('newRating', newRating)
-
-//     const updatedRating = await Company.findByIdAndUpdate(
-//       { _id: companyId },
-//       {
-//         $inc: {
-//           countRating: 1,
-//         },
-//         rating: newRating,
-//       },
-//       {
-//         new: true, //updated document directly- find in documentary
-//       },
-//     )
-//     console.log('req body', req.body)
-//     console.log(updatedRating)
-//     res.status(200).json({ response: updatedRating, success: true })
-//   } catch (error) {
-//     res.status(400).json({ response: 'No company with that ID', sucess: false })
-//   }
-// })
 
 // Start the server
 app.listen(port, () => {

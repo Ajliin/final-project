@@ -21,6 +21,7 @@ export default function FormDialog() {
   const [review, setReview] = useState('')
 
   const userReview = useSelector((store) => store.user.firstname)
+  console.log('userReview', userReview)
   const { companyId, thisReview } = useSelector(
     (store) => store.searchedCompany,
   )
@@ -45,7 +46,7 @@ export default function FormDialog() {
       body: JSON.stringify({
         newRating: thisReview,
         comment: review,
-        reviewer: userReview,
+        reviewerId: userReview,
       }),
     }
 
@@ -54,6 +55,14 @@ export default function FormDialog() {
       .then((data) => {
         console.log('REVIEWS!!!', data.response.reviews)
         dispatch(company.actions.setReviews(data.response.reviews))
+        dispatch(company.actions.setRating(data.response.rating))
+        dispatch(searchedCompany.actions.setReviews(data.response.reviews))
+        // localStorage.setItem(
+        //   'searchedCompany',
+        //   JSON.stringify({
+        //     reviews: data.response.reviews,
+        //   }),
+        // )
       })
     dispatch(searchedCompany.actions.setThisReview(null))
     setReview('')
