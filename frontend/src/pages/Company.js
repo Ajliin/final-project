@@ -15,7 +15,7 @@ import {
   Chip,
 } from '@material-ui/core'
 import Rating from '@mui/material/Rating'
-import { LocationOnOutlined } from '@material-ui/icons'
+import { LocationOnOutlined, SettingsEthernet } from '@material-ui/icons'
 import { CardContent } from '@mui/material'
 
 import { TEST_API } from '../utils/url'
@@ -36,6 +36,8 @@ import searchedCompany from '../reducers/searchedCompany'
 
 const Company = () => {
   const [mode, setMode] = useState('')
+  const [showRating, setShowRating] = useState(false)
+  const [test, setTest] = useState('')
 
   //useSelector
   const profileId = useSelector((store) => store.user.userId)
@@ -50,6 +52,7 @@ const Company = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
+  //useEffect
   useEffect(() => {
     if (!accessToken) {
       navigate('/login')
@@ -236,21 +239,6 @@ const Company = () => {
     }
   }, [dispatch, company, mode])
 
-  // const styles = {
-  //   CardHeaderMedia: {
-  //     backgroundImage: `url(https://source.unsplash.com/random/3000x300?sig=1)`,
-  //     height: 300,
-  //   },
-  //   CardHeader: {
-  //     padding: 2,
-  //     display: 'flex',
-  //     justifyContent: 'space-between',
-  //     padding: 20,
-  //   },
-  //   Card: { marginTop: 20 },
-  //   SmallCard: { padding: 20 },
-  // }
-
   return (
     <>
       <Header />
@@ -346,7 +334,21 @@ const Company = () => {
                       readOnly
                       precision={0.1}
                     />
-                    <p>Rating: {Math.round(sCompany.rating * 10) / 10}</p>
+                    <p>
+                      Omdöme: {Math.round(sCompany.rating * 10) / 10}
+                      <Button
+                        onClick={() => {
+                          if (showRating === true) {
+                            setShowRating(false)
+                          } else {
+                            setShowRating(true)
+                          }
+                        }}
+                      >
+                        ({sCompany.reviews.length})
+                      </Button>
+                    </p>
+
                     <Modal />
                   </Card>
                 </Grid>
@@ -357,24 +359,49 @@ const Company = () => {
                     <p>Hemsida: {sCompany.url}</p>
                   </Card>
                 </Grid>
-                <Grid item xs={8}>
-                  <Card>
-                    <p>Recension</p>
+                <Grid item xs={12}>
+                  {showRating && (
+                    <Card style={styles.SmallCard}>
+                      <p>Recension</p>
 
-                    {sCompany.reviews &&
-                      sCompany.reviews.map((review) => (
-                        <Box
-                          sx={{
-                            padding: 2,
-                            display: 'flex',
-                          }}
-                        >
-                          <p>{review.rating}</p>
-                          <p>{review.comment}</p>
-                          <p>{review.reviewerId}</p>
-                        </Box>
-                      ))}
-                  </Card>
+                      {sCompany.reviews &&
+                        sCompany.reviews.map((review) => (
+                          <Box
+                            sx={{
+                              padding: 10,
+                              display: 'flex',
+                              // justifyContent: 'space-between',
+                            }}
+                          >
+                            <Box
+                              sx={{
+                                width: '20%',
+                              }}
+                            >
+                              <Typography>Omdöme: {review.rating}</Typography>
+                            </Box>
+                            <Box
+                              sx={{
+                                width: '20%',
+                              }}
+                            >
+                              <Typography>
+                                Gjord av: {review.reviewerId}
+                              </Typography>
+                            </Box>
+                            <Box
+                              sx={{
+                                width: '40%',
+                              }}
+                            >
+                              <Typography>
+                                Kommentar: {review.comment}
+                              </Typography>
+                            </Box>
+                          </Box>
+                        ))}
+                    </Card>
+                  )}
                 </Grid>
               </Grid>
             </>

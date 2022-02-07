@@ -58,6 +58,10 @@ const LandingPage = () => {
   const getCompanyData = (event) => {
     event.preventDefault()
     setMode('searched')
+    console.log(
+      'searchSkills URL in LANDINGPAGE',
+      `result-companies?companyName=${searchCompany}&&location=${searchLocation}&&skills=${searchSkills}`,
+    )
 
     fetch(
       TEST_API(
@@ -161,7 +165,7 @@ const LandingPage = () => {
 
           <Button
             type="submit"
-            color="primary.main"
+            color="primary"
             variant="contained"
             onClick={getCompanyData}
           >
@@ -198,7 +202,7 @@ const LandingPage = () => {
             //backgroundColor: 'beige',
           }}
         >
-          <Category category={'Kategori 1'} no={1} />
+          <Category category={'Kategori 1'} no={1} searchSkills={'Talking'} />
           <Category category={'Kategori 2'} no={2} />
           <Category category={'Kategori 3'} no={3} />
           <Category category={'Kategori 4'} no={4} />
