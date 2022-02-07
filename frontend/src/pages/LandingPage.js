@@ -14,6 +14,10 @@ import {
   Link,
 } from '@material-ui/core'
 
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
+import WorkOutlineRoundedIcon from '@mui/icons-material/WorkOutlineRounded'
+import { LocationOnOutlined } from '@material-ui/icons'
+
 import Header from '../components/Header'
 import AvatarIcon from '../components/AvatarIcon'
 import { TEST_API } from '../utils/url'
@@ -79,7 +83,7 @@ const LandingPage = () => {
   return (
     <>
       <Header />
-      <Container>
+      <Box style={styles.BackgroundImg}>
         <Paper>
           <Box
             sx={{
@@ -131,6 +135,9 @@ const LandingPage = () => {
             <TextField
               id="companyName"
               label="Företag"
+              InputProps={{
+                startAdornment: <SearchRoundedIcon />,
+              }}
               variant="outlined"
               value={searchCompany}
               onChange={(event) => setSearchCompany(event.target.value)}
@@ -144,11 +151,15 @@ const LandingPage = () => {
             <TextField
               id="skills"
               label="Skills eller produkter"
+              InputProps={{
+                startAdornment: <WorkOutlineRoundedIcon />,
+              }}
               variant="outlined"
               value={searchSkills}
               onChange={(event) => setSearchSkills(event.target.value)}
             />
           </Box>
+
           <Box
             sx={{
               marginX: 2,
@@ -157,6 +168,9 @@ const LandingPage = () => {
             <TextField
               id="city"
               label="Location"
+              InputProps={{
+                startAdornment: <LocationOnOutlined />,
+              }}
               variant="outlined"
               value={searchLocation}
               onChange={(event) => setSearchLocation(event.target.value)}
@@ -172,7 +186,8 @@ const LandingPage = () => {
             Hitta företag
           </Button>
         </Box>
-
+      </Box>
+      <Container>
         <Box
           sx={{
             marginY: 2,

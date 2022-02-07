@@ -11,6 +11,10 @@ import {
   Link,
 } from '@material-ui/core'
 
+import VpnKeyRoundedIcon from '@mui/icons-material/VpnKeyRounded'
+import MailOutlineRoundedIcon from '@mui/icons-material/MailOutlineRounded'
+import PersonOutlineRoundedIcon from '@mui/icons-material/PersonOutlineRounded'
+
 import { TEST_API } from '../utils/url'
 import user from '../reducers/user'
 import Header from '../components/Header'
@@ -161,6 +165,9 @@ const Login = () => {
                       <TextField
                         id="firstname"
                         label="Förnamn"
+                        InputProps={{
+                          startAdornment: <PersonOutlineRoundedIcon />,
+                        }}
                         margin="normal"
                         required
                         variant="outlined"
@@ -170,6 +177,9 @@ const Login = () => {
                       <TextField
                         id="lastname"
                         label="Efternamn"
+                        InputProps={{
+                          startAdornment: <PersonOutlineRoundedIcon />,
+                        }}
                         margin="normal"
                         required
                         variant="outlined"
@@ -184,16 +194,23 @@ const Login = () => {
                     type="email"
                     type="text"
                     label="Email"
+                    InputProps={{
+                      startAdornment: <MailOutlineRoundedIcon />,
+                    }}
                     margin="normal"
                     required
                     variant="outlined"
                     value={email}
                     onChange={(event) => setEmail(event.target.value)}
                   />
+
                   <TextField
                     id="password"
                     type="password"
-                    label="Password"
+                    label="Password "
+                    InputProps={{
+                      startAdornment: <VpnKeyRoundedIcon />,
+                    }}
                     required
                     variant="outlined"
                     value={password}
@@ -220,6 +237,7 @@ const Login = () => {
                       >
                         <Typography>Är du redan medlem? </Typography>
                         <Link
+                          href="#"
                           underline="hover"
                           onClick={() => setMode('signin')}
                         >
@@ -248,6 +266,7 @@ const Login = () => {
                         <Typography>Vill du bli medlem? </Typography>
                         <Link
                           underline="hover"
+                          href="#"
                           onClick={() => setMode('signup')}
                         >
                           Sign up

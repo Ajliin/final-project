@@ -62,6 +62,10 @@ export const styles = {
     height: '100%',
     width: '50%',
   },
+  BackgroundImg: {
+    backgroundImage: `url(https://source.unsplash.com/random/2000x500?sig=2)`,
+    height: '50vh',
+  },
 }
 
 // components: {
