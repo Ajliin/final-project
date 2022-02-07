@@ -17,27 +17,12 @@
   display: flex;
   margin: 0 auto;
   max-width: 600px;
-}
+} */
 
-.search-container {
+/* .search-container {
   display: flex;
-  justify-content: space-around;
+  justify-content: fl;
   align-items: space-around;
   max-width: 600px;
   margin: 0 auto;
-}
-
-
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
 } */

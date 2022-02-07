@@ -8,12 +8,15 @@ import {
   Box,
   Container,
   Paper,
+  Link,
 } from '@material-ui/core'
 
 import { TEST_API } from '../utils/url'
 import user from '../reducers/user'
 import Header from '../components/Header'
-import { styles } from '../utils/theme'
+import { styles, theme } from '../utils/theme'
+import { CardMedia, Card } from '@mui/material'
+import { withTheme } from '@emotion/react'
 
 const Login = () => {
   const [firstname, setFirstname] = useState('')
@@ -99,122 +102,196 @@ const Login = () => {
     <>
       <Header />
       <Container>
-        <Paper style={styles.PaperForm}>
+        <Card style={styles.PaperForm}>
+          {/* //ramen kring */}
           <Box
             sx={{
               width: '50%',
-              marginTop: 50,
+              marginTop: '15vh',
             }}
           >
             <form onSubmit={onFormSubmit}>
+              {/* Containern kring inlogging */}
               <Box
                 sx={{
-                  margin: 2,
-                  paddingX: 20,
-                  // backgroundColor: 'beige',
+                  //  backgroundColor: 'beige',
                   display: 'flex',
                   flexDirection: 'column',
-                  //alignItems: 'around',
-                  //justifyContent: 'space-between',
+                  marginX: '10vw',
                 }}
               >
-                {mode === 'signup' && (
-                  <>
-                    <TextField
-                      id="firstname"
-                      label="Förnamn"
-                      required
-                      variant="outlined"
-                      value={firstname}
-                      onChange={(event) => setFirstname(event.target.value)}
-                    />
-                    <TextField
-                      id="lastname"
-                      label="Efternamn"
-                      required
-                      variant="outlined"
-                      value={lastname}
-                      onChange={(event) => setLastname(event.target.value)}
-                    />
-                  </>
-                )}
-
-                {mode === 'signin' && (
-                  <>
-                    <Typography variant="h5" component="h2">
-                      Välkommen tillbaka
-                    </Typography>
-                    <Typography variant="body3" component="h5">
-                      Lorum ipsum
-                    </Typography>
-                  </>
-                )}
-
-                <TextField
-                  id="email"
-                  type="email"
-                  type="email"
-                  label="Email"
-                  required
-                  variant="outlined"
-                  value={email}
-                  onChange={(event) => setEmail(event.target.value)}
-                />
-                <TextField
-                  id="password"
-                  type="password"
-                  label="Password"
-                  required
-                  variant="outlined"
-                  value={password}
-                  onChange={(event) => setPassword(event.target.value)}
-                />
-                <div className="btn-container">
-                  <Button type="submit" color="secondary" variant="contained">
-                    Submit
-                  </Button>
-                  {errorMess && <p color="red">{errorMess}</p>}
-
-                  {mode === 'signup' ? (
-                    <Button
-                      type="button"
-                      color="primary"
-                      variant="contained"
-                      onClick={() => setMode('signin')}
-                    >
-                      Har du redan ett konto? Logga in
-                    </Button>
+                <Box
+                  sx={{
+                    marginBottom: 25,
+                  }}
+                >
+                  {mode === 'signin' ? (
+                    <>
+                      <Typography variant="h5" component="h2">
+                        Välkommen tillbaka
+                      </Typography>
+                      <Typography variant="body2" component="h5">
+                        Lorum ipsum
+                      </Typography>
+                    </>
                   ) : (
-                    <Button
-                      type="button"
-                      color="primary"
-                      variant="contained"
-                      onClick={() => setMode('signup')}
-                    >
-                      Vill du bli ny medlem? Signa upp
-                    </Button>
+                    <>
+                      <Typography variant="h5" component="h2">
+                        Välkommen till Foajé!
+                      </Typography>
+                      <Typography variant="body2" component="h5">
+                        Lorum ipsum
+                      </Typography>
+                    </>
                   )}
-                </div>
+                </Box>
+
+                {/* Container for form */}
+                <Box
+                  sx={{
+                    // backgroundColor: 'red',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    width: '100%',
+                    marginBottom: 20,
+                  }}
+                >
+                  {mode === 'signup' && (
+                    <>
+                      <TextField
+                        id="firstname"
+                        label="Förnamn"
+                        margin="normal"
+                        required
+                        variant="outlined"
+                        value={firstname}
+                        onChange={(event) => setFirstname(event.target.value)}
+                      />
+                      <TextField
+                        id="lastname"
+                        label="Efternamn"
+                        margin="normal"
+                        required
+                        variant="outlined"
+                        value={lastname}
+                        onChange={(event) => setLastname(event.target.value)}
+                      />
+                    </>
+                  )}
+
+                  <TextField
+                    id="email"
+                    type="email"
+                    type="text"
+                    label="Email"
+                    margin="normal"
+                    required
+                    variant="outlined"
+                    value={email}
+                    onChange={(event) => setEmail(event.target.value)}
+                  />
+                  <TextField
+                    id="password"
+                    type="password"
+                    label="Password"
+                    required
+                    variant="outlined"
+                    value={password}
+                    onChange={(event) => setPassword(event.target.value)}
+                  />
+                </Box>
+                <Box>
+                  {mode === 'signup' ? (
+                    <>
+                      <Button
+                        style={styles.LoginBtn}
+                        type="submit"
+                        color="primary"
+                        variant="contained"
+                      >
+                        Sign up
+                      </Button>
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          padding: 10,
+                        }}
+                      >
+                        <Typography>Är du redan medlem? </Typography>
+                        <Link
+                          underline="hover"
+                          onClick={() => setMode('signin')}
+                        >
+                          Log in
+                        </Link>
+                      </Box>
+                    </>
+                  ) : (
+                    <>
+                      <Button
+                        style={styles.LoginBtn}
+                        type="submit"
+                        color="primary"
+                        variant="contained"
+                      >
+                        Logga in
+                      </Button>
+                      {errorMess && <p color="red">{errorMess}</p>}
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          justifyContent: 'space-between',
+                          padding: 10,
+                        }}
+                      >
+                        <Typography>Vill du bli medlem? </Typography>
+                        <Link
+                          underline="hover"
+                          onClick={() => setMode('signup')}
+                        >
+                          Sign up
+                        </Link>
+                      </Box>
+                    </>
+                  )}
+                </Box>
               </Box>
             </form>
           </Box>
-          <Box
-            sx={{
-              width: '50%',
-              padding: 30,
-            }}
-          >
-            <Typography>
-              Genom att bli medlem i FOAJÉ blir du en del av Sveriges största
-              marknadsplats för kvinnliga entreprenörer, kreatörer och
-              småföretagare. Här kan du: Hitta och Köpa produkter och tjänster
-              från företag drivna av kvinnor. Registrera ditt bolag eller dig
-              själv om du har tjänster och produkter som du vill sälja. Det går
-              att bli en säljare oavsett om du har ett bolag eller är
-              frilansare.
-            </Typography>
-          </Box>
-        </Paper>
+          <CardMedia style={styles.CardLoginMedia}>
+            <Box
+              sx={{
+                height: '100%',
+
+                display: 'flex',
+                justifyContent: 'flex-end',
+                alignItems: 'flex-end',
+              }}
+            >
+              <Box
+                sx={{
+                  margin: 20,
+                  padding: 30,
+                  backgroundColor: 'rgba(215,215, 215,0.7)',
+                  color: 'black',
+                }}
+              >
+                <Typography>
+                  Genom att bli medlem i FOAJÉ blir du en del av Sveriges
+                  största marknadsplats för kvinnliga entreprenörer, kreatörer
+                  och småföretagare.
+                </Typography>
+                <Typography>
+                  Här kan du hitta och köpa produkter och tjänster från företag
+                  drivna av kvinnor. Registrera ditt bolag eller dig själv om du
+                  har tjänster och produkter som du vill sälja. Det går att bli
+                  en säljare oavsett om du har ett bolag eller är frilansare.
+                </Typography>
+              </Box>
+            </Box>
+          </CardMedia>
+        </Card>
       </Container>
     </>
   )

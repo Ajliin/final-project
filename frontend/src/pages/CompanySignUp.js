@@ -210,6 +210,7 @@ const CompanySignUp = () => {
           <TextField
             id="companyName"
             label="Företagsnamn*"
+            margin="normal"
             variant="outlined"
             value={companyName}
             onChange={(event) => setCompanyName(event.target.value)}
@@ -219,6 +220,7 @@ const CompanySignUp = () => {
             id="genderRatio"
             type="text"
             label="Ägarandel kvinnor i %*"
+            margin="normal"
             variant="outlined"
             value={genderRatio}
             onChange={(event) => setGenderRatio(event.target.value)}
@@ -227,6 +229,9 @@ const CompanySignUp = () => {
           <TextField
             id="companyDescription"
             type="text-area"
+            margin="normal"
+            multiline
+            maxRows={4}
             label="Företagsbeskrivning"
             variant="outlined"
             value={companyDescription}
@@ -236,6 +241,7 @@ const CompanySignUp = () => {
           <TextField
             id="location"
             type="text"
+            margin="normal"
             label="Plats"
             variant="outlined"
             value={location}
@@ -245,6 +251,7 @@ const CompanySignUp = () => {
           <TextField
             id="skills"
             type="text"
+            margin="normal"
             label="Skills *"
             variant="outlined"
             value={skills}
@@ -253,6 +260,7 @@ const CompanySignUp = () => {
           <TextField
             id="skills2"
             type="text"
+            margin="normal"
             label="Skills "
             variant="outlined"
             value={skills2}
@@ -261,6 +269,7 @@ const CompanySignUp = () => {
           <TextField
             id="skills3"
             type="text"
+            margin="normal"
             label="Skills "
             variant="outlined"
             value={skills3}
@@ -269,6 +278,7 @@ const CompanySignUp = () => {
           <TextField
             id="skills2"
             type="text"
+            margin="normal"
             label="Skills "
             variant="outlined"
             value={skills4}
@@ -279,6 +289,7 @@ const CompanySignUp = () => {
             id="url"
             type="text"
             label="Webb-adress"
+            margin="normal"
             variant="outlined"
             value={url}
             onChange={(event) => setUrl(event.target.value)}

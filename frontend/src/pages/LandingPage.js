@@ -161,7 +161,7 @@ const LandingPage = () => {
 
           <Button
             type="submit"
-            color="secondary"
+            color="primary.main"
             variant="contained"
             onClick={getCompanyData}
           >

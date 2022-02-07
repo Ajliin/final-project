@@ -8,8 +8,8 @@ import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
 import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
-import { ThemeProvider } from '@mui/material/styles'
-import { Container } from '@mui/material/'
+import { ThemeProvider } from '@material-ui/core/styles'
+import { theme } from './utils/theme'
 
 import user from './reducers/user'
 import profile from './reducers/profile'
@@ -23,8 +23,6 @@ import LandingPage from './pages/LandingPage'
 import Login from './pages/Login'
 import NotFound from './pages/NotFound'
 import Profile from './pages/Profile'
-
-import { theme } from './utils/theme'
 
 const reducer = combineReducers({
   user: user.reducer,
