@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import Rating from '@mui/material/Rating'
 
 import { Paper, Grid, Button, Typography, Chip, Box } from '@material-ui/core'
+import Stack from '@mui/material/Stack'
 
 import { LocationOnOutlined } from '@material-ui/icons'
 
@@ -86,19 +87,28 @@ const Card = () => {
                   <Box
                     sx={{
                       marginLeft: 50,
-                      // width: 200,
+                      width: 200,
                     }}
                   >
                     <Typography variant="subtitle2" component="h3">
                       Skills
                     </Typography>
-                    {company.skills.map((skill) => {
-                      if (skill === '') {
-                        return
-                      } else {
-                        return <Chip label={skill} />
-                      }
-                    })}
+                    <Box>
+                      {company.skills.map((skill) => {
+                        if (skill === '') {
+                          return
+                        } else {
+                          return (
+                            <Chip
+                              label={skill}
+                              color="primary"
+                              variant="outlined"
+                              spacing={2}
+                            />
+                          )
+                        }
+                      })}
+                    </Box>
                   </Box>
                 </Grid>
 

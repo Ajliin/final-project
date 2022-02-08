@@ -15,7 +15,7 @@ import {
   Chip,
 } from '@material-ui/core'
 import Rating from '@mui/material/Rating'
-import { LocationOnOutlined, SettingsEthernet } from '@material-ui/icons'
+import { LocationOnOutlined } from '@material-ui/icons'
 import { CardContent } from '@mui/material'
 
 import { TEST_API } from '../utils/url'
@@ -123,9 +123,9 @@ const Company = () => {
                   location: data.response.location,
                   skills: data.response.skills,
                   url: data.response.url,
-                  rating: data.resonse.rating,
-                  countRating: data.resonse.countRating,
-                  reviews: data.resonse.reviews,
+                  rating: data.response.rating,
+                  countRating: data.response.countRating,
+                  reviews: data.response.reviews,
                 }),
               )
             })
@@ -309,22 +309,20 @@ const Company = () => {
                       if (skill === '') {
                         return
                       } else {
-                        return <Chip label={skill} />
+                        return (
+                          <Chip
+                            label={skill}
+                            color="primary"
+                            variant="outlined"
+                          />
+                        )
                       }
                     })}
                   </Card>
-                </Grid>
-                {/* BESKRIVNING AV FÖRETAG */}
-                <Grid item xs={8}>
+                  {/* HEMSIDA */}
                   <Card style={styles.SmallCard}>
-                    <Typography variant="h6" component="h2">
-                      Beskrivning av företaget
-                    </Typography>
-                    <p>{sCompany.companyDescription}</p>
+                    <p>Hemsida: {sCompany.url}</p>
                   </Card>
-                </Grid>
-
-                <Grid item xs={4}>
                   {/* RATINGKORT */}
                   <Card style={styles.SmallCard}>
                     <Rating
@@ -352,13 +350,20 @@ const Company = () => {
                     <Modal />
                   </Card>
                 </Grid>
-
-                {/* HEMSIDA */}
-                <Grid item xs={4}>
+                {/* BESKRIVNING AV FÖRETAG */}
+                <Grid item xs={8}>
                   <Card style={styles.SmallCard}>
-                    <p>Hemsida: {sCompany.url}</p>
+                    <Typography variant="h6" component="h2">
+                      Beskrivning av företaget
+                    </Typography>
+                    <p>{sCompany.companyDescription}</p>
                   </Card>
                 </Grid>
+
+                <Grid item xs={4}></Grid>
+
+                {/* HEMSIDA */}
+                <Grid item xs={4}></Grid>
                 <Grid item xs={12}>
                   {showRating && (
                     <Card style={styles.SmallCard}>

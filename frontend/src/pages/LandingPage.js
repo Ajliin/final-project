@@ -12,7 +12,10 @@ import {
   Box,
   Paper,
   Link,
+  Chip,
 } from '@material-ui/core'
+
+import Stack from '@mui/material/Stack'
 
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
 import WorkOutlineRoundedIcon from '@mui/icons-material/WorkOutlineRounded'
@@ -111,7 +114,7 @@ const LandingPage = () => {
           }}
         >
           {email ? (
-            <Typography variant="h5" component="h3">
+            <Typography color="primary" variant="h4" component="h3">
               Välkommen {firstname}!
             </Typography>
           ) : (
@@ -121,10 +124,13 @@ const LandingPage = () => {
 
         <Box
           sx={{
-            margin: 2,
+            margin: 20,
             display: 'flex',
             justifyContent: 'center',
             marginY: 2,
+            background: 'rgba(0,0,0,0.5)',
+            padding: 20,
+            borderRadius: 10,
           }}
         >
           <Box
@@ -195,11 +201,59 @@ const LandingPage = () => {
             //backgroundColor: 'beige',
           }}
         >
+          <Box
+            sx={{
+              margin: 10,
+              display: 'flex',
+              justifyContent: 'space-around',
+            }}
+          >
+            <Box>
+              <Typography variant="h6" component="h3">
+                Just nu söker många efter:
+              </Typography>
+              <Stack
+                direction="row"
+                justifyContent="space-evenly"
+                alignItems="center"
+                spacing={2}
+              >
+                <Chip label="Web design" color="primary" variant="outlined" />
+                <Chip
+                  label="Frontend utvecklare"
+                  color="primary"
+                  variant="outlined"
+                />
+                <Chip label="Hantverkare" color="primary" variant="outlined" />
+              </Stack>
+            </Box>
+
+            <Box>
+              <Typography variant="h6" component="h3">
+                Just nu finns det många:
+              </Typography>
+              <Stack
+                direction="row"
+                justifyContent="space-evenly"
+                alignItems="center"
+                spacing={2}
+              >
+                <Chip
+                  label="Trädgårsdesigner"
+                  color="primary"
+                  variant="outlined"
+                />
+                <Chip label="Undervisning" color="primary" variant="outlined" />
+                <Chip label="SEO" color="primary" variant="outlined" />
+              </Stack>
+            </Box>
+          </Box>
           <Typography variant="h6" component="h2">
             Sökresultat
           </Typography>
+
           {mode === '' ? (
-            <p>Ingen sökning gjord</p>
+            <p></p>
           ) : allCompanies.length === 0 ? (
             <p>Inga Foajé medlemmar matchar din efterfrågan</p>
           ) : (

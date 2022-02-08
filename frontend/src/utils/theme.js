@@ -9,7 +9,7 @@ export const theme = createTheme({
       light: '#ee98fb',
       main: '#ba68c8',
       dark: '#883997',
-      contrastText: '#fff',
+      contrastText: '#000',
     },
     secondary: {
       light: '#ffa270',
@@ -52,6 +52,7 @@ export const styles = {
     height: '85vh',
     marginTop: 20,
     elevation: 5,
+    background: 'grey',
   },
   LoginBtn: {
     width: '100%',
@@ -65,6 +66,13 @@ export const styles = {
   BackgroundImg: {
     backgroundImage: `url(https://source.unsplash.com/random/2000x500?sig=2)`,
     height: '50vh',
+  },
+  //CompanySignUp
+  SignUpEditForm: {
+    display: 'flex',
+    marginTop: 20,
+    elevation: 5,
+    height: '100%',
   },
 }
 
