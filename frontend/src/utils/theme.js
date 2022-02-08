@@ -2,13 +2,14 @@ import React from 'react'
 import { createTheme } from '@mui/material/styles'
 import Typography from '@material-ui/core/Typography'
 import { purple } from '@material-ui/core/colors'
+import { withTheme } from '@material-ui/core'
 
 export const theme = createTheme({
   palette: {
     primary: {
-      light: '#ee98fb',
-      main: '#ba68c8',
-      dark: '#883997',
+      light: '#c158dc',
+      main: '#8e24aa',
+      dark: '#5c007a',
       contrastText: '#000',
     },
     secondary: {
@@ -33,7 +34,7 @@ export const styles = {
     padding: 20,
   },
   Card: { marginTop: 20 },
-  SmallCard: { padding: 20 },
+  SmallCard: { padding: 20, marginTop: 10 },
   Paper: {
     marginTop: 20,
     padding: 15,
@@ -52,20 +53,30 @@ export const styles = {
     height: '85vh',
     marginTop: 20,
     elevation: 5,
-    background: 'grey',
+    background: 'lightgrey',
   },
   LoginBtn: {
     width: '100%',
   },
   NoBtn: {},
   CardLoginMedia: {
-    backgroundImage: `url(https://source.unsplash.com/random/300x300?sig=2)`,
+    backgroundImage: `url(./test.jpeg)`,
     height: '100%',
     width: '50%',
   },
   BackgroundImg: {
-    backgroundImage: `url(https://source.unsplash.com/random/2000x500?sig=2)`,
-    height: '50vh',
+    //backgroundImage: `url(./hall.jpg)`,
+    backgroundImage: `url(./orange.jpeg)`,
+    height: '65vh',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    //  justifyContent: 'center',
+    objectFit: 'cover',
+  },
+
+  BackgroundOrange: {
+    backgroundColor: 'secondary',
   },
   //CompanySignUp
   SignUpEditForm: {
@@ -73,6 +84,15 @@ export const styles = {
     marginTop: 20,
     elevation: 5,
     height: '100%',
+  },
+  FooterStyle: {
+    background: 'grey',
+    color: 'white',
+
+    bottomMargin: 0,
+  },
+  HeaderStyle: {
+    position: 'sticky',
   },
 }
 

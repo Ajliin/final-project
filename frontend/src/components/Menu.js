@@ -71,38 +71,41 @@ export default function BasicMenu() {
 
   return (
     <Box>
-      <Button
-        id="basic-button"
-        aria-controls={open ? 'basic-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        onClick={handleClick}
-      >
-        <AccountCircle color="secondary" />
-      </Button>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-      >
-        <MenuItem onClick={goToLandingPage}>Sök</MenuItem>
-
-        {!userId ? (
-          <MenuItem onClick={goToLogIn}>Login</MenuItem>
-        ) : (
-          <Box>
-            <MenuItem onClick={goToProfile}>Min profil</MenuItem>
-            {hasCompany && (
-              <MenuItem onClick={goToCompanyPage}>Mitt företag</MenuItem>
-            )}
-            <MenuItem onClick={goToLogOut}>Logout</MenuItem>
-          </Box>
-        )}
-      </Menu>
+      {!userId ? (
+        <Button color="primary" variant="outlined" onClick={goToLogIn}>
+          Log in
+        </Button>
+      ) : (
+        <>
+          <Button
+            id="basic-button"
+            aria-controls={open ? 'basic-menu' : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? 'true' : undefined}
+            onClick={handleClick}
+          >
+            <AccountCircle color="primary" variant="outlined" size="medium" />
+          </Button>
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              'aria-labelledby': 'basic-button',
+            }}
+          >
+            <Box>
+              <MenuItem onClick={goToLandingPage}>Sök</MenuItem>
+              <MenuItem onClick={goToProfile}>Min profil</MenuItem>
+              {hasCompany && (
+                <MenuItem onClick={goToCompanyPage}>Mitt företag</MenuItem>
+              )}
+              <MenuItem onClick={goToLogOut}>Logout</MenuItem>
+            </Box>
+          </Menu>
+        </>
+      )}
     </Box>
   )
 }

@@ -11,16 +11,16 @@ import {
   Link,
 } from '@material-ui/core'
 
+import { CardMedia, Card } from '@mui/material'
 import VpnKeyRoundedIcon from '@mui/icons-material/VpnKeyRounded'
 import MailOutlineRoundedIcon from '@mui/icons-material/MailOutlineRounded'
 import PersonOutlineRoundedIcon from '@mui/icons-material/PersonOutlineRounded'
 
 import { TEST_API } from '../utils/url'
+import { styles, theme } from '../utils/theme'
+
 import user from '../reducers/user'
 import Header from '../components/Header'
-import { styles, theme } from '../utils/theme'
-import { CardMedia, Card } from '@mui/material'
-import { withTheme } from '@emotion/react'
 
 const Login = () => {
   const [firstname, setFirstname] = useState('')
@@ -163,14 +163,18 @@ const Login = () => {
                   {mode === 'signup' && (
                     <>
                       <TextField
+                        style={styles.InputText}
                         id="firstname"
                         label="Förnamn"
+                        variant="outlined"
                         InputProps={{
-                          startAdornment: <PersonOutlineRoundedIcon />,
+                          //style: { color: 'white', paddingLeft: 30 },
+                          startAdornment: (
+                            <PersonOutlineRoundedIcon margin={10} />
+                          ),
                         }}
                         margin="normal"
                         required
-                        variant="outlined"
                         value={firstname}
                         onChange={(event) => setFirstname(event.target.value)}
                       />

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch, batch } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
+import { SocialIcon } from 'react-social-icons'
 
 import {
   Button,
@@ -14,6 +15,9 @@ import {
   CardMedia,
   Chip,
 } from '@material-ui/core'
+
+import Stack from '@mui/material/Stack'
+
 import Rating from '@mui/material/Rating'
 import { LocationOnOutlined } from '@material-ui/icons'
 import { CardContent } from '@mui/material'
@@ -305,23 +309,43 @@ const Company = () => {
                     <Typography variant="h6" component="h2">
                       Skills eller produkter
                     </Typography>
-                    {sCompany.skills?.map((skill) => {
-                      if (skill === '') {
-                        return
-                      } else {
-                        return (
-                          <Chip
-                            label={skill}
-                            color="primary"
-                            variant="outlined"
-                          />
-                        )
-                      }
-                    })}
+                    <Box
+                      sx={{
+                        marginTop: 10,
+                        display: 'flex',
+                        width: '50%',
+                        justifyContent: 'space-between',
+                      }}
+                    >
+                      {sCompany.skills?.map((skill) => {
+                        if (skill === '') {
+                          return
+                        } else {
+                          return (
+                            <Chip
+                              label={skill}
+                              color="primary"
+                              variant="outlined"
+                            />
+                          )
+                        }
+                      })}
+                    </Box>
                   </Card>
                   {/* HEMSIDA */}
                   <Card style={styles.SmallCard}>
                     <p>Hemsida: {sCompany.url}</p>
+                    <Box
+                      sx={{
+                        marginTop: 10,
+                        display: 'flex',
+                        width: '50%',
+                        justifyContent: 'space-between',
+                      }}
+                    >
+                      <SocialIcon url="https://linkedin.com/" />
+                      <SocialIcon url="https://instagram.com/" />
+                    </Box>
                   </Card>
                   {/* RATINGKORT */}
                   <Card style={styles.SmallCard}>
