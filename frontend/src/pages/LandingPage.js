@@ -41,14 +41,20 @@ const LandingPage = () => {
 
   const allCompanies = useSelector((store) => store.companies.companies)
   console.log('allCompanies', allCompanies)
+    const category1 = useSelector((store) => store.companies.category)
+  console.log('category', category1)
   const { searchedCompany } = useSelector((store) => store.companies)
   console.log('searched comapany from landingpage', searchedCompany)
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  console.log("modemodemodemodemodemodemode",mode)
 
   useEffect(() => {
-    setMode('')
-  }, [])
+    if (category1) {setMode("searched")} else {setMode('')}
+    
+  }, [category1, mode])
+
+   
 
   const goToLogIn = () => {
     navigate('/login')
@@ -87,28 +93,30 @@ const LandingPage = () => {
   return (
     <Box
       sx={{
-        backgroundColor: '#ff7043',
+        backgroundColor: '#fab49f',
       }}
     >
       <Box style={styles.BackgroundImg}>
         <Header />
-        <Box marginTop={4}>
-          <Paper>
+        <Box minWidth={700} maxWidth={900}
+              marginTop={"4vh"} marginLeft={"20vw"}>
+         {/* // <Paper> */}
             <Box
               sx={{
                 margin: 20,
                 padding: 20,
                 display: 'flex',
                 justifyContent: 'center',
-                //  backgroundColor: 'ff7043',
+               
               }}
             >
-              <Typography variant="h6" component="h2">
+              <Typography variant="h3" style={styles.Typo1} component="body1">
                 Sveriges största marknadsplats för kvinnliga entreprenörer,
                 kreatörer och småföretagare.
               </Typography>
+
             </Box>
-          </Paper>
+         {/* // </Paper> */}
 
           <Box
             sx={{
@@ -128,6 +136,7 @@ const LandingPage = () => {
             >
               <TextField
                 id="companyName"
+                autoComplete="off"
                 label="Företag"
                 InputProps={{
                   startAdornment: <SearchRoundedIcon />,
@@ -144,6 +153,7 @@ const LandingPage = () => {
             >
               <TextField
                 id="skills"
+                autoComplete="off"
                 label="Skills eller produkter"
                 InputProps={{
                   startAdornment: <WorkOutlineRoundedIcon />,
@@ -161,6 +171,7 @@ const LandingPage = () => {
             >
               <TextField
                 id="city"
+                autoComplete="off"
                 label="Location"
                 InputProps={{
                   startAdornment: <LocationOnOutlined />,
@@ -185,9 +196,8 @@ const LandingPage = () => {
             sx={{
               marginTop: 50,
               display: 'flex',
-              justifyContent: 'flex-end',
-              // paddingX: 20,
-              //  backgroundColor: 'beige',
+              justifyContent: 'center',
+          
             }}
           >
             {email ? (
@@ -207,10 +217,24 @@ const LandingPage = () => {
           sx={{
             // marginY: 2,
             //backgroundColor: 'beige',
-            backgroundColor: '#ff7043',
+           // backgroundColor: '#ff7043',
           }}
         >
-          <Box
+   
+          {/* <Typography variant="h6" component="h2">
+            Sökresultat
+          </Typography> */}
+
+          {mode === '' ? (
+            <p></p>
+          ) : allCompanies.length === 0 ? (
+            <Typography>Inga Foajé medlemmar matchar din efterfrågan</Typography>
+          ) : (
+            <>
+              <Card />
+            </>
+          )}
+                 <Box
             sx={{
               marginY: 5,
               display: 'flex',
@@ -227,13 +251,14 @@ const LandingPage = () => {
                 alignItems="center"
                 spacing={2}
               >
-                <Chip label="Web design" color="primary" variant="outlined" />
+                <Chip label="Web design" color="primary"  />
                 <Chip
                   label="Frontend utvecklare"
-                  color="primary"
-                  variant="outlined"
+                  color="light"
+                  style={styles.BgLightPurple}
+                 
                 />
-                <Chip label="Hantverkare" color="primary" variant="outlined" />
+                <Chip label="Hantverkare" color="primary"  />
               </Stack>
             </Box>
 
@@ -250,26 +275,13 @@ const LandingPage = () => {
                 <Chip
                   label="Trädgårsdesigner"
                   color="primary"
-                  variant="outlined"
+                  
                 />
-                <Chip label="Undervisning" color="primary" variant="outlined" />
-                <Chip label="SEO" color="primary" variant="outlined" />
+                <Chip label="Undervisning" color="primary"  />
+                <Chip label="SEO" color="primary"  />
               </Stack>
             </Box>
           </Box>
-          {/* <Typography variant="h6" component="h2">
-            Sökresultat
-          </Typography> */}
-
-          {mode === '' ? (
-            <p></p>
-          ) : allCompanies.length === 0 ? (
-            <p>Inga Foajé medlemmar matchar din efterfrågan</p>
-          ) : (
-            <>
-              <Card />
-            </>
-          )}
           <Box
             sx={{
               display: 'flex',
@@ -279,6 +291,7 @@ const LandingPage = () => {
               //backgroundColor: 'beige',
             }}
           >
+     
             <Category category={'Business'} no={1} searchSkills={'Talking'} />
             <Category category={'Programmering & Design 2'} no={2} />
             <Category category={'Hem & Hus'} no={3} />

@@ -22,14 +22,15 @@ const Category = ({ category, no, searchSkills }) => {
 
     fetch(
       TEST_API(
-        `result-companies?companyName=""&&location=""&&skills=${searchSkills}`,
+        `category-companies?skills=${searchSkills}`,
       ),
     )
       .then((res) => res.json())
       .then((data) => {
         console.log('category search', data)
         //setUser(data.response[0].companyName)
-        //dispatch(companies.actions.setCompanies(data.response))
+        dispatch(companies.actions.setCompanies(data.response))
+        dispatch(companies.actions.setCategory(true))
       })
   }
 

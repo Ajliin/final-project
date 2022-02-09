@@ -114,7 +114,7 @@ const Login = () => {
               marginTop: '15vh',
             }}
           >
-            <form onSubmit={onFormSubmit}>
+            <form onSubmit={onFormSubmit} autoComplete="off">
               {/* Containern kring inlogging */}
               <Box
                 sx={{

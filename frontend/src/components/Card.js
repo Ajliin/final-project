@@ -25,7 +25,7 @@ const Card = () => {
     // console.log(companyId)
   }
 
-  let ratingDec = 0
+
 
   return (
     <>

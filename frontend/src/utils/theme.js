@@ -1,26 +1,46 @@
 import React from 'react'
 import { createTheme } from '@mui/material/styles'
-import Typography from '@material-ui/core/Typography'
-import { purple } from '@material-ui/core/colors'
-import { withTheme } from '@material-ui/core'
+//import Typography from '@material-ui/core/Typography'
+//import { purple } from '@material-ui/core/colors'
+//import { withTheme } from '@material-ui/core'
 
 export const theme = createTheme({
+  typography: {
+    fontFamily: "Raleway",
+    fontWeightLight: 100,
+
+     body1: {
+      color: '#030304',
+      fontWeight: 500,
+      //backgroundColor: "yellow",
+
+    },
+
+   
+
+   },
   palette: {
     primary: {
-      light: '#c158dc',
-      main: '#8e24aa',
-      dark: '#5c007a',
-      contrastText: '#000',
+      light: '#cab9ed',
+      main: '#251761',
+      dark: '#010037',
+   
+      contrastText: '#d5c7c7',
+      
     },
     secondary: {
-      light: '#ffa270',
-      main: '#ff7043',
-      dark: '#c63f17',
-      contrastText: '#000',
+      light: '#ff983f',
+      main: '#ff6600',
+      dark: '#c43300',
+      contrastText: '#030304',
     },
   },
-  typography: {},
-})
+  light: '#cab93d',
+      
+});
+
+
+
 
 export const styles = {
   CardHeaderMedia: {
@@ -60,13 +80,14 @@ export const styles = {
   },
   NoBtn: {},
   CardLoginMedia: {
-    backgroundImage: `url(./test.jpeg)`,
+    backgroundImage: `url(./login.jpg)`,
     height: '100%',
     width: '50%',
   },
   BackgroundImg: {
     //backgroundImage: `url(./hall.jpg)`,
-    backgroundImage: `url(./orange.jpeg)`,
+    backgroundImage: `url(./header.jpg)`,
+     backgroundPosition: "bottom",
     height: '65vh',
     display: 'flex',
     flexDirection: 'column',
@@ -94,28 +115,14 @@ export const styles = {
   HeaderStyle: {
     position: 'sticky',
   },
+  Typo1:{
+    color: '#030304'
+  },
+   TypoGrey:{
+    color: 'darkgrey'
+  },
+     BgLightPurple:{
+    background: '#cab9ed'
+  }
 }
 
-// components: {
-//   MuiTypography: {
-//     variants: [
-//       {
-//         props: {
-//           variant: 'body3',
-//         },
-//         style: {
-//           fontSize: 20,
-//         },
-//       },
-// {
-//   props: {
-//     variant: 'undertitle',
-//   },
-//   style: {
-//     color: 'grey',
-//     fontSize: 20,
-//   },
-// },
-//     ],
-//   },
-// },

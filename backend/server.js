@@ -106,8 +106,6 @@ const User = mongoose.model('User', UserSchema)
 const MyPage = mongoose.model('myPage', MyPageSchema)
 const Company = mongoose.model('Company', CompanySchema)
 
-// Defines the port the app will run on. Defaults to 8080, but can be
-// overridden when starting the server. For example:
 
 // ************** Middleware ****************
 const port = process.env.PORT || 8080
@@ -116,6 +114,8 @@ const app = express()
 // Add middlewares to enable cors and json body parsing
 app.use(cors())
 app.use(express.json())
+
+// ************** authenticate user ****************
 
 const authenticateUser = async (req, res, next) => {
   const accessToken = req.header('Authorization')
@@ -138,12 +138,9 @@ const authenticateUser = async (req, res, next) => {
   }
 }
 
-// Authentication = member - 401
-// Authorization = what type of member - 403
+// ************** END POINTS ****************
 
-// Start defining your routes here
-// app.get('/thoughts', authenticateMyPage)
-//Signup endpoint
+//1. Signup endpoint
 
 app.post('/signup', async (req, res) => {
   const { firstname, lastname, password, email, hasCompany } = req.body
@@ -179,7 +176,7 @@ app.post('/signup', async (req, res) => {
   }
 })
 
-// Signin endpoint
+// 2. Signin endpoint
 app.post('/signin', async (req, res) => {
   const { email, password } = req.body
 
@@ -208,12 +205,10 @@ app.post('/signin', async (req, res) => {
     res.status(400).json({ response: error, success: false })
   }
 })
-//Edit hasCompany
+// 3. Edit hasCompany
 app.patch('/user-edit/:userId', async (req, res) => {
   const { userId } = req.params
-  //console.log('userId in patch', userId)
   const updatedInfo = req.body
-  //console.log('updatedInfo', updatedInfo)
 
   try {
     const updatedUser = await User.findOneAndUpdate(
@@ -221,10 +216,9 @@ app.patch('/user-edit/:userId', async (req, res) => {
       { $set: updatedInfo },
       { new: true },
     )
-    //console.log('updatedUser!!!!!!!!!!!', updatedUser)
 
     res.status(200).json({
-      response: { hasCompany: updatedUser },
+      response: { hasCompany: updatedUser.hasCompany },
 
       success: true,
     })
@@ -233,7 +227,7 @@ app.patch('/user-edit/:userId', async (req, res) => {
   }
 })
 
-//GET Edit hasCompany
+//4. GET Edit hasCompany
 app.get('/user-edit/:userId', async (req, res) => {
   const { userId } = req.params
 
@@ -253,8 +247,8 @@ app.get('/user-edit/:userId', async (req, res) => {
   }
 })
 
-//endpoint for creting a new myPage
-//app.post('/profile', authenticateMyPage)
+// 5. endpoint for creting a new myPage
+
 app.post('/profile', async (req, res) => {
   const { description, user } = req.body
 
@@ -273,7 +267,7 @@ app.post('/profile', async (req, res) => {
   }
 })
 
-//to get "all" profile- maybe not needed later, will just be one and prob. patch?
+// 6. to get "all" profile- 
 app.get('/profile/:userId', authenticateUser)
 app.get('/profile/:userId', async (req, res) => {
   const { userId } = req.params
@@ -289,7 +283,7 @@ app.get('/profile/:userId', async (req, res) => {
 
 // ****************** COMPANY ***********************
 
-//to create new company
+//7. to create new company
 app.post('/company', async (req, res) => {
   const {
     companyName,
@@ -332,7 +326,7 @@ app.post('/company', async (req, res) => {
   }
 })
 
-// to get all companies from one unser
+// 8. to GET searched company
 
 app.get('/company-result/:companyId', async (req, res) => {
   const { companyId } = req.params
@@ -365,7 +359,8 @@ app.get('/company-result/:companyId', async (req, res) => {
   }
 })
 
-//app.get('/company/:userId', authenticateUser)
+// 9. To GET your own company
+app.get('/company/:userId', authenticateUser)
 app.get('/company/:userId', async (req, res) => {
   const { userId } = req.params
 
@@ -397,18 +392,16 @@ app.get('/company/:userId', async (req, res) => {
   }
 })
 
-//to edit company
+//11 to PATCH edit company
 app.patch('/company/:companyId', async (req, res) => {
-  //req.query ==> ?company="id"
+ 
 
   const { companyId } = req.params
   const updatedInfo = req.body
 
-  //console.log('userId INSIDE PATCH!!!!', companyId)
+
   try {
-    // console.log('inside try in patch')
-    // const queriedCompany = await Company.find({ user: userId })
-    // console.log('queriedCompany', queriedCompany)
+
     const updateCompany = await Company.findOneAndUpdate(
       { _id: companyId },
       { $set: updatedInfo },
@@ -416,10 +409,7 @@ app.patch('/company/:companyId', async (req, res) => {
         new: true,
       },
     )
-    // console.log(
-    //   'updatecompany (what will be send back) in PATCH',
-    //   updateCompany,
-    // )
+  
 
     res.status(200).json({ response: updateCompany, success: true })
   } catch (error) {
@@ -427,7 +417,7 @@ app.patch('/company/:companyId', async (req, res) => {
   }
 })
 
-// to get all companies
+// 12 to GET all companies
 app.get('/allcompanies', async (req, res) => {
   try {
     const companies = await Company.find({})
@@ -437,7 +427,34 @@ app.get('/allcompanies', async (req, res) => {
   }
 })
 
-//all netflix titles here, be able to searc for a title and type
+//13 to GET searched company CATEGORIES
+app.get('/category-companies', async (req, res) => {
+
+  const skills = req.query.skills?.toLowerCase()
+
+ // const category = req.body
+  // console.log('companyName inside result-get', companyName)
+  //console.log('skills inside result-get', skills)
+
+  try {
+    const findFilter = {}
+
+   
+
+    if (skills) {
+      findFilter.skills = { $regex: new RegExp(skills, 'i') }
+    }
+
+    const allCompanyname = Company.find(findFilter)
+    const resultCompany = await allCompanyname.limit(50)
+
+    res.status(200).json({ response: resultCompany, success: true })
+  } catch (error) {
+    res.status(404).json({ response: error, success: false })
+  }
+})
+
+//14 to GET searched company on landing page 
 app.get('/result-companies', async (req, res) => {
   const companyName = req.query.companyName?.toLowerCase()
   const location = req.query.location?.toLowerCase()
@@ -469,6 +486,7 @@ app.get('/result-companies', async (req, res) => {
   }
 })
 
+// 15 To rate company
 app.post('/rating/:companyId', async (req, res) => {
   const { companyId } = req.params
   const { newRating, comment, reviewerId } = req.body
@@ -477,11 +495,6 @@ app.post('/rating/:companyId', async (req, res) => {
     //mongo operator
     const { rating, countRating } = await Company.findById(companyId)
     const company = await Company.findById(companyId)
-
-    console.log('rating from Tobias company', rating)
-    console.log('Countrating from Tobias company', countRating)
-    console.log('reviewerId from Tobias company', reviewerId)
-    console.log('company from Tobias company', company)
 
     const review = {
       companyId,
@@ -504,12 +517,6 @@ app.post('/rating/:companyId', async (req, res) => {
       company.reviews.reduce((acc, item) => item.rating + acc, 0) /
       company.reviews.length
 
-    // console.log(
-    //   'company.rating',
-    //   company.aggragate([
-    //     { $project: { roundedValue: { $round: ['$rating', 1] } } },
-    //   ]),
-    // )
 
     await company.save()
 

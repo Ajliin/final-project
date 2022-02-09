@@ -455,7 +455,7 @@ const Company = () => {
                     {myCompany.companyName}
                   </Typography>
                 </Box>
-                <Grid container spacing={2} backgroundColor={'red'}>
+                <Grid container spacing={2}>
                   <Grid item xs={4}>
                     <AvatarIcon />
                     <Box

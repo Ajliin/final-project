@@ -19,10 +19,11 @@
   max-width: 600px;
 } */
 
-/* .search-container {
+.search-container {
   display: flex;
   justify-content: fl;
   align-items: space-around;
   max-width: 600px;
   margin: 0 auto;
-} */
+  
+}
