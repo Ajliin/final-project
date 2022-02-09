@@ -3,7 +3,15 @@ import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Rating from '@mui/material/Rating'
 
-import { Paper, Grid, Button, Typography, Chip, Box } from '@material-ui/core'
+import {
+  Paper,
+  Grid,
+  Button,
+  Typography,
+  Chip,
+  Box,
+  Link,
+} from '@material-ui/core'
 import Stack from '@mui/material/Stack'
 
 import { LocationOnOutlined } from '@material-ui/icons'
@@ -25,8 +33,6 @@ const Card = () => {
     // console.log(companyId)
   }
 
-
-
   return (
     <>
       <Grid>
@@ -34,116 +40,121 @@ const Card = () => {
           {allCompanies?.map((company, index) => (
             <>
               {/* //whole card */}
-              <Paper key={company._id} elevation={1} style={styles.Paper}>
-                <Grid item xs={4}>
-                  {/* Picture  */}
-                  <Box>
-                    <img
-                      className="img-profile"
-                      src={`https://source.unsplash.com/random/150x150?sig=${index}`}
-                    />
-                  </Box>
-                </Grid>
+              <Link
+                underline="hover"
+                href="#"
+                onClick={() => goToCompany(company._id, company.companyName)}
+              >
+                <Paper key={company._id} elevation={1} style={styles.Paper}>
+                  <Grid item xs={4}>
+                    {/* Picture  */}
+                    <Box>
+                      <img
+                        className="img-profile"
+                        src={`https://source.unsplash.com/random/150x150?sig=${index}`}
+                      />
+                    </Box>
+                  </Grid>
 
-                <Grid item xs={6}>
-                  {/* Name, location and rating */}
-                  <Box
-                    sx={{
-                      marginLeft: 20,
-                    }}
-                  >
-                    {/* //component is what it is and variant how it looks */}
-                    <Typography variant="h6" component="h2">
-                      {company.companyName}
-                    </Typography>
+                  <Grid item xs={6}>
+                    {/* Name, location and rating */}
                     <Box
                       sx={{
-                        display: 'flex',
-                        alignItems: 'center',
+                        marginLeft: 20,
                       }}
-                      marginBottom={4}
                     >
-                      <LocationOnOutlined />
+                      {/* //component is what it is and variant how it looks */}
+                      <Typography variant="h5" component="h2">
+                        {company.companyName}
+                      </Typography>
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                        }}
+                        marginBottom={4}
+                      >
+                        <LocationOnOutlined />
+                        <Typography variant="subtitle2" component="h3">
+                          {company.location}
+                        </Typography>
+                      </Box>
+                      <Rating
+                        name="read-only"
+                        defaultValue={0} //bara value sedan
+                        value={company.rating}
+                        readOnly
+                        precision={0.1}
+                      />
                       <Typography variant="subtitle2" component="h3">
-                        {company.location}
+                        {Math.round(company.rating * 10) / 10} (
+                        {company.countRating} reviews)
                       </Typography>
                     </Box>
-                    <Rating
-                      name="read-only"
-                      defaultValue={0} //bara value sedan
-                      value={company.rating}
-                      readOnly
-                      precision={0.1}
-                    />
-                    <Typography variant="subtitle2" component="h3">
-                      {Math.round(company.rating * 10) / 10} (
-                      {company.countRating} reviews)
-                    </Typography>
-                  </Box>
-                </Grid>
+                  </Grid>
 
-                <Grid item xs={6}>
-                  {/* Skills  */}
-                  <Box
-                    sx={{
-                      marginLeft: 50,
-                      width: 200,
-                    }}
-                  >
-                    <Typography variant="subtitle2" component="h3">
-                      Skills
-                    </Typography>
-                    <Box>
-                      {company.skills.map((skill) => {
-                        if (skill === '') {
-                          return
-                        } else {
-                          return (
-                            <Chip
-                              label={skill}
-                              color="primary"
-                              variant="outlined"
-                              spacing={2}
-                            />
-                          )
-                        }
-                      })}
-                    </Box>
-                  </Box>
-                </Grid>
-
-                <Grid item xs={4}>
-                  {' '}
-                  {/* Ägandestruktur */}
-                  <Box
-                    sx={{
-                      marginLeft: 50,
-                    }}
-                  >
-                    <Typography variant="subtitle2" component="h3">
-                      Ägandestruktur
-                    </Typography>
-
-                    <PieChart3 genderRatio={company.genderRatio} />
-                  </Box>
-                </Grid>
-
-                <Grid item xs={4}>
-                  {' '}
-                  {/* Knapp */}
-                  <Box padding={1}>
-                    <Button
-                      onClick={() =>
-                        goToCompany(company._id, company.companyName)
-                      }
+                  <Grid item xs={6}>
+                    {/* Skills  */}
+                    <Box
+                      sx={{
+                        marginLeft: 50,
+                        width: 200,
+                      }}
                     >
-                      Go to company
-                    </Button>
-                  </Box>
-                </Grid>
+                      <Typography variant="h6" component="h3">
+                        Skills
+                      </Typography>
+                      <Box>
+                        {company.skills.map((skill) => {
+                          if (skill === '') {
+                            return
+                          } else {
+                            return (
+                              <Chip
+                                label={skill}
+                                style={styles.BgLightPurple}
+                                spacing={2}
+                              />
+                            )
+                          }
+                        })}
+                      </Box>
+                    </Box>
+                  </Grid>
 
-                {/* </Box> */}
-              </Paper>
+                  <Grid item xs={4}>
+                    {/* Ägandestruktur */}
+                    <Box
+                      sx={{
+                        marginLeft: 50,
+                      }}
+                    >
+                      <Typography variant="h6" component="h3">
+                        Ägandestruktur
+                      </Typography>
+
+                      <PieChart3 genderRatio={company.genderRatio} />
+                    </Box>
+                  </Grid>
+
+                  {/* Knapp */}
+                  {/* <Grid item xs={4}>
+                    {' '}
+                   
+                    <Box padding={1}>
+                      <Button
+                        onClick={() =>
+                          goToCompany(company._id, company.companyName)
+                        }
+                      >
+                        Go to company
+                      </Button>
+                    </Box>
+                  </Grid> */}
+
+                  {/* </Box> */}
+                </Paper>
+              </Link>
             </>
           ))}
         </Box>

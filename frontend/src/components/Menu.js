@@ -4,14 +4,14 @@ import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import { Box } from '@material-ui/core'
 import { AccountCircle } from '@material-ui/icons'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useDispatch, batch, useSelector } from 'react-redux'
 
 import company from '../reducers/company'
 import user from '../reducers/user'
 import profile from '../reducers/profile'
 
-export default function BasicMenu() {
+const MenuBar = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -84,7 +84,11 @@ export default function BasicMenu() {
             aria-expanded={open ? 'true' : undefined}
             onClick={handleClick}
           >
-            <AccountCircle color="primary" variant="outlined" size="medium" />
+            <AccountCircle
+              color="primary"
+              variant="outlined"
+              sx={{ fontSize: 100 }}
+            />
           </Button>
           <Menu
             id="basic-menu"
@@ -109,3 +113,5 @@ export default function BasicMenu() {
     </Box>
   )
 }
+
+export default MenuBar

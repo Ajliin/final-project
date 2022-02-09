@@ -20,6 +20,7 @@ import Stack from '@mui/material/Stack'
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
 import WorkOutlineRoundedIcon from '@mui/icons-material/WorkOutlineRounded'
 import { LocationOnOutlined } from '@material-ui/icons'
+import PriorityHighIcon from '@mui/icons-material/PriorityHigh'
 
 import Header from '../components/Header'
 import AvatarIcon from '../components/AvatarIcon'
@@ -41,20 +42,20 @@ const LandingPage = () => {
 
   const allCompanies = useSelector((store) => store.companies.companies)
   console.log('allCompanies', allCompanies)
-    const category1 = useSelector((store) => store.companies.category)
+  const category1 = useSelector((store) => store.companies.category)
   console.log('category', category1)
   const { searchedCompany } = useSelector((store) => store.companies)
   console.log('searched comapany from landingpage', searchedCompany)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  console.log("modemodemodemodemodemodemode",mode)
+  console.log('modemodemodemodemodemodemode', mode)
 
   useEffect(() => {
-    if (category1) {setMode("searched")} else {setMode('')}
-    
+    if (category1) {
+      setMode('searched')
+    }
+    setMode('')
   }, [category1, mode])
-
-   
 
   const goToLogIn = () => {
     navigate('/login')
@@ -93,38 +94,43 @@ const LandingPage = () => {
   return (
     <Box
       sx={{
-        backgroundColor: '#fab49f',
+        backgroundColor: '#cab9ed',
       }}
     >
       <Box style={styles.BackgroundImg}>
         <Header />
-        <Box minWidth={700} maxWidth={900}
-              marginTop={"4vh"} marginLeft={"20vw"}>
-         {/* // <Paper> */}
-            <Box
-              sx={{
-                margin: 20,
-                padding: 20,
-                display: 'flex',
-                justifyContent: 'center',
-               
-              }}
-            >
-              <Typography variant="h3" style={styles.Typo1} component="body1">
-                Sveriges största marknadsplats för kvinnliga entreprenörer,
-                kreatörer och småföretagare.
-              </Typography>
-
-            </Box>
-         {/* // </Paper> */}
+        <Box
+          minWidth={700}
+          maxWidth={900}
+          marginTop={'4vh'}
+          marginLeft={'25vw'}
+        >
+          {/* // <Paper> */}
+          <Box
+            sx={{
+              //margin: 20,
+              padding: 20,
+              display: 'flex',
+              justifyContent: 'center',
+            }}
+          >
+            <Typography variant="h3" style={styles.Typo1} component="body1">
+              Sveriges största marknadsplats för kvinnliga entreprenörer,
+              kreatörer och småföretagare
+              <Box component="span" style={styles.TypoBright}>
+                !
+              </Box>
+            </Typography>
+          </Box>
+          {/* // </Paper> */}
 
           <Box
             sx={{
-              margin: 20,
+              // margin: 20,
               display: 'flex',
               justifyContent: 'center',
               marginY: 2,
-              background: 'rgba(0,0,0,0.5)',
+              background: 'rgba(215,215,215,0.5)',
               padding: 20,
               borderRadius: 10,
             }}
@@ -154,7 +160,7 @@ const LandingPage = () => {
               <TextField
                 id="skills"
                 autoComplete="off"
-                label="Skills eller produkter"
+                label="Skills"
                 InputProps={{
                   startAdornment: <WorkOutlineRoundedIcon />,
                 }}
@@ -189,24 +195,23 @@ const LandingPage = () => {
               onClick={getCompanyData}
             >
               <SearchRoundedIcon />
-              Hitta företag
+              HITTA
             </Button>
           </Box>
           <Box
             sx={{
               marginTop: 50,
               display: 'flex',
-              justifyContent: 'center',
-          
+              //justifyContent: 'center',
             }}
           >
             {email ? (
               <Typography color="primary" variant="h4" component="h3">
-                Välkommen {firstname}!
+                Välkommen {firstname}
               </Typography>
             ) : (
               <Typography color="primary" variant="h4" component="h3">
-                Välkommen till Foajé!
+                Välkommen till Foajé
               </Typography>
             )}
           </Box>
@@ -214,27 +219,29 @@ const LandingPage = () => {
       </Box>
       <Container>
         <Box
-          sx={{
-            // marginY: 2,
-            //backgroundColor: 'beige',
-           // backgroundColor: '#ff7043',
-          }}
+          sx={
+            {
+              // marginY: 2,
+              //backgroundColor: 'beige',
+              // backgroundColor: '#ff7043',
+            }
+          }
         >
-   
-          {/* <Typography variant="h6" component="h2">
-            Sökresultat
-          </Typography> */}
+          {/* SÖKNING */}
 
-          {mode === '' ? (
-            <p></p>
-          ) : allCompanies.length === 0 ? (
-            <Typography>Inga Foajé medlemmar matchar din efterfrågan</Typography>
+          {/* {mode === '' && (
+            <p></p>)} */}
+
+          {allCompanies.length === 0 ? (
+            <Typography>
+              Inga Foajé medlemmar matchar din efterfrågan
+            </Typography>
           ) : (
             <>
               <Card />
             </>
           )}
-                 <Box
+          <Box
             sx={{
               marginY: 5,
               display: 'flex',
@@ -251,14 +258,12 @@ const LandingPage = () => {
                 alignItems="center"
                 spacing={2}
               >
-                <Chip label="Web design" color="primary"  />
+                <Chip label="Web design" style={styles.BgLightPurple} />
                 <Chip
                   label="Frontend utvecklare"
-                  color="light"
                   style={styles.BgLightPurple}
-                 
                 />
-                <Chip label="Hantverkare" color="primary"  />
+                <Chip label="Elektriker" style={styles.BgLightPurple} />
               </Stack>
             </Box>
 
@@ -272,13 +277,9 @@ const LandingPage = () => {
                 alignItems="center"
                 spacing={2}
               >
-                <Chip
-                  label="Trädgårsdesigner"
-                  color="primary"
-                  
-                />
-                <Chip label="Undervisning" color="primary"  />
-                <Chip label="SEO" color="primary"  />
+                <Chip label="Trädgårsdesigner" style={styles.BgLightPurple} />
+                <Chip label="Sömmerska" style={styles.BgLightPurple} />
+                <Chip label="SEO/SME" style={styles.BgLightPurple} />
               </Stack>
             </Box>
           </Box>
@@ -291,12 +292,23 @@ const LandingPage = () => {
               //backgroundColor: 'beige',
             }}
           >
-     
             <Category category={'Business'} no={1} searchSkills={'Talking'} />
-            <Category category={'Programmering & Design 2'} no={2} />
-            <Category category={'Hem & Hus'} no={3} />
-            <Category category={'Träning & Hälsa'} no={4} />
-            <Category category={'Hantverk & Bild'} no={5} />
+            <Category
+              category={'Programmering & Design 2'}
+              no={2}
+              searchSkills={'developer'}
+            />
+            <Category category={'Hem & Hus'} no={3} searchSkills={'editing'} />
+            <Category
+              category={'Träning & Hälsa'}
+              no={4}
+              searchSkills={'marketing'}
+            />
+            <Category
+              category={'Hantverk & Bild'}
+              no={5}
+              searchSkills={'web'}
+            />
           </Box>
         </Box>
       </Container>

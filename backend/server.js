@@ -430,23 +430,46 @@ app.get('/allcompanies', async (req, res) => {
 //13 to GET searched company CATEGORIES
 app.get('/category-companies', async (req, res) => {
 
-  const skills = req.query.skills?.toLowerCase()
+  const reqSkill1 = req.query.skills?.toLowerCase()
+ const reqSkill2 = req.query.reqskills2?.toLowerCase()
 
  // const category = req.body
-  // console.log('companyName inside result-get', companyName)
+ console.log('req.query.skills?.toLowerCase()', reqSkill1)
+  console.log('req.query.skills?.toLowerCase()', reqSkill2)
   //console.log('skills inside result-get', skills)
 
   try {
     const findFilter = {}
-
+    const findFilter2 ={}
+   
    
 
-    if (skills) {
-      findFilter.skills = { $regex: new RegExp(skills, 'i') }
+    if (reqSkill1) {
+      console.log("HEJ!!")
+      findFilter.skills = { $regex: new RegExp(reqSkill1, 'i') }
+      console.log("findFilter.reqSkill1", findFilter.skills)
     }
+      if (reqSkill2) {
+      findFilter2.skills = { $regex: new RegExp(reqSkill2, 'i') }
+            console.log("findFilter2.reqSkill2", findFilter2.skills)
+    }
+    console.log("findfilter", findFilter)
+    console.log("findfilter2", findFilter2)
 
-    const allCompanyname = Company.find(findFilter)
+// console.log("Company",Company)
+//     const allCompanyname1 = await Company.find(findFilter)
+//    console.log("allCompanyname1", allCompanyname1)
+//     const allCompanyname2 = await Company.find(findFilter2)
+//     console.log("allCompanyname2", allCompanyname2)
+
+//     if (allCompanyname1._id === allCompanyname2._id){
+//       console.log("TRRRRRUE", allCompanyname2.companyName)
+//     }
+ const allCompanyname = Company.find(findFilter)
+    console.log("allCompanyname",allCompanyname)
     const resultCompany = await allCompanyname.limit(50)
+
+  
 
     res.status(200).json({ response: resultCompany, success: true })
   } catch (error) {
@@ -478,7 +501,9 @@ app.get('/result-companies', async (req, res) => {
     }
 
     const allCompanyname = Company.find(findFilter)
+    console.log("allCompanyname",allCompanyname)
     const resultCompany = await allCompanyname.limit(50)
+    console.log("resultCompany",resultCompany)
 
     res.status(200).json({ response: resultCompany, success: true })
   } catch (error) {

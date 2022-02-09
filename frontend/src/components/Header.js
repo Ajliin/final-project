@@ -1,15 +1,6 @@
-import {
-  AppBar,
-  Toolbar,
-  Typography,
-  Button,
-  Box,
-  Container,
-} from '@material-ui/core'
-import { AccountCircle } from '@material-ui/icons'
 import React from 'react'
+import { Typography, Button, Box } from '@material-ui/core'
 
-import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { styles } from '../utils/theme'
 import { useNavigate } from 'react-router-dom'
 
@@ -27,11 +18,9 @@ const Header = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        // position: 'sticky',
-        // backgroundColor: 'rgba(0,0,0,0.2)',
       }}
     >
-      <Button type="submit" onClick={() => navigate('/')}>
+      <Button color="primary" type="submit" onClick={() => navigate('/')}>
         <Typography>FOAJÉ</Typography>
       </Button>
       <Menu />

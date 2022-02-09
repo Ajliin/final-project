@@ -13,8 +13,8 @@ export const PieChart1 = () => {
     (store) => store.searchedCompany.genderRatio,
   )
   const pieData = [
-    { title: 'Women', value: genderRatio, color: 'pink' },
-    { title: 'Men', value: 100 - genderRatio, color: 'black' },
+    { title: 'Women', value: genderRatio, color: '#ff6600' },
+    { title: 'Men', value: 100 - genderRatio, color: '#c43300' },
   ]
 
   return (
@@ -54,8 +54,8 @@ export const PieChart2 = () => {
     (store) => store.searchedCompany.genderRatio,
   )
   const pieData = [
-    { title: 'Women', value: genderRatioSearchedCompany, color: 'pink' },
-    { title: 'Men', value: 100 - genderRatioSearchedCompany, color: 'black' },
+    { title: 'Women', value: genderRatioSearchedCompany, color: '#ff6600' },
+    { title: 'Men', value: 100 - genderRatioSearchedCompany, color: '#c43300' },
   ]
 
   return (
@@ -95,8 +95,8 @@ export const PieChart3 = ({ genderRatio }) => {
   //   (store) => store.searchedCompany.genderRatio,
   //)
   const pieData = [
-    { title: 'Women', value: genderRatio, color: 'pink' },
-    { title: 'Men', value: 100 - genderRatio, color: 'black' },
+    { title: 'Women', value: genderRatio, color: '#ff6600' },
+    { title: 'Men', value: 100 - genderRatio, color: '#c43300' },
   ]
 
   return (
@@ -112,7 +112,7 @@ export const PieChart3 = ({ genderRatio }) => {
         label={({ dataEntry }) =>
           dataEntry.title + ': ' + dataEntry.value + '%'
         }
-        labelPosition={112}
+        labelPosition={150}
         center={[70, 70]}
         y
         viewBoxSize={[150, 150]}

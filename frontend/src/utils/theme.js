@@ -6,27 +6,21 @@ import { createTheme } from '@mui/material/styles'
 
 export const theme = createTheme({
   typography: {
-    fontFamily: "Raleway",
+    fontFamily: 'Raleway',
     fontWeightLight: 100,
 
-     body1: {
-      color: '#030304',
+    body1: {
+      // color: '#030304',
       fontWeight: 500,
-      //backgroundColor: "yellow",
-
     },
-
-   
-
-   },
+  },
   palette: {
     primary: {
       light: '#cab9ed',
       main: '#251761',
       dark: '#010037',
-   
-      contrastText: '#d5c7c7',
-      
+
+      contrastText: '#d5cfc7',
     },
     secondary: {
       light: '#ff983f',
@@ -35,12 +29,7 @@ export const theme = createTheme({
       contrastText: '#030304',
     },
   },
-  light: '#cab93d',
-      
-});
-
-
-
+})
 
 export const styles = {
   CardHeaderMedia: {
@@ -56,16 +45,13 @@ export const styles = {
   Card: { marginTop: 20 },
   SmallCard: { padding: 20, marginTop: 10 },
   Paper: {
-    marginTop: 20,
+    marginTop: 10,
     padding: 15,
     display: 'flex',
     flexDirection: 'row',
     minWidth: 800,
+    backgroundColor: '#d5cfc7',
   },
-  // CategoryBtn: {
-  //   width: 200,
-  //   borderRadius: '50%',
-  // },
 
   //login sign up PAGE
   PaperForm: {
@@ -73,26 +59,24 @@ export const styles = {
     height: '85vh',
     marginTop: 20,
     elevation: 5,
-    background: 'lightgrey',
+    background: '#fcd3c5',
   },
   LoginBtn: {
     width: '100%',
   },
-  NoBtn: {},
   CardLoginMedia: {
-    backgroundImage: `url(./login.jpg)`,
+    backgroundImage: `url(./illu5.jpg)`,
     height: '100%',
     width: '50%',
   },
+
   BackgroundImg: {
-    //backgroundImage: `url(./hall.jpg)`,
     backgroundImage: `url(./header.jpg)`,
-     backgroundPosition: "bottom",
+    backgroundPosition: 'bottom',
     height: '65vh',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    //  justifyContent: 'center',
     objectFit: 'cover',
   },
 
@@ -105,24 +89,36 @@ export const styles = {
     marginTop: 20,
     elevation: 5,
     height: '100%',
+    backgroundColor: '#cab9ed',
   },
+
   FooterStyle: {
-    background: 'grey',
-    color: 'white',
+    background: '#010037',
+    color: '#d5cfc7',
+    padding: 20,
 
     bottomMargin: 0,
   },
   HeaderStyle: {
     position: 'sticky',
   },
-  Typo1:{
-    color: '#030304'
+  Typo1: {
+    color: '#030304',
   },
-   TypoGrey:{
-    color: 'darkgrey'
+  TypoGrey: {
+    color: 'darkgrey',
   },
-     BgLightPurple:{
-    background: '#cab9ed'
-  }
+  TypoBright: {
+    color: '#cab9ed',
+    fontWeight: 700,
+    fontSize: 50,
+  },
+  BgLightPurple: {
+    background: '#251761',
+    fontSize: 'large',
+    color: '#d5cfc7',
+    paddingY: 20,
+    paddingX: 2,
+    margin: 2,
+  },
 }
-

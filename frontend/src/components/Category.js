@@ -20,11 +20,7 @@ const Category = ({ category, no, searchSkills }) => {
       `result-companies?companyName=&&location=&&skills=${searchSkills}`,
     )
 
-    fetch(
-      TEST_API(
-        `category-companies?skills=${searchSkills}`,
-      ),
-    )
+    fetch(TEST_API(`category-companies?skills=${searchSkills}`))
       .then((res) => res.json())
       .then((data) => {
         console.log('category search', data)
@@ -41,8 +37,10 @@ const Category = ({ category, no, searchSkills }) => {
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'center',
+          justifyContent: 'space-between',
           alignItems: 'center',
+
+          height: '15vh',
         }}
       >
         <img

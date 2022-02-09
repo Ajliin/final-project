@@ -31,6 +31,7 @@ import { PieChart1, PieChart2 } from '../components/PieChart'
 import Modal from '../components/Modal'
 import AvatarIcon from '../components/AvatarIcon'
 import DoRating from '../components/DoRating'
+import ImgList from '../components/ImgList'
 
 import user from '../reducers/user'
 import company from '../reducers/company'
@@ -322,11 +323,7 @@ const Company = () => {
                           return
                         } else {
                           return (
-                            <Chip
-                              label={skill}
-                              color="primary"
-                              variant="outlined"
-                            />
+                            <Chip label={skill} style={styles.BgLightPurple} />
                           )
                         }
                       })}
@@ -431,6 +428,9 @@ const Company = () => {
                         ))}
                     </Card>
                   )}
+                </Grid>
+                <Grid>
+                  <ImgList />
                 </Grid>
               </Grid>
             </>

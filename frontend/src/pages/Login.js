@@ -118,7 +118,6 @@ const Login = () => {
               {/* Containern kring inlogging */}
               <Box
                 sx={{
-                  //  backgroundColor: 'beige',
                   display: 'flex',
                   flexDirection: 'column',
                   marginX: '10vw',
@@ -296,7 +295,7 @@ const Login = () => {
                 sx={{
                   margin: 20,
                   padding: 30,
-                  backgroundColor: 'rgba(215,215, 215,0.7)',
+                  backgroundColor: 'rgba(202,185,237,0.95)',
                   color: 'black',
                 }}
               >
