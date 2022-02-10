@@ -9,15 +9,16 @@ import {
   Container,
   Paper,
   Link,
+  Card,
+  CardMedia,
 } from '@material-ui/core'
 
-import { CardMedia, Card } from '@mui/material'
 import VpnKeyRoundedIcon from '@mui/icons-material/VpnKeyRounded'
 import MailOutlineRoundedIcon from '@mui/icons-material/MailOutlineRounded'
 import PersonOutlineRoundedIcon from '@mui/icons-material/PersonOutlineRounded'
 
-import { TEST_API } from '../utils/url'
-import { styles, theme } from '../utils/theme'
+import { URL_API } from '../utils/url'
+import { styles } from '../utils/theme'
 
 import user from '../reducers/user'
 import Header from '../components/Header'
@@ -31,6 +32,7 @@ const Login = () => {
   const [error, setError] = useState(false)
 
   const errorMess = useSelector((store) => store.user.error)
+  console.log(errorMess)
 
   const accessToken = useSelector((store) => store.user.accessToken)
   const { hasCompany } = useSelector((store) => store.user)
@@ -61,7 +63,7 @@ const Login = () => {
       }),
     }
 
-    fetch(TEST_API(mode), options)
+    fetch(URL_API(mode), options)
       .then((res) => res.json())
       .then((data) => {
         console.log('userdata', data)
@@ -152,7 +154,6 @@ const Login = () => {
                 {/* Container for form */}
                 <Box
                   sx={{
-                    // backgroundColor: 'red',
                     display: 'flex',
                     flexDirection: 'column',
                     width: '100%',
@@ -167,9 +168,10 @@ const Login = () => {
                         label="Förnamn"
                         variant="outlined"
                         InputProps={{
-                          //style: { color: 'white', paddingLeft: 30 },
                           startAdornment: (
-                            <PersonOutlineRoundedIcon margin={10} />
+                            <PersonOutlineRoundedIcon
+                              style={{ marginRight: 5 }}
+                            />
                           ),
                         }}
                         margin="normal"
@@ -181,7 +183,16 @@ const Login = () => {
                         id="lastname"
                         label="Efternamn"
                         InputProps={{
-                          startAdornment: <PersonOutlineRoundedIcon />,
+                          startAdornment: (
+                            <PersonOutlineRoundedIcon
+                              style={{
+                                marginRight: 5,
+                                '& label.Mui-focused': {
+                                  color: 'red',
+                                },
+                              }}
+                            />
+                          ),
                         }}
                         margin="normal"
                         required
@@ -195,10 +206,11 @@ const Login = () => {
                   <TextField
                     id="email"
                     type="email"
-                    type="text"
                     label="Email"
                     InputProps={{
-                      startAdornment: <MailOutlineRoundedIcon />,
+                      startAdornment: (
+                        <MailOutlineRoundedIcon style={{ marginRight: 5 }} />
+                      ),
                     }}
                     margin="normal"
                     required
@@ -212,7 +224,9 @@ const Login = () => {
                     type="password"
                     label="Password "
                     InputProps={{
-                      startAdornment: <VpnKeyRoundedIcon />,
+                      startAdornment: (
+                        <VpnKeyRoundedIcon style={{ marginRight: 5 }} />
+                      ),
                     }}
                     required
                     variant="outlined"
@@ -226,7 +240,7 @@ const Login = () => {
                       <Button
                         style={styles.LoginBtn}
                         type="submit"
-                        color="primary"
+                        color="secondary"
                         variant="contained"
                       >
                         Sign up
@@ -240,7 +254,7 @@ const Login = () => {
                       >
                         <Typography>Är du redan medlem? </Typography>
                         <Link
-                          href="#"
+                          href=""
                           underline="hover"
                           onClick={() => setMode('signin')}
                         >
@@ -253,7 +267,7 @@ const Login = () => {
                       <Button
                         style={styles.LoginBtn}
                         type="submit"
-                        color="primary"
+                        color="secondary"
                         variant="contained"
                       >
                         Logga in
@@ -285,7 +299,6 @@ const Login = () => {
             <Box
               sx={{
                 height: '100%',
-
                 display: 'flex',
                 justifyContent: 'flex-end',
                 alignItems: 'flex-end',
@@ -295,7 +308,7 @@ const Login = () => {
                 sx={{
                   margin: 20,
                   padding: 30,
-                  backgroundColor: 'rgba(202,185,237,0.95)',
+                  backgroundColor: 'rgba(228,228,206,0.95)',
                   color: 'black',
                 }}
               >

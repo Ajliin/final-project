@@ -32,18 +32,33 @@ export const theme = createTheme({
 })
 
 export const styles = {
+  // COMPANYPAGE
+
+  //HeaderCard
+  Card: {
+    marginTop: 20,
+  },
   CardHeaderMedia: {
     backgroundImage: `url(https://source.unsplash.com/random/3000x300?sig=1)`,
     height: 300,
   },
-  CardHeader: {
+  //content under picture
+  CardContent: {
     padding: 2,
     display: 'flex',
     justifyContent: 'space-between',
     padding: 20,
   },
-  Card: { marginTop: 20 },
-  SmallCard: { padding: 20, marginTop: 10 },
+
+  SmallCard: {
+    padding: 20,
+    marginTop: 10,
+
+    transition: 'transform 6s ease-in-out',
+    '&:hover': { transform: 'scale(1.5, 1.5, 1)', backgroundColor: 'red' },
+  },
+
+  // Searchresult
   Paper: {
     marginTop: 10,
     padding: 15,
@@ -53,31 +68,56 @@ export const styles = {
     backgroundColor: '#d5cfc7',
   },
 
+  AnimateCard: {
+    transition: 'transform 0.15s ease-in-out',
+    '&:hover': { transform: 'scale3d(1.05, 1.05, 1)' },
+  },
+
   //login sign up PAGE
   PaperForm: {
     display: 'flex',
     height: '85vh',
     marginTop: 20,
     elevation: 5,
-    background: '#fcd3c5',
+    backgroundColor: '#cab9ed',
   },
   LoginBtn: {
     width: '100%',
   },
   CardLoginMedia: {
-    backgroundImage: `url(./illu5.jpg)`,
+    backgroundImage: `url(./illu8.jpg)`,
     height: '100%',
     width: '50%',
   },
+  //end login
 
+  // Profile
+  ProfileCardHeader: {
+    backgroundImage: `url(./illu10.jpg)`,
+    height: 300,
+  },
+  ProfileBtn: {
+    width: '70%',
+    marginBottom: 10,
+    float: 'left',
+  },
+  PageContainer: {
+    height: '80vh',
+  },
+  // Landingpage
   BackgroundImg: {
     backgroundImage: `url(./header.jpg)`,
     backgroundPosition: 'bottom',
-    height: '65vh',
+    height: '80vh',
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
+    alignItems: 'flex-end',
     objectFit: 'cover',
+  },
+
+  h6Space: {
+    marginTop: 10,
+    marginBottom: 20,
   },
 
   BackgroundOrange: {
@@ -92,6 +132,12 @@ export const styles = {
     backgroundColor: '#cab9ed',
   },
 
+  CompanyFormMedia: {
+    backgroundImage: `url(./illu7.jpg)`,
+    height: '100%',
+    width: '50%',
+  },
+
   FooterStyle: {
     background: '#010037',
     color: '#d5cfc7',
@@ -104,9 +150,15 @@ export const styles = {
   },
   Typo1: {
     color: '#030304',
+    fontWeight: 700,
+  },
+  Typo2: {
+    color: '#030304',
+    fontWeight: 200,
   },
   TypoGrey: {
-    color: 'darkgrey',
+    //color: 'darkgrey',
+    fontWeight: 700,
   },
   TypoBright: {
     color: '#cab9ed',

@@ -30,7 +30,7 @@ const LogOutBtn = () => {
       dispatch(company.actions.setLocation(null))
       dispatch(company.actions.setSkills(null))
       dispatch(company.actions.setUrl(null))
-      // dispatch(company.actions.setError(data.response))
+      dispatch(company.actions.setError(null))
 
       //specify the data that we want to save in localStorage 'user' here
       localStorage.removeItem('user')
@@ -44,7 +44,7 @@ const LogOutBtn = () => {
       variant="outlined"
       onClick={() => onLogOut()}
     >
-      Log out
+      Logga ut
     </Button>
   )
 }

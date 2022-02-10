@@ -13,6 +13,7 @@ import {
   Link,
 } from '@material-ui/core'
 import Stack from '@mui/material/Stack'
+import { CardActionArea } from '@material-ui/core/'
 
 import { LocationOnOutlined } from '@material-ui/icons'
 
@@ -42,7 +43,7 @@ const Card = () => {
               {/* //whole card */}
               <Link
                 key={company._id}
-                underline="hover"
+                underline="none"
                 href="#"
                 onClick={() => goToCompany(company._id, company.companyName)}
               >

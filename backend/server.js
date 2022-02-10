@@ -121,7 +121,6 @@ const authenticateUser = async (req, res, next) => {
 
   try {
     const user = await User.findOne({ accessToken })
-    // console.log('auten user', user)
     if (user) {
       next()
     } else {
@@ -232,7 +231,7 @@ app.get('/user-edit/:userId', async (req, res) => {
 
   try {
     const companyExist = await Company.find({ user: userId })
-    //console.log('companyExist', companyExist)
+
     if (companyExist.length !== 0) {
       res.status(200).json({
         response: { hasCompany: true, companyExist },
@@ -246,19 +245,18 @@ app.get('/user-edit/:userId', async (req, res) => {
   }
 })
 
-// 5. endpoint for creting a new myPage
+// 5. POST for creting a new myPage
 
 app.post('/profile', async (req, res) => {
   const { description, user } = req.body
 
   try {
     const queriedUser = await User.findById(user)
-    //console.log(queriedUser)
+
     const newUser = await new MyPage({
       description: description,
       user: queriedUser,
     }).save()
-    //console.log('newUser', newUser)
 
     res.status(201).json({ response: newUser, success: true })
   } catch (error) {
@@ -266,14 +264,14 @@ app.post('/profile', async (req, res) => {
   }
 })
 
-// 6. to get profile for user
+// 6. to GET profile for user
 app.get('/profile/:userId', authenticateUser)
 app.get('/profile/:userId', async (req, res) => {
   const { userId } = req.params
 
   try {
     const profile = await MyPage.find({ user: userId }, { description: 1 })
-    // console.log('inside ge - profile', profile)
+
     res.status(200).json({ response: profile, success: true })
   } catch (error) {
     res.status(400).json({ response: error, success: false })
@@ -282,7 +280,7 @@ app.get('/profile/:userId', async (req, res) => {
 
 // ****************** COMPANY ***********************
 
-//7. to create new company
+//7. to create POST new company
 app.post('/company', async (req, res) => {
   const {
     companyName,
@@ -293,8 +291,6 @@ app.post('/company', async (req, res) => {
     url,
     user,
   } = req.body
-
-  //console.log('user inside app.post', user)
 
   try {
     const queriedUser = await User.findById(user)
@@ -332,8 +328,7 @@ app.get('/company-result/:companyId', async (req, res) => {
 
   try {
     const getCompany = await Company.findById(companyId)
-    // console.log('userID get companypage', userId)
-    //console.log('company get companypage', getCompany)
+
     res.status(200).json({
       response: {
         companyId: getCompany._id,
@@ -365,8 +360,7 @@ app.get('/company/:userId', async (req, res) => {
 
   try {
     const getCompany = await Company.findOne({ user: userId })
-    // console.log('userID get companypage', userId)
-    console.log('company get companypage', getCompany)
+
     res.status(200).json({
       response: {
         companyId: getCompany._id,
@@ -426,38 +420,19 @@ app.get('/category-companies', async (req, res) => {
   const reqSkill1 = req.query.skills?.toLowerCase()
   const reqSkill2 = req.query.reqskills2?.toLowerCase()
 
-  // const category = req.body
-  console.log('req.query.skills?.toLowerCase()', reqSkill1)
-  console.log('req.query.skills?.toLowerCase()', reqSkill2)
-  //console.log('skills inside result-get', skills)
-
   try {
     const findFilter = {}
     const findFilter2 = {}
 
     if (reqSkill1) {
-      console.log('HEJ!!')
       findFilter.skills = { $regex: new RegExp(reqSkill1, 'i') }
-      console.log('findFilter.reqSkill1', findFilter.skills)
     }
     if (reqSkill2) {
       findFilter2.skills = { $regex: new RegExp(reqSkill2, 'i') }
-      console.log('findFilter2.reqSkill2', findFilter2.skills)
     }
-    console.log('findfilter', findFilter)
-    console.log('findfilter2', findFilter2)
 
-    // console.log("Company",Company)
-    //     const allCompanyname1 = await Company.find(findFilter)
-    //    console.log("allCompanyname1", allCompanyname1)
-    //     const allCompanyname2 = await Company.find(findFilter2)
-    //     console.log("allCompanyname2", allCompanyname2)
-
-    //     if (allCompanyname1._id === allCompanyname2._id){
-    //       console.log("TRRRRRUE", allCompanyname2.companyName)
-    //     }
     const allCompanyname = Company.find(findFilter)
-    console.log('allCompanyname', allCompanyname)
+
     const resultCompany = await allCompanyname.limit(50)
 
     res.status(200).json({ response: resultCompany, success: true })
@@ -471,8 +446,6 @@ app.get('/result-companies', async (req, res) => {
   const companyName = req.query.companyName?.toLowerCase()
   const location = req.query.location?.toLowerCase()
   const skills = req.query.skills?.toLowerCase()
-  // console.log('companyName inside result-get', companyName)
-  //console.log('skills inside result-get', skills)
 
   try {
     const findFilter = {}
@@ -490,9 +463,8 @@ app.get('/result-companies', async (req, res) => {
     }
 
     const allCompanyname = Company.find(findFilter)
-    console.log('allCompanyname', allCompanyname)
+
     const resultCompany = await allCompanyname.limit(50)
-    console.log('resultCompany', resultCompany)
 
     res.status(200).json({ response: resultCompany, success: true })
   } catch (error) {
@@ -523,85 +495,13 @@ app.post('/rating/:companyId', async (req, res) => {
         countRating: 1,
       },
     })
-    //console.log('company!!!!!!!!!!!!!', companyUpdate)
-    // company.countRating = company.reviews.length
+
     const company = await Company.findById(companyId)
     company.rating =
       company.reviews.reduce((acc, item) => item.rating + acc, 0) /
       company.reviews.length
 
     await company.save()
-
-    // console.log('company.rating!!!!!!', company.rating)
-
-    // const sortedCompany = await Company.aggregate([
-    //   {
-    //     $match: { _id: companyId },
-    //   },
-    //   {
-    //     $unwind: '$reviews',
-    //   },
-    //   {
-    //     $sort: {
-    //       'reviews.createdAt': -1,
-    //     },
-    //   },
-    // ])
-
-    //const sortedCompany = await Company.findById(companyId)
-
-    console.log('after sortedCompany', sortedCompany)
-
-    res.status(200).json({
-      response: {
-        companyName: company.companyName,
-        rating: Math.round(company.rating * 10) / 10,
-        countRating: sortedCompany.countRating,
-        reviews: sortedCompany.reviews.sort(
-          (a, b) => b.createdAt - a.createdAt,
-        ),
-      },
-      success: true,
-    })
-  } catch (error) {
-    res.status(400).json({ response: error, sucess: false })
-  }
-})
-
-// 16 To caluculate media company
-app.get('/rating/:companyId', async (req, res) => {
-  const { companyId } = req.params
-  //const { newRating, comment, reviewerId } = req.body
-
-  try {
-    // const company = await Company.findById(companyId)
-
-    // company.rating =
-    //   company.reviews.reduce((acc, item) => item.rating + acc, 0) /
-    //   company.reviews.length
-
-    //mongo operator
-    const company = await Company.findByIdAndUpdate(companyId, {
-      $push: {
-        reviews: {
-          companyId,
-          rating: Number(newRating),
-          comment,
-          reviewerId,
-          createdAt: Date.now(),
-        },
-      },
-
-      $inc: {
-        countRating: 1,
-      },
-    })
-    console.log('company!!!!!!!!!!!!!', company)
-    // company.countRating = company.reviews.length
-
-    // company.rating =
-    //   company.reviews.reduce((acc, item) => item.rating + acc, 0) /
-    //   company.reviews.length
 
     // const sortedCompany = await Company.aggregate([
     //   {
@@ -619,12 +519,10 @@ app.get('/rating/:companyId', async (req, res) => {
 
     const sortedCompany = await Company.findById(companyId)
 
-    console.log('after sortedCompany', sortedCompany)
-
     res.status(200).json({
       response: {
         companyName: company.companyName,
-        rating: Math.round(sortedCompany.rating * 10) / 10,
+        rating: Math.round(company.rating * 10) / 10,
         countRating: sortedCompany.countRating,
         reviews: sortedCompany.reviews.sort(
           (a, b) => b.createdAt - a.createdAt,

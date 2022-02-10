@@ -1,30 +1,40 @@
 import React from 'react'
-import { Typography, Button, Box } from '@material-ui/core'
+import { Typography, Container, Box, Link } from '@material-ui/core'
 
 import { styles } from '../utils/theme'
 import { useNavigate } from 'react-router-dom'
 
-import Menu from './Menu'
+import MenuBar from './Menu'
 
 const Header = () => {
   const navigate = useNavigate()
 
   return (
-    <Box
-      style={styles.HeaderStyle}
-      sx={{
-        padding: 10,
-        width: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-      }}
-    >
-      <Button color="primary" type="submit" onClick={() => navigate('/')}>
-        <Typography>FOAJÉ</Typography>
-      </Button>
-      <Menu />
-    </Box>
+    <Container>
+      <Box
+        style={styles.HeaderStyle}
+        sx={{
+          padding: 10,
+          width: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
+        <Link
+          color="primary"
+          type="submit"
+          onClick={() => navigate('/')}
+          href=""
+          underline="none"
+        >
+          <Typography variant="h2" component="h2">
+            FOAJÉ
+          </Typography>
+        </Link>
+        <MenuBar />
+      </Box>
+    </Container>
   )
 }
 

@@ -1,28 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch, batch } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
+
 import { SocialIcon } from 'react-social-icons'
 
 import {
   Button,
   Typography,
-  TextField,
   Container,
   Box,
   Grid,
   Card,
-  CardHeader,
   CardMedia,
   Chip,
 } from '@material-ui/core'
 
-import Stack from '@mui/material/Stack'
-
 import Rating from '@mui/material/Rating'
-import { LocationOnOutlined } from '@material-ui/icons'
+import { LocationOnOutlined, WrapText } from '@material-ui/icons'
 import { CardContent } from '@mui/material'
 
-import { TEST_API } from '../utils/url'
+import { URL_API } from '../utils/url'
 import { styles } from '../utils/theme'
 
 import Header from '../components/Header'
@@ -30,19 +27,15 @@ import LogOutBtn from '../components/LogOutBtn'
 import { PieChart1, PieChart2 } from '../components/PieChart'
 import Modal from '../components/Modal'
 import AvatarIcon from '../components/AvatarIcon'
-import DoRating from '../components/DoRating'
 import ImgList from '../components/ImgList'
+import Footer from '../components/Footer'
 
-import user from '../reducers/user'
 import company from '../reducers/company'
-import profile from '../reducers/profile'
-import companies from '../reducers/companies'
 import searchedCompany from '../reducers/searchedCompany'
 
 const Company = () => {
   const [mode, setMode] = useState('')
   const [showRating, setShowRating] = useState(false)
-  const [test, setTest] = useState('')
 
   //useSelector
   const profileId = useSelector((store) => store.user.userId)
@@ -50,14 +43,14 @@ const Company = () => {
   const accessToken = useSelector((store) => store.user.accessToken)
   const sCompany = useSelector((store) => store.searchedCompany)
   console.log('sCompany', sCompany)
+
   //useParams
   const { paramId } = useParams()
-  console.log('paramId', paramId)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
-  //useEffect
+  //useEffects
   useEffect(() => {
     if (!accessToken) {
       navigate('/login')
@@ -83,15 +76,9 @@ const Company = () => {
         },
       }
 
-      fetch(TEST_API(`company/${paramId}`), options)
+      fetch(URL_API(`company/${paramId}`), options)
         .then((res) => res.json())
         .then((data) => {
-          // console.log('Data from get company/profileid in COMPANY', data)
-          console.log(
-            'Data.response.companyName from get company/profileid in COMPANY',
-            data.response.reviews,
-          )
-
           if (data.success) {
             batch(() => {
               dispatch(company.actions.setUserId(data.response.userId))
@@ -99,7 +86,6 @@ const Company = () => {
               dispatch(
                 company.actions.setCompanyName(data.response.companyName),
               )
-
               dispatch(
                 company.actions.setGenderRatio(data.response.genderRatio),
               )
@@ -150,7 +136,6 @@ const Company = () => {
               dispatch(company.actions.setReviews(null))
               dispatch(company.actions.setError(data.response))
             })
-            //    setError(true)
           }
         })
     } else if (mode === 'searched') {
@@ -161,14 +146,13 @@ const Company = () => {
         },
       }
 
-      fetch(TEST_API(`company-result/${paramId}`), options2)
+      fetch(URL_API(`company-result/${paramId}`), options2)
         .then((res) => res.json())
         .then((data) => {
           console.log('inside company.result', data)
 
           if (data.success) {
             batch(() => {
-              //  dispatch(company.actions.setUserId(data.response.newCompany.userId))
               dispatch(
                 searchedCompany.actions.setCompanyId(data.response.companyId),
               )
@@ -177,7 +161,6 @@ const Company = () => {
                   data.response.companyName,
                 ),
               )
-
               dispatch(
                 searchedCompany.actions.setGenderRatio(
                   data.response.genderRatio,
@@ -194,7 +177,6 @@ const Company = () => {
               dispatch(searchedCompany.actions.setSkills(data.response.skills))
               dispatch(searchedCompany.actions.setUrl(data.response.url))
               dispatch(searchedCompany.actions.setRating(data.response.rating))
-
               dispatch(
                 searchedCompany.actions.setCountRating(
                   data.response.countRating,
@@ -235,7 +217,6 @@ const Company = () => {
               dispatch(searchedCompany.actions.setReviews(null))
               dispatch(searchedCompany.actions.setError(data.response))
             })
-            //    setError(true)
           }
         })
     }
@@ -245,281 +226,390 @@ const Company = () => {
     <>
       <Header />
       <Container className="app-container">
-        <div>
-          {mode === 'searched' ? (
-            // ***********************Searched Company ****************
-            <>
-              {/* //HEADERKORT */}
-
-              <Grid container spacing={2}>
-                <Grid item xs={12}>
-                  <Card style={styles.Card}>
-                    <CardMedia style={styles.CardHeaderMedia}></CardMedia>
-                    <CardContent style={styles.CardHeader}>
-                      <Box
-                        sx={{
-                          padding: 2,
-                          display: 'flex',
-                        }}
-                      >
-                        <AvatarIcon />
-                        <Box
-                          sx={{
-                            marginLeft: 20,
-                          }}
-                        >
-                          <Typography variant="h4" component="h1">
-                            {sCompany.companyName}
-                          </Typography>
-                          <Box
-                            sx={{
-                              padding: 2,
-                              display: 'flex',
-                            }}
-                          >
-                            <LocationOnOutlined />
-                            <p>{sCompany.location}</p>
-                          </Box>
-                        </Box>
-                      </Box>
-
-                      <Box
-                        sx={{
-                          marginLeft: 20,
-                        }}
-                      >
-                        <PieChart2 />
-                      </Box>
-
-                      <Box
-                        sx={{
-                          marginLeft: 20,
-                        }}
-                      >
-                        <Button>Kontakta mig</Button>
-                      </Box>
-                    </CardContent>
-                  </Card>
-                </Grid>
-                <Grid item xs={4}>
-                  {/* SKILLSKORT */}
-                  <Card style={styles.SmallCard}>
-                    <Typography variant="h6" component="h2">
-                      Skills eller produkter
-                    </Typography>
-                    <Box
-                      sx={{
-                        marginTop: 10,
-                        display: 'flex',
-                        width: '50%',
-                        justifyContent: 'space-between',
-                      }}
-                    >
-                      {sCompany.skills?.map((skill) => {
-                        if (skill === '') {
-                          return
-                        } else {
-                          return (
-                            <Chip label={skill} style={styles.BgLightPurple} />
-                          )
-                        }
-                      })}
-                    </Box>
-                  </Card>
-                  {/* HEMSIDA */}
-                  <Card style={styles.SmallCard}>
-                    <p>Hemsida: {sCompany.url}</p>
-                    <Box
-                      sx={{
-                        marginTop: 10,
-                        display: 'flex',
-                        width: '50%',
-                        justifyContent: 'space-between',
-                      }}
-                    >
-                      <SocialIcon url="https://linkedin.com/" />
-                      <SocialIcon url="https://instagram.com/" />
-                    </Box>
-                  </Card>
-                  {/* RATINGKORT */}
-                  <Card style={styles.SmallCard}>
-                    {/* UPPDATERA */}
-                    <Rating
-                      name="read-only"
-                      defaultValue={0} //0 ratings
-                      value={sCompany.rating}
-                      readOnly
-                      precision={0.1}
-                    />
-                    {console.log(sCompany.rating)}
-                    <p>
-                      {/* UPPDATERA */}
-                      Omdöme: {Math.round(sCompany.rating * 10) / 10}
-                      <Button
-                        onClick={() => {
-                          if (showRating === true) {
-                            setShowRating(false)
-                          } else {
-                            setShowRating(true)
-                          }
-                        }}
-                      >
-                        ({sCompany.reviews.length})
-                      </Button>
-                    </p>
-
-                    <Modal />
-                  </Card>
-                </Grid>
-                {/* BESKRIVNING AV FÖRETAG */}
-                <Grid item xs={8}>
-                  <Card style={styles.SmallCard}>
-                    <Typography variant="h6" component="h2">
-                      Beskrivning av företaget
-                    </Typography>
-                    <p>{sCompany.companyDescription}</p>
-                  </Card>
-                </Grid>
-
-                <Grid item xs={4}></Grid>
-
-                {/* HEMSIDA */}
-                <Grid item xs={4}></Grid>
-                <Grid item xs={12}>
-                  {showRating && (
-                    <Card style={styles.SmallCard}>
-                      <p>Recension</p>
-
-                      {sCompany.reviews &&
-                        sCompany.reviews.map((review) => (
-                          <Box
-                            sx={{
-                              padding: 10,
-                              display: 'flex',
-                              // justifyContent: 'space-between',
-                            }}
-                          >
-                            <Box
-                              sx={{
-                                width: '20%',
-                              }}
-                            >
-                              <Typography>Omdöme: {review.rating}</Typography>
-                            </Box>
-                            <Box
-                              sx={{
-                                width: '20%',
-                              }}
-                            >
-                              <Typography>
-                                Gjord av: {review.reviewerId}
-                              </Typography>
-                            </Box>
-                            <Box
-                              sx={{
-                                width: '40%',
-                              }}
-                            >
-                              <Typography>
-                                Kommentar: {review.comment}
-                              </Typography>
-                            </Box>
-                          </Box>
-                        ))}
-                    </Card>
-                  )}
-                </Grid>
-                <Grid>
-                  <ImgList />
-                </Grid>
-              </Grid>
-            </>
-          ) : (
-            // ********************MY PAGE ************''
-            <>
-              <Box
-                sx={{
-                  padding: 2,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  justifyContent: 'space-around',
-                }}
-              >
-                <Box
-                  sx={{
-                    marginBottom: 50,
-                  }}
-                >
-                  <Typography variant="h3" component="h1">
-                    {myCompany.companyName}
-                  </Typography>
-                </Box>
-                <Grid container spacing={2}>
-                  <Grid item xs={4}>
-                    <AvatarIcon />
+        {mode === 'searched' ? (
+          // ***********************Searched Company ****************
+          <>
+            <Grid container spacing={2}>
+              {/* //HEADER Card */}
+              <Grid item xs={12}>
+                <Card style={styles.Card}>
+                  <CardMedia style={styles.CardHeaderMedia}></CardMedia>
+                  <CardContent style={styles.CardContent}>
                     <Box
                       sx={{
                         padding: 2,
                         display: 'flex',
                       }}
                     >
-                      <LocationOnOutlined />
-                      <p>{myCompany.location}</p>
+                      <img
+                        className="img-profile"
+                        src={`https://source.unsplash.com/random/150x150?sig=7`}
+                      />
+                      <Box
+                        sx={{
+                          marginLeft: 20,
+                        }}
+                      >
+                        <Typography variant="h4" component="h1">
+                          {sCompany.companyName}
+                        </Typography>
+                        <Box
+                          sx={{
+                            padding: 2,
+                            display: 'flex',
+                          }}
+                        >
+                          <LocationOnOutlined />
+                          <p>{sCompany.location}</p>
+                        </Box>
+                      </Box>
                     </Box>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <PieChart1 />
-                  </Grid>
-                  <Grid item xs={4}>
-                    <p>Hemsida: {myCompany.url}</p>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Rating
-                      name="read-only"
-                      defaultValue={0} //bara value sedan
-                      value={myCompany.rating}
-                      readOnly
-                      precision={0.1}
-                    />
-                    <p>Rating: {Math.round(myCompany.rating * 10) / 10}</p>
-                  </Grid>
-                  <Grid item xs={8}>
-                    <p>
-                      Skills eller produkter:
-                      {myCompany.skills?.map((skill) => skill)}
-                    </p>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Button
-                      type="submit"
-                      color="secondary"
-                      variant="contained"
-                      onClick={() => navigate('/company-form')}
-                    >
-                      Edit company profile
-                    </Button>
-                  </Grid>
-                  <Grid
-                    sx={{
-                      padding: 2,
-                      backgroundColor: 'lightgrey',
-                    }}
-                    item
-                    xs={4}
-                  >
-                    <p>
-                      Beskrivning av företaget: {myCompany.companyDescription}
-                    </p>
-                  </Grid>
-                </Grid>
-              </Box>
 
-              <LogOutBtn />
-            </>
-          )}
-        </div>
+                    <Box
+                      sx={{
+                        marginLeft: 20,
+                      }}
+                    >
+                      <PieChart2 />
+                    </Box>
+                    <Box
+                      sx={{
+                        marginLeft: 20,
+                      }}
+                    >
+                      <Button>Kontakta mig</Button>
+                    </Box>
+                  </CardContent>
+                </Card>
+              </Grid>
+              {/* SKILLS Card */}
+              <Grid item xs={4}>
+                <Card style={styles.SmallCard}>
+                  <Typography variant="h6" component="h2">
+                    Skills eller produkter
+                  </Typography>
+                  <Box
+                    sx={{
+                      marginTop: 10,
+                      display: 'flex',
+                      width: '50%',
+                      justifyContent: 'space-between',
+                      flexWrap: 'wrap',
+                    }}
+                  >
+                    {sCompany.skills?.map((skill) => {
+                      if (skill === '') {
+                        return
+                      } else {
+                        return (
+                          <Chip label={skill} style={styles.BgLightPurple} />
+                        )
+                      }
+                    })}
+                  </Box>
+                </Card>
+                {/* HEMSIDA */}
+                <Card style={styles.SmallCard}>
+                  <p>Hemsida: {sCompany.url}</p>
+                  <Box
+                    sx={{
+                      marginTop: 10,
+                      display: 'flex',
+                      width: '50%',
+                      justifyContent: 'space-between',
+                    }}
+                  >
+                    <SocialIcon url="https://linkedin.com/" />
+                    <SocialIcon url="https://instagram.com/" />
+                  </Box>
+                </Card>
+                {/* RATINGKORT */}
+                <Card style={styles.SmallCard}>
+                  <Rating
+                    name="read-only"
+                    defaultValue={0} //0 ratings
+                    value={sCompany.rating}
+                    readOnly
+                    precision={0.1}
+                  />
+                  {console.log(sCompany.rating)}
+                  <p>
+                    Omdöme: {Math.round(sCompany.rating * 10) / 10}
+                    <Button
+                      onClick={() => {
+                        if (showRating === true) {
+                          setShowRating(false)
+                        } else {
+                          setShowRating(true)
+                        }
+                      }}
+                    >
+                      ({sCompany.reviews.length})
+                    </Button>
+                  </p>
+
+                  <Modal />
+                </Card>
+              </Grid>
+              {/* Company Description Card */}
+              <Grid item xs={8}>
+                <Card style={styles.SmallCard}>
+                  <Typography variant="h6" component="h2">
+                    Beskrivning av företaget
+                  </Typography>
+                  <p>{sCompany.companyDescription}</p>
+                </Card>
+              </Grid>
+
+              {/* webpage and social media */}
+              <Grid item xs={12}>
+                {showRating && (
+                  <Card style={styles.SmallCard}>
+                    <p>Recension</p>
+
+                    {sCompany.reviews &&
+                      sCompany.reviews.map((review) => (
+                        <Box
+                          sx={{
+                            padding: 10,
+                            display: 'flex',
+                            // justifyContent: 'space-between',
+                          }}
+                        >
+                          <Box
+                            sx={{
+                              width: '20%',
+                            }}
+                          >
+                            <Typography>Omdöme: {review.rating}</Typography>
+                          </Box>
+                          <Box
+                            sx={{
+                              width: '20%',
+                            }}
+                          >
+                            <Typography>
+                              Gjord av: {review.reviewerId}
+                            </Typography>
+                          </Box>
+                          <Box
+                            sx={{
+                              width: '40%',
+                            }}
+                          >
+                            <Typography>Kommentar: {review.comment}</Typography>
+                          </Box>
+                        </Box>
+                      ))}
+                  </Card>
+                )}
+              </Grid>
+              {/* Grid with images */}
+              <Grid item xs={12}>
+                <Box
+                  sx={{
+                    padding: 10,
+                    display: 'flex',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <ImgList />
+                </Box>
+              </Grid>
+            </Grid>
+          </>
+        ) : (
+          // ********************MY PAGE ************''
+          <>
+            <Grid container spacing={2}>
+              {/* //HEADER Card */}
+              <Grid item xs={12}>
+                <Card style={styles.Card}>
+                  <CardMedia style={styles.CardHeaderMedia}></CardMedia>
+                  <CardContent style={styles.CardContent}>
+                    <Box
+                      sx={{
+                        padding: 2,
+                        display: 'flex',
+                      }}
+                    >
+                      <img
+                        className="img-profile"
+                        src={`https://source.unsplash.com/random/150x150?sig=7`}
+                      />
+                      <Box
+                        sx={{
+                          marginLeft: 20,
+                        }}
+                      >
+                        <Typography variant="h4" component="h1">
+                          {myCompany.companyName}
+                        </Typography>
+                        <Box
+                          sx={{
+                            padding: 2,
+                            display: 'flex',
+                          }}
+                        >
+                          <LocationOnOutlined />
+                          <p>{myCompany.location}</p>
+                        </Box>
+                      </Box>
+                    </Box>
+
+                    <Box
+                      sx={{
+                        marginLeft: 20,
+                      }}
+                    >
+                      <PieChart1 />
+                    </Box>
+                    <Box
+                      sx={{
+                        marginLeft: 20,
+                        display: 'flex',
+                        flexDirection: 'column',
+                      }}
+                    >
+                      <Button
+                        type="submit"
+                        color="secondary"
+                        variant="contained"
+                        style={styles.h6Space}
+                        onClick={() => navigate('/company-form')}
+                      >
+                        Redigera
+                      </Button>
+                      <LogOutBtn />
+                    </Box>
+                  </CardContent>
+                </Card>
+              </Grid>
+              {/* SKILLS Card */}
+              <Grid item xs={4}>
+                <Card style={styles.SmallCard}>
+                  <Typography variant="h6" component="h2">
+                    Skills eller produkter
+                  </Typography>
+                  <Box
+                    sx={{
+                      marginTop: 10,
+                      display: 'flex',
+                      width: '50%',
+                      justifyContent: 'space-between',
+                      flexWrap: 'wrap',
+                    }}
+                  >
+                    {myCompany.skills?.map((skill) => {
+                      if (skill === '') {
+                        return
+                      } else {
+                        return (
+                          <Chip label={skill} style={styles.BgLightPurple} />
+                        )
+                      }
+                    })}
+                  </Box>
+                </Card>
+                {/* HEMSIDA */}
+                <Card style={styles.SmallCard}>
+                  <p>Hemsida: {myCompany.url}</p>
+                  <Box
+                    sx={{
+                      marginTop: 10,
+                      display: 'flex',
+                      width: '50%',
+                      justifyContent: 'space-between',
+                    }}
+                  >
+                    <SocialIcon url="https://linkedin.com/" />
+                    <SocialIcon url="https://instagram.com/" />
+                  </Box>
+                </Card>
+                {/* RATINGKORT */}
+                <Card style={styles.SmallCard}>
+                  <Rating
+                    name="read-only"
+                    defaultValue={0} //0 ratings
+                    value={myCompany.rating}
+                    readOnly
+                    precision={0.1}
+                  />
+                  {console.log(myCompany.rating)}
+                  <p>Omdöme: {Math.round(myCompany.rating * 10) / 10}</p>
+                </Card>
+              </Grid>
+              {/* Company Description Card */}
+              <Grid item xs={8}>
+                <Card style={styles.SmallCard}>
+                  <Typography variant="h6" component="h2">
+                    Beskrivning av företaget
+                  </Typography>
+                  <p>{myCompany.companyDescription}</p>
+                </Card>
+              </Grid>
+
+              {/* webpage and social media */}
+              <Grid item xs={12}>
+                {showRating && (
+                  <Card style={styles.SmallCard}>
+                    <p>Recension</p>
+
+                    {myCompany.reviews &&
+                      myCompany.reviews.map((review) => (
+                        <Box
+                          sx={{
+                            padding: 10,
+                            display: 'flex',
+                            // justifyContent: 'space-between',
+                          }}
+                        >
+                          <Box
+                            sx={{
+                              width: '20%',
+                            }}
+                          >
+                            <Typography>Omdöme: {review.rating}</Typography>
+                          </Box>
+                          <Box
+                            sx={{
+                              width: '20%',
+                            }}
+                          >
+                            <Typography>
+                              Gjord av: {review.reviewerId}
+                            </Typography>
+                          </Box>
+                          <Box
+                            sx={{
+                              width: '40%',
+                            }}
+                          >
+                            <Typography>Kommentar: {review.comment}</Typography>
+                          </Box>
+                        </Box>
+                      ))}
+                  </Card>
+                )}
+              </Grid>
+              {/* Grid with images */}
+              <Grid item xs={12}>
+                <Box
+                  sx={{
+                    padding: 10,
+                    display: 'flex',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <ImgList />
+                </Box>
+              </Grid>
+            </Grid>
+          </>
+        )}
       </Container>
+
+      <Footer />
     </>
   )
 }

@@ -1,11 +1,7 @@
-import { width } from '@mui/system'
 import React from 'react'
 import { PieChart } from 'react-minimal-pie-chart'
-import Button from '@mui/material/Button'
 
 import { useSelector } from 'react-redux'
-
-import company from '../reducers/company'
 
 export const PieChart1 = () => {
   const genderRatio = useSelector((store) => store.company.genderRatio)

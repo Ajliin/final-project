@@ -3,7 +3,7 @@ import { Typography, Box, Link } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
 
 import companies from '../reducers/companies'
-import { TEST_API } from '../utils/url'
+import { URL_API } from '../utils/url'
 
 import { styles } from '../utils/theme'
 
@@ -20,7 +20,7 @@ const Category = ({ category, no, searchSkills }) => {
       `result-companies?companyName=&&location=&&skills=${searchSkills}`,
     )
 
-    fetch(TEST_API(`category-companies?skills=${searchSkills}`))
+    fetch(URL_API(`category-companies?skills=${searchSkills}`))
       .then((res) => res.json())
       .then((data) => {
         console.log('category search', data)

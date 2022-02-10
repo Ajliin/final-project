@@ -11,9 +11,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import DoRating from './DoRating'
 
 import searchedCompany from '../reducers/searchedCompany'
-import company from '../reducers/company'
 
-import { TEST_API } from '../utils/url'
+import { URL_API } from '../utils/url'
 
 export default function FormDialog() {
   const [open, setOpen] = useState(false)
@@ -21,7 +20,7 @@ export default function FormDialog() {
 
   //useSelector
   const userReview = useSelector((store) => store.user.firstname)
-  console.log('userReview', userReview)
+
   const { companyId, thisReview } = useSelector(
     (store) => store.searchedCompany,
   )
@@ -51,17 +50,16 @@ export default function FormDialog() {
       }),
     }
 
-    fetch(TEST_API(`rating/${companyId}`), options)
+    fetch(URL_API(`rating/${companyId}`), options)
       .then((res) => res.json())
       .then((data) => {
-        console.log('REVIEWS!!!', data.response.reviews)
         dispatch(
           searchedCompany.actions.setCountRating(data.response.countRating),
         )
         dispatch(searchedCompany.actions.setRating(data.response.rating))
         dispatch(searchedCompany.actions.setReviews(data.response.reviews))
       })
-    //dispatch with a value inside Dorating
+    //dispatched with a value from inside <DoRating />
     dispatch(searchedCompany.actions.setThisReview(null))
     setReview('')
     setOpen(false)

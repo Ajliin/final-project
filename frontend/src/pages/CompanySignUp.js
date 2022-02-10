@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch, batch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+
 import {
   Button,
   Typography,
@@ -10,16 +11,15 @@ import {
   Card,
   CardMedia,
 } from '@material-ui/core'
-
-import { TEST_API } from '../utils/url'
-import { styles, theme } from '../utils/theme'
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
+
+import { URL_API } from '../utils/url'
+import { styles, theme } from '../utils/theme'
+
+import Header from '../components/Header'
 
 import user from '../reducers/user'
 import company from '../reducers/company'
-
-import Header from '../components/Header'
-import profile from '../reducers/profile'
 
 const CompanySignUp = () => {
   const [companyId, setCompanyId] = useState('')
@@ -42,19 +42,17 @@ const CompanySignUp = () => {
 
   //useSelector
   const hasCompany1 = useSelector((store) => store.user.hasCompany)
-  console.log('hasCompany in signup', hasCompany1)
+
   const errorMess = useSelector((store) => store.user.error)
   const companyData = useSelector((store) => store.company)
-  console.log('companyData', companyData)
+
   const profileId = useSelector((store) => store.user.userId)
-  console.log('profileId', profileId)
+
   const accessToken = useSelector((store) => store.user.accessToken)
-  console.log('profileId', profileId)
+
   const companyStoreId = useSelector((store) => store.company.companyId)
-  console.log('companyStoreId', companyStoreId)
 
   // end of Hooks
-
   const dispatch = useDispatch()
   const navigate = useNavigate()
 
@@ -68,7 +66,7 @@ const CompanySignUp = () => {
       setGenderRatio(companyData.genderRatio)
       setCompanyDescription(companyData.companyDescription)
       setSkills(companyData.skills[0])
-      console.log('companyData.skills[0]', companyData.skills[0])
+
       setSkills2(companyData.skills[1])
       setSkills3(companyData.skills[2])
       setSkills4(companyData.skills[3])
@@ -93,14 +91,12 @@ const CompanySignUp = () => {
   }, [mode, navigate])
 
   const onFormSubmit = (event) => {
-    console.log('onformsubmit mode', mode)
     event.preventDefault()
 
     //Patch user and fetch if new company
     if (mode === 'new') {
       // PATCH the user
 
-      console.log('hasCompany inside patch', hasCompany)
       const options2 = {
         method: 'PATCH',
         headers: {
@@ -111,13 +107,9 @@ const CompanySignUp = () => {
         }),
       }
 
-      fetch(TEST_API(`user-edit/${profileId}`), options2)
+      fetch(URL_API(`user-edit/${profileId}`), options2)
         .then((res) => res.json())
         .then((data) => {
-          console.log(
-            'data inside PATCH EDIT USER companyfetch!!!!!!!!!!!!!!!!!!!!!!!!!!!!!',
-            data.response.hasCompany,
-          )
           dispatch(user.actions.setHasCompany(data.response.hasCompany))
         })
 
@@ -139,11 +131,10 @@ const CompanySignUp = () => {
         }),
       }
 
-      fetch(TEST_API('company'), options)
+      fetch(URL_API('company'), options)
         .then((res) => res.json())
         .then((data) => {
           dispatch(company.actions.setCompanyId(data.response.companyId))
-          console.log('data inside POST new Company', data)
         })
 
       setMode('done')
@@ -168,10 +159,9 @@ const CompanySignUp = () => {
         }),
       }
 
-      fetch(TEST_API(`company/${companyStoreId}`), options)
+      fetch(URL_API(`company/${companyStoreId}`), options)
         .then((res) => res.json())
         .then((data) => {
-          console.log('PATCH COMPANY', data)
           if (data.success) {
             batch(() => {
               dispatch(company.actions.setUserId(data.response.user))
@@ -374,7 +364,7 @@ const CompanySignUp = () => {
               </Box>
             </form>
           </Box>
-          <CardMedia style={styles.CardLoginMedia}>
+          <CardMedia style={styles.CompanyFormMedia}>
             <Box
               sx={{
                 height: '110vh',

@@ -1,8 +1,5 @@
 import React, { useState } from 'react'
-import Button from '@mui/material/Button'
-import Menu from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
-import { Box } from '@material-ui/core'
+import { Box, Button, Menu, MenuItem } from '@material-ui/core'
 import { AccountCircle } from '@material-ui/icons'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, batch, useSelector } from 'react-redux'
@@ -15,10 +12,10 @@ const MenuBar = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  const [mode, setMode] = useState('login')
   const { userId, hasCompany } = useSelector((store) => store.user)
 
-  const [anchorEl, setAnchorEl] = React.useState(null)
+  const [anchorEl, setAnchorEl] = useState(null)
+
   const open = Boolean(anchorEl)
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget)
@@ -73,7 +70,7 @@ const MenuBar = () => {
     <Box>
       {!userId ? (
         <Button color="primary" variant="outlined" onClick={goToLogIn}>
-          Log in
+          Logga in
         </Button>
       ) : (
         <>

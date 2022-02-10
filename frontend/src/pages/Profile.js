@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch, batch } from 'react-redux'
 import { useNavigate, useParams } from 'react-router-dom'
 
-import { TEST_API } from '../utils/url'
+import { URL_API } from '../utils/url'
 import { styles } from '../utils/theme'
 import Header from '../components/Header'
+import Footer from '../components/Footer'
+import LogOutBtn from '../components/LogOutBtn'
+
 import {
   Button,
   Typography,
@@ -16,9 +19,10 @@ import {
   CardMedia,
   CardContent,
 } from '@material-ui/core'
-import { LocationOnOutlined } from '@material-ui/icons'
 
-import LogOutBtn from '../components/LogOutBtn'
+import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
+import WorkOutlineRoundedIcon from '@mui/icons-material/WorkOutlineRounded'
+import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'
 
 import user from '../reducers/user'
 import profile from '../reducers/profile'
@@ -60,7 +64,7 @@ const Profile = () => {
       },
     }
 
-    fetch(TEST_API(`profile/${userId}`), options)
+    fetch(URL_API(`profile/${userId}`), options)
       .then((res) => res.json())
       .then((data) => {
         dispatch(profile.actions.setDescription(data.response))
@@ -74,7 +78,7 @@ const Profile = () => {
       },
     }
 
-    fetch(TEST_API(`user-edit/${userId}`), options2)
+    fetch(URL_API(`user-edit/${userId}`), options2)
       .then((res) => res.json())
       .then((data) => {
         dispatch(user.actions.setHasCompany(data.response.hasCompany))
@@ -84,126 +88,105 @@ const Profile = () => {
   return (
     <>
       <Header />
-      <Container>
-        <Box>
-          <div>
-            {/* {description &&
-              description?.map((item) => (
-                <>
-                  <p key={item.description}>{item.description}</p>
-                </>
-              ))} */}
-          </div>
-        </Box>
-
+      <Container style={styles.PageContainer}>
         {/* //HEADERKORT */}
-
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Card style={styles.Card}>
-              <CardMedia style={styles.CardHeaderMedia}></CardMedia>
-              <Grid item xs={12}>
-                <CardContent style={styles.CardHeader}>
-                  <Box
-                    sx={{
-                      padding: 2,
-                      display: 'flex',
-                    }}
-                  >
-                    <AvatarIcon />
-                    <Box
-                      sx={{
-                        marginLeft: 20,
-                      }}
-                    >
-                      <Typography variant="h5" component="h3">
-                        Välkommen {firstname} {lastname} till Foaje!
-                      </Typography>
-                      <Typography variant="h6" component="body1">
-                        Din email: {email}
-                      </Typography>
-                      <Box
-                        sx={{
-                          padding: 2,
-                          display: 'flex',
-                        }}
-                      >
-                        <LocationOnOutlined />
-                        Location
-                      </Box>
-                    </Box>
-                  </Box>
-                </CardContent>
-              </Grid>
-              <Grid item xs={12}>
+        <Card style={styles.Card}>
+          <Grid container spacing={2}>
+            {/* Grid img */}
+            <Grid item xs={12}>
+              <CardMedia style={styles.ProfileCardHeader}></CardMedia>
+            </Grid>
+            {/* Grid content */}
+            <Grid item xs={6}>
+              <CardContent style={styles.CardContent}>
                 <Box
                   sx={{
+                    padding: 2,
                     display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
                   }}
                 >
+                  <AvatarIcon />
                   <Box
                     sx={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'center',
-                      width: 400,
+                      marginLeft: 20,
                     }}
                   >
-                    <Button
-                      style={{ margin: 10 }}
-                      color="primary"
-                      variant="contained"
-                      onClick={goToLandingPage}
-                    >
-                      Sök efter företag
-                    </Button>
-
-                    {!hasCompany ? (
-                      <Button
-                        type="submit"
-                        style={{ margin: 10 }}
-                        color="primary"
-                        variant="contained"
-                        onClick={() => navigate('/company-form')}
-                      >
-                        Sign up a new company?
-                      </Button>
-                    ) : (
-                      <Button
-                        type="submit"
-                        style={{ margin: 10 }}
-                        color="primary"
-                        variant="contained"
-                        onClick={() => navigate(`/company/${userId}`)}
-                      >
-                        Go to your company
-                      </Button>
-                    )}
-                    <Button
-                      style={{ margin: 10 }}
-                      color="primary"
-                      variant="contained"
-                    >
-                      Dina sparade annonser
-                    </Button>
-                    <Button
-                      style={{ margin: 10 }}
-                      color="primary"
-                      variant="contained"
-                    >
-                      Redigera dina uppgifter
-                    </Button>
-                    <LogOutBtn />
+                    <Typography variant="h5" component="h3">
+                      Välkommen {firstname} {lastname} till Foaje!
+                    </Typography>
+                    <Typography variant="h6" component="body1">
+                      Din email: {email}
+                    </Typography>
                   </Box>
                 </Box>
-              </Grid>
-            </Card>
+              </CardContent>
+            </Grid>
+            {/* buttons inside content */}
+            <Grid item xs={6}>
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'flex-end',
+                  alignItems: 'flex-end',
+                  marginBottom: 20,
+                  marginRight: 30,
+                }}
+              >
+                <Button
+                  style={styles.ProfileBtn}
+                  color="primary"
+                  variant="contained"
+                  onClick={goToLandingPage}
+                >
+                  <SearchRoundedIcon />
+                  &nbsp; Sök efter företag
+                </Button>
+
+                {!hasCompany ? (
+                  <Button
+                    type="submit"
+                    style={styles.ProfileBtn}
+                    color="primary"
+                    variant="contained"
+                    onClick={() => navigate('/company-form')}
+                  >
+                    <WorkOutlineRoundedIcon />
+                    &nbsp; Sign up a new company?
+                  </Button>
+                ) : (
+                  <Button
+                    type="submit"
+                    style={styles.ProfileBtn}
+                    color="primary"
+                    variant="contained"
+                    onClick={() => navigate(`/company/${userId}`)}
+                  >
+                    <WorkOutlineRoundedIcon /> &nbsp; Till ditt företag
+                  </Button>
+                )}
+                <Button
+                  style={styles.ProfileBtn}
+                  color="primary"
+                  variant="contained"
+                >
+                  <FavoriteRoundedIcon />
+                  &nbsp; Sparade annonser
+                </Button>
+                <Button
+                  style={styles.ProfileBtn}
+                  color="primary"
+                  variant="contained"
+                >
+                  Redigera dina uppgifter
+                </Button>
+                <LogOutBtn />
+              </Box>
+            </Grid>
           </Grid>
-        </Grid>
+        </Card>
       </Container>
+      <Footer />
     </>
   )
 }

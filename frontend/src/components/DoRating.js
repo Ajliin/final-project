@@ -8,14 +8,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import searchedCompany from '../reducers/searchedCompany'
 
 const labels = {
-  0.5: 'Useless',
-  1: 'Useless+',
-  1.5: 'Poor',
-  2: 'Poor+',
+  0.5: 'Nä tyvärr, aldrig igen',
+  1: 'Väldigt dåligt',
+  1.5: ' Dåligt',
+  2: 'Inte nöjd',
   2.5: 'Ok',
-  3: 'Ok+',
-  3.5: 'Good',
-  4: 'Good+',
+  3: 'Bra',
+  3.5: 'Bra!',
+  4: 'Väldigt bra',
   4.5: 'Excellent',
   5: 'Excellent+',
 }
