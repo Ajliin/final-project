@@ -33,26 +33,17 @@ const company = createSlice({
   name: 'company',
   initialState,
   reducers: {
-    // setCompany: (store, action) => {
-    //   console.log('setCompany in reducer', action.payload)
-    //   store.company = action.payload
-    //   console.log('store.company', store.company)
-    // },
     setUserId: (store, action) => {
-      console.log('inside userId reducer', action.payload)
       store.userId = action.payload
     },
     setCompanyId: (store, action) => {
-      console.log('inside companyId reducer', action.payload)
       store.companyId = action.payload
     },
 
     setCompanyName: (store, action) => {
-      console.log('inside companyName reducer', action.payload)
       store.companyName = action.payload
     },
     setGenderRatio: (store, action) => {
-      console.log('inside genderRatio reducer', action.payload)
       store.genderRatio = action.payload
     },
     setCompanyDescription: (store, action) => {
@@ -69,8 +60,6 @@ const company = createSlice({
     },
     setRating: (store, action) => {
       store.rating = Math.round(action.payload)
-      console.log('Math.round(store.rating)', Math.round(store.rating))
-      console.log('inside setRating company reducer', store.rating)
     },
     setCountRating: (store, action) => {
       store.countRating = action.payload

@@ -32,7 +32,6 @@ const Login = () => {
   const [error, setError] = useState(false)
 
   const errorMess = useSelector((store) => store.user.error)
-  console.log(errorMess)
 
   const accessToken = useSelector((store) => store.user.accessToken)
   const { hasCompany } = useSelector((store) => store.user)
@@ -66,8 +65,6 @@ const Login = () => {
     fetch(URL_API(mode), options)
       .then((res) => res.json())
       .then((data) => {
-        console.log('userdata', data)
-
         if (data.success) {
           batch(() => {
             dispatch(user.actions.setUserId(data.response.userId))

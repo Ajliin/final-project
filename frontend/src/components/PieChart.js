@@ -1,7 +1,7 @@
 import React from 'react'
-import { PieChart } from 'react-minimal-pie-chart'
-
 import { useSelector } from 'react-redux'
+
+import { PieChart } from 'react-minimal-pie-chart'
 
 export const PieChart1 = () => {
   const genderRatio = useSelector((store) => store.company.genderRatio)

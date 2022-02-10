@@ -22,7 +22,6 @@ const profile = createSlice({
     // },
     setDescription: (store, action) => {
       store.description = action.payload
-      console.log('inside reducer', store.description)
     },
     setError: (store, action) => {
       store.error = action.payload

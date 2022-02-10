@@ -6,7 +6,6 @@ import user from '../reducers/user'
 
 const AvatarIcon = () => {
   const { firstname, lastname } = useSelector((store) => store.user)
-  console.log('avatarfirstname', firstname)
 
   const stringToColor = (string) => {
     let hash = 0

@@ -14,23 +14,14 @@ const Category = ({ category, no, searchSkills }) => {
   const dispatch = useDispatch()
 
   const getCategory = (searchSkills) => {
-    console.log('searchSkills', searchSkills)
-    console.log(
-      'searchSkills URL',
-      `result-companies?companyName=&&location=&&skills=${searchSkills}`,
-    )
-
     fetch(URL_API(`category-companies?skills=${searchSkills}`))
       .then((res) => res.json())
       .then((data) => {
-        console.log('category search', data)
-        //setUser(data.response[0].companyName)
         dispatch(companies.actions.setCompanies(data.response))
         dispatch(companies.actions.setCategory(true))
       })
   }
 
-  // console.log('no', no)
   return (
     <Link onClick={() => getCategory(searchSkills)} href="#" underline="none">
       <Box

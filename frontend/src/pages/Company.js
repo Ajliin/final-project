@@ -42,7 +42,6 @@ const Company = () => {
   const myCompany = useSelector((store) => store.company)
   const accessToken = useSelector((store) => store.user.accessToken)
   const sCompany = useSelector((store) => store.searchedCompany)
-  console.log('sCompany', sCompany)
 
   //useParams
   const { paramId } = useParams()
@@ -149,8 +148,6 @@ const Company = () => {
       fetch(URL_API(`company-result/${paramId}`), options2)
         .then((res) => res.json())
         .then((data) => {
-          console.log('inside company.result', data)
-
           if (data.success) {
             batch(() => {
               dispatch(
@@ -332,7 +329,7 @@ const Company = () => {
                     readOnly
                     precision={0.1}
                   />
-                  {console.log(sCompany.rating)}
+
                   <p>
                     Omdöme: {Math.round(sCompany.rating * 10) / 10}
                     <Button
@@ -535,7 +532,7 @@ const Company = () => {
                     readOnly
                     precision={0.1}
                   />
-                  {console.log(myCompany.rating)}
+
                   <p>Omdöme: {Math.round(myCompany.rating * 10) / 10}</p>
                 </Card>
               </Grid>

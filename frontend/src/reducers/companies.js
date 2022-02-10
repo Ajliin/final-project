@@ -15,16 +15,12 @@ const companies = createSlice({
   reducers: {
     setCompanies: (store, action) => {
       store.companies = action.payload
-      console.log('inside reducer', store.companies)
     },
-     setCategory: (store, action) => {
-        console.log("INSIDE!!!!!!!!!!!!!!!!!!!!!!!!")
+    setCategory: (store, action) => {
       store.category = action.payload
-      console.log('inside reducer store.category ', store.category)
     },
     setSearchedCompany: (store, action) => {
       store.searchedCompany = action.payload
-      console.log('inside reducer searchedCompanies', store.searchedCompany)
     },
     setError: (store, action) => {
       store.error = action.payload

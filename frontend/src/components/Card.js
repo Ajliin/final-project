@@ -26,12 +26,7 @@ const Card = () => {
   const navigate = useNavigate()
 
   const goToCompany = (paramId, companyName) => {
-    console.log('paramId on Landingpage before navigaton', paramId)
-    console.log('companyname on Landingpage before navigaton', companyName)
-    //dispatch(companies.actions.setSearchedCompany(companyId))
     navigate(`/company/${paramId}`)
-    //navigate(`/company/${companyName}`, { state: paramId })
-    // console.log(companyId)
   }
 
   return (
@@ -47,7 +42,6 @@ const Card = () => {
                 href="#"
                 onClick={() => goToCompany(company._id, company.companyName)}
               >
-                {console.log('company._id', company._id)}
                 <Paper elevation={1} style={styles.Paper}>
                   <Grid item xs={4}>
                     {/* Picture  */}

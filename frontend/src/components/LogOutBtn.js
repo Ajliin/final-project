@@ -10,7 +10,6 @@ import profile from '../reducers/profile'
 
 const LogOutBtn = () => {
   const dispatch = useDispatch()
-  const navigate = useNavigate()
 
   const onLogOut = () => {
     batch(() => {
