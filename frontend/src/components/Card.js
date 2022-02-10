@@ -41,11 +41,13 @@ const Card = () => {
             <>
               {/* //whole card */}
               <Link
+                key={company._id}
                 underline="hover"
                 href="#"
                 onClick={() => goToCompany(company._id, company.companyName)}
               >
-                <Paper key={company._id} elevation={1} style={styles.Paper}>
+                {console.log('company._id', company._id)}
+                <Paper elevation={1} style={styles.Paper}>
                   <Grid item xs={4}>
                     {/* Picture  */}
                     <Box>

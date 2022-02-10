@@ -52,10 +52,11 @@ const LandingPage = () => {
 
   useEffect(() => {
     if (category1) {
-      setMode('searched')
+      setMode('category')
+    } else {
+      setMode('')
     }
-    setMode('')
-  }, [category1, mode])
+  }, [category1])
 
   const goToLogIn = () => {
     navigate('/login')
@@ -227,20 +228,18 @@ const LandingPage = () => {
             }
           }
         >
-          {/* SÖKNING */}
+          {/********************  SEARCH ***************/}
+          {mode !== '' &&
+            (allCompanies.length === 0 ? (
+              <Typography>
+                Inga Foajé medlemmar matchar din efterfrågan
+              </Typography>
+            ) : (
+              <>
+                <Card />
+              </>
+            ))}
 
-          {/* {mode === '' && (
-            <p></p>)} */}
-
-          {allCompanies.length === 0 ? (
-            <Typography>
-              Inga Foajé medlemmar matchar din efterfrågan
-            </Typography>
-          ) : (
-            <>
-              <Card />
-            </>
-          )}
           <Box
             sx={{
               marginY: 5,

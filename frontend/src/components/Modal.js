@@ -17,9 +17,9 @@ import { TEST_API } from '../utils/url'
 
 export default function FormDialog() {
   const [open, setOpen] = useState(false)
-  //const [rating, setRating] = useState(0)
   const [review, setReview] = useState('')
 
+  //useSelector
   const userReview = useSelector((store) => store.user.firstname)
   console.log('userReview', userReview)
   const { companyId, thisReview } = useSelector(
@@ -28,6 +28,7 @@ export default function FormDialog() {
 
   const dispatch = useDispatch()
 
+  //function
   const handleClickOpen = () => {
     setOpen(true)
   }
@@ -54,16 +55,13 @@ export default function FormDialog() {
       .then((res) => res.json())
       .then((data) => {
         console.log('REVIEWS!!!', data.response.reviews)
-        dispatch(company.actions.setReviews(data.response.reviews))
-        dispatch(company.actions.setRating(data.response.rating))
+        dispatch(
+          searchedCompany.actions.setCountRating(data.response.countRating),
+        )
+        dispatch(searchedCompany.actions.setRating(data.response.rating))
         dispatch(searchedCompany.actions.setReviews(data.response.reviews))
-        // localStorage.setItem(
-        //   'searchedCompany',
-        //   JSON.stringify({
-        //     reviews: data.response.reviews,
-        //   }),
-        // )
       })
+    //dispatch with a value inside Dorating
     dispatch(searchedCompany.actions.setThisReview(null))
     setReview('')
     setOpen(false)

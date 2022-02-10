@@ -49,7 +49,7 @@ const Company = () => {
   const myCompany = useSelector((store) => store.company)
   const accessToken = useSelector((store) => store.user.accessToken)
   const sCompany = useSelector((store) => store.searchedCompany)
-
+  console.log('sCompany', sCompany)
   //useParams
   const { paramId } = useParams()
   console.log('paramId', paramId)
@@ -86,7 +86,7 @@ const Company = () => {
       fetch(TEST_API(`company/${paramId}`), options)
         .then((res) => res.json())
         .then((data) => {
-          console.log('Data from get company/profileid in COMPANY', data)
+          // console.log('Data from get company/profileid in COMPANY', data)
           console.log(
             'Data.response.companyName from get company/profileid in COMPANY',
             data.response.reviews,
@@ -165,10 +165,7 @@ const Company = () => {
         .then((res) => res.json())
         .then((data) => {
           console.log('inside company.result', data)
-          console.log(
-            'inside company.result companyId',
-            data.response.companyId,
-          )
+
           if (data.success) {
             batch(() => {
               //  dispatch(company.actions.setUserId(data.response.newCompany.userId))
@@ -346,14 +343,17 @@ const Company = () => {
                   </Card>
                   {/* RATINGKORT */}
                   <Card style={styles.SmallCard}>
+                    {/* UPPDATERA */}
                     <Rating
                       name="read-only"
-                      defaultValue={0} //bara value sedan
+                      defaultValue={0} //0 ratings
                       value={sCompany.rating}
                       readOnly
                       precision={0.1}
                     />
+                    {console.log(sCompany.rating)}
                     <p>
+                      {/* UPPDATERA */}
                       Omdöme: {Math.round(sCompany.rating * 10) / 10}
                       <Button
                         onClick={() => {

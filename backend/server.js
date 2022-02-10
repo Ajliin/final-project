@@ -106,7 +106,6 @@ const User = mongoose.model('User', UserSchema)
 const MyPage = mongoose.model('myPage', MyPageSchema)
 const Company = mongoose.model('Company', CompanySchema)
 
-
 // ************** Middleware ****************
 const port = process.env.PORT || 8080
 const app = express()
@@ -267,7 +266,7 @@ app.post('/profile', async (req, res) => {
   }
 })
 
-// 6. to get "all" profile- 
+// 6. to get profile for user
 app.get('/profile/:userId', authenticateUser)
 app.get('/profile/:userId', async (req, res) => {
   const { userId } = req.params
@@ -394,14 +393,10 @@ app.get('/company/:userId', async (req, res) => {
 
 //11 to PATCH edit company
 app.patch('/company/:companyId', async (req, res) => {
- 
-
   const { companyId } = req.params
   const updatedInfo = req.body
 
-
   try {
-
     const updateCompany = await Company.findOneAndUpdate(
       { _id: companyId },
       { $set: updatedInfo },
@@ -409,7 +404,6 @@ app.patch('/company/:companyId', async (req, res) => {
         new: true,
       },
     )
-  
 
     res.status(200).json({ response: updateCompany, success: true })
   } catch (error) {
@@ -429,47 +423,42 @@ app.get('/allcompanies', async (req, res) => {
 
 //13 to GET searched company CATEGORIES
 app.get('/category-companies', async (req, res) => {
-
   const reqSkill1 = req.query.skills?.toLowerCase()
- const reqSkill2 = req.query.reqskills2?.toLowerCase()
+  const reqSkill2 = req.query.reqskills2?.toLowerCase()
 
- // const category = req.body
- console.log('req.query.skills?.toLowerCase()', reqSkill1)
+  // const category = req.body
+  console.log('req.query.skills?.toLowerCase()', reqSkill1)
   console.log('req.query.skills?.toLowerCase()', reqSkill2)
   //console.log('skills inside result-get', skills)
 
   try {
     const findFilter = {}
-    const findFilter2 ={}
-   
-   
+    const findFilter2 = {}
 
     if (reqSkill1) {
-      console.log("HEJ!!")
+      console.log('HEJ!!')
       findFilter.skills = { $regex: new RegExp(reqSkill1, 'i') }
-      console.log("findFilter.reqSkill1", findFilter.skills)
+      console.log('findFilter.reqSkill1', findFilter.skills)
     }
-      if (reqSkill2) {
+    if (reqSkill2) {
       findFilter2.skills = { $regex: new RegExp(reqSkill2, 'i') }
-            console.log("findFilter2.reqSkill2", findFilter2.skills)
+      console.log('findFilter2.reqSkill2', findFilter2.skills)
     }
-    console.log("findfilter", findFilter)
-    console.log("findfilter2", findFilter2)
+    console.log('findfilter', findFilter)
+    console.log('findfilter2', findFilter2)
 
-// console.log("Company",Company)
-//     const allCompanyname1 = await Company.find(findFilter)
-//    console.log("allCompanyname1", allCompanyname1)
-//     const allCompanyname2 = await Company.find(findFilter2)
-//     console.log("allCompanyname2", allCompanyname2)
+    // console.log("Company",Company)
+    //     const allCompanyname1 = await Company.find(findFilter)
+    //    console.log("allCompanyname1", allCompanyname1)
+    //     const allCompanyname2 = await Company.find(findFilter2)
+    //     console.log("allCompanyname2", allCompanyname2)
 
-//     if (allCompanyname1._id === allCompanyname2._id){
-//       console.log("TRRRRRUE", allCompanyname2.companyName)
-//     }
- const allCompanyname = Company.find(findFilter)
-    console.log("allCompanyname",allCompanyname)
+    //     if (allCompanyname1._id === allCompanyname2._id){
+    //       console.log("TRRRRRUE", allCompanyname2.companyName)
+    //     }
+    const allCompanyname = Company.find(findFilter)
+    console.log('allCompanyname', allCompanyname)
     const resultCompany = await allCompanyname.limit(50)
-
-  
 
     res.status(200).json({ response: resultCompany, success: true })
   } catch (error) {
@@ -477,7 +466,7 @@ app.get('/category-companies', async (req, res) => {
   }
 })
 
-//14 to GET searched company on landing page 
+//14 to GET searched company on landing page
 app.get('/result-companies', async (req, res) => {
   const companyName = req.query.companyName?.toLowerCase()
   const location = req.query.location?.toLowerCase()
@@ -501,9 +490,9 @@ app.get('/result-companies', async (req, res) => {
     }
 
     const allCompanyname = Company.find(findFilter)
-    console.log("allCompanyname",allCompanyname)
+    console.log('allCompanyname', allCompanyname)
     const resultCompany = await allCompanyname.limit(50)
-    console.log("resultCompany",resultCompany)
+    console.log('resultCompany', resultCompany)
 
     res.status(200).json({ response: resultCompany, success: true })
   } catch (error) {
@@ -518,44 +507,133 @@ app.post('/rating/:companyId', async (req, res) => {
 
   try {
     //mongo operator
-    const { rating, countRating } = await Company.findById(companyId)
+
+    const companyUpdate = await Company.findByIdAndUpdate(companyId, {
+      $push: {
+        reviews: {
+          companyId,
+          rating: Number(newRating),
+          comment,
+          reviewerId,
+          createdAt: Date.now(),
+        },
+      },
+
+      $inc: {
+        countRating: 1,
+      },
+    })
+    //console.log('company!!!!!!!!!!!!!', companyUpdate)
+    // company.countRating = company.reviews.length
     const company = await Company.findById(companyId)
-
-    const review = {
-      companyId,
-      rating: Number(newRating),
-      comment,
-      reviewerId,
-    }
-
-    console.log(review)
-
-    company.reviews.push(review)
-
-    console.log('company.reviews', company.reviews)
-
-    company.countRating = company.reviews.length
-
-    console.log('company.countRating', company.countRating)
-
     company.rating =
       company.reviews.reduce((acc, item) => item.rating + acc, 0) /
       company.reviews.length
 
-
     await company.save()
+
+    // console.log('company.rating!!!!!!', company.rating)
+
+    // const sortedCompany = await Company.aggregate([
+    //   {
+    //     $match: { _id: companyId },
+    //   },
+    //   {
+    //     $unwind: '$reviews',
+    //   },
+    //   {
+    //     $sort: {
+    //       'reviews.createdAt': -1,
+    //     },
+    //   },
+    // ])
+
+    //const sortedCompany = await Company.findById(companyId)
+
+    console.log('after sortedCompany', sortedCompany)
 
     res.status(200).json({
       response: {
         companyName: company.companyName,
         rating: Math.round(company.rating * 10) / 10,
-        countRating: company.countRating,
-        reviews: company.reviews,
+        countRating: sortedCompany.countRating,
+        reviews: sortedCompany.reviews.sort(
+          (a, b) => b.createdAt - a.createdAt,
+        ),
       },
       success: true,
     })
   } catch (error) {
-    res.status(400).json({ response: 'No company with that ID', sucess: false })
+    res.status(400).json({ response: error, sucess: false })
+  }
+})
+
+// 16 To caluculate media company
+app.get('/rating/:companyId', async (req, res) => {
+  const { companyId } = req.params
+  //const { newRating, comment, reviewerId } = req.body
+
+  try {
+    // const company = await Company.findById(companyId)
+
+    // company.rating =
+    //   company.reviews.reduce((acc, item) => item.rating + acc, 0) /
+    //   company.reviews.length
+
+    //mongo operator
+    const company = await Company.findByIdAndUpdate(companyId, {
+      $push: {
+        reviews: {
+          companyId,
+          rating: Number(newRating),
+          comment,
+          reviewerId,
+          createdAt: Date.now(),
+        },
+      },
+
+      $inc: {
+        countRating: 1,
+      },
+    })
+    console.log('company!!!!!!!!!!!!!', company)
+    // company.countRating = company.reviews.length
+
+    // company.rating =
+    //   company.reviews.reduce((acc, item) => item.rating + acc, 0) /
+    //   company.reviews.length
+
+    // const sortedCompany = await Company.aggregate([
+    //   {
+    //     $match: { _id: companyId },
+    //   },
+    //   {
+    //     $unwind: '$reviews',
+    //   },
+    //   {
+    //     $sort: {
+    //       'reviews.createdAt': -1,
+    //     },
+    //   },
+    // ])
+
+    const sortedCompany = await Company.findById(companyId)
+
+    console.log('after sortedCompany', sortedCompany)
+
+    res.status(200).json({
+      response: {
+        companyName: company.companyName,
+        rating: Math.round(sortedCompany.rating * 10) / 10,
+        countRating: sortedCompany.countRating,
+        reviews: sortedCompany.reviews.sort(
+          (a, b) => b.createdAt - a.createdAt,
+        ),
+      },
+      success: true,
+    })
+  } catch (error) {
+    res.status(400).json({ response: error, sucess: false })
   }
 })
 
