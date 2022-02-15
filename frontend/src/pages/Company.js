@@ -11,7 +11,6 @@ import {
   Box,
   Grid,
   Card,
-  CardMedia,
   Chip,
 } from '@material-ui/core'
 
@@ -218,7 +217,7 @@ const Company = () => {
           }
         })
     }
-  }, [dispatch, company, mode])
+  }, [dispatch, accessToken, paramId, mode])
 
   return (
     <>
@@ -238,6 +237,7 @@ const Company = () => {
                         <img
                           className="img-profile"
                           src={`https://source.unsplash.com/random/150x150?sig=7`}
+                          alt="img profile picture"
                         />
                       </Grid>
                       <Grid item xs={5} md={3}>
@@ -418,6 +418,7 @@ const Company = () => {
                         <img
                           className="img-profile"
                           src={`https://source.unsplash.com/random/150x150?sig=7`}
+                          alt="Profile picture of my company"
                         />
                       </Grid>
                       <Grid item xs={5} md={3}>

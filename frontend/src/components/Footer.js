@@ -1,5 +1,4 @@
 import { Typography, Box, Grid, Container } from '@material-ui/core'
-import { useDispatch } from 'react-redux'
 
 import { styles } from '../utils/theme'
 

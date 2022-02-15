@@ -1,17 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch, batch } from 'react-redux'
-import { useNavigate, useParams } from 'react-router-dom'
-
-import { URL_API } from '../utils/url'
-import { styles } from '../utils/theme'
-import Header from '../components/Header'
-import Footer from '../components/Footer'
-import LogOutBtn from '../components/LogOutBtn'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 import {
   Button,
   Typography,
-  TextField,
   Container,
   Box,
   Grid,
@@ -24,10 +17,15 @@ import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
 import WorkOutlineRoundedIcon from '@mui/icons-material/WorkOutlineRounded'
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'
 
+import { URL_API } from '../utils/url'
+import { styles } from '../utils/theme'
+import Header from '../components/Header'
+import Footer from '../components/Footer'
+import LogOutBtn from '../components/LogOutBtn'
+import AvatarIcon from '../components/AvatarIcon'
+
 import user from '../reducers/user'
 import profile from '../reducers/profile'
-import company from '../reducers/company'
-import AvatarIcon from '../components/AvatarIcon'
 
 const Profile = () => {
   const {

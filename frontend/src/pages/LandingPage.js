@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch, batch } from 'react-redux'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+
 import { styles } from '../utils/theme'
 
 import {
@@ -39,8 +39,6 @@ const LandingPage = () => {
   const allCompanies = useSelector((store) => store.companies.companies)
 
   const category1 = useSelector((store) => store.companies.category)
-
-  const { searchedCompany } = useSelector((store) => store.companies)
 
   const dispatch = useDispatch()
 

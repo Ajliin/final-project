@@ -18,6 +18,7 @@ const ImgList = () => {
               <img
                 className="company-profile"
                 src={`https://source.unsplash.com/random/170x170?sig=${index}`}
+                alt="picture from company webpage"
               />
               <p>{img.title}</p>
             </Box>

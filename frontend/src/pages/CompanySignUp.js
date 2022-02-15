@@ -15,7 +15,7 @@ import {
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
 
 import { URL_API } from '../utils/url'
-import { styles, theme } from '../utils/theme'
+import { styles } from '../utils/theme'
 
 import Header from '../components/Header'
 
@@ -77,7 +77,7 @@ const CompanySignUp = () => {
     } else {
       setHasCompany(true)
     }
-  }, [hasCompany, mode, profileId])
+  }, [hasCompany, mode, profileId, companyData])
 
   useEffect(() => {
     if (accessToken === null) {
@@ -89,7 +89,7 @@ const CompanySignUp = () => {
     if (mode === 'done') {
       navigate(`/company/${profileId}`)
     }
-  }, [mode, navigate])
+  }, [mode, profileId, navigate])
 
   const onFormSubmit = (event) => {
     event.preventDefault()

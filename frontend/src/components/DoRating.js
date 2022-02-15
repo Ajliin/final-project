@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 import Rating from '@mui/material/Rating'
 import Box from '@mui/material/Box'
 import StarIcon from '@mui/icons-material/Star'
-import { Typography } from '@mui/material'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 import searchedCompany from '../reducers/searchedCompany'
 

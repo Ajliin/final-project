@@ -1,4 +1,3 @@
-import React from 'react'
 import { createTheme, responsiveFontSizes } from '@mui/material/styles'
 
 export let theme = createTheme({

@@ -5,9 +5,7 @@ import { PieChart } from 'react-minimal-pie-chart'
 
 export const PieChart1 = () => {
   const genderRatio = useSelector((store) => store.company.genderRatio)
-  const genderRatioSearchedCompany = useSelector(
-    (store) => store.searchedCompany.genderRatio,
-  )
+
   const pieData = [
     { title: 'Women', value: genderRatio, color: '#ff6600' },
     { title: 'Men', value: 100 - genderRatio, color: '#c43300' },
@@ -40,7 +38,6 @@ export const PieChart1 = () => {
 }
 
 export const PieChart2 = () => {
-  const genderRatio = useSelector((store) => store.company.genderRatio)
   const genderRatioSearchedCompany = useSelector(
     (store) => store.searchedCompany.genderRatio,
   )

@@ -1,4 +1,3 @@
-import react from 'react'
 import { Typography, Box, Link } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
 
@@ -31,6 +30,7 @@ const Category = ({ category, no, searchSkills }) => {
         <img
           className="img-profile"
           src={`https://source.unsplash.com/random/100x100?sig=${no}`}
+          alt="company picture"
         />
         <Typography>{category}</Typography>
       </Box>
