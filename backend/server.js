@@ -4,7 +4,8 @@ import mongoose from 'mongoose'
 import crypto from 'crypto'
 import bcrypt from 'bcrypt'
 import dotenv from 'dotenv'
-import { count } from 'console'
+
+dotenv.config()
 
 const mongoUrl = process.env.MONGO_URL || 'mongodb://localhost/foaje'
 mongoose.connect(mongoUrl, {
