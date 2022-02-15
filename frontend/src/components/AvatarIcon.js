@@ -1,8 +1,6 @@
-import react from 'react'
+import React from 'react'
 import { Avatar } from '@mui/material'
 import { useSelector } from 'react-redux'
-
-import user from '../reducers/user'
 
 const AvatarIcon = () => {
   const { firstname, lastname } = useSelector((store) => store.user)

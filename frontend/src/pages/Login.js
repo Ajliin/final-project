@@ -11,6 +11,7 @@ import {
   Link,
   Card,
   CardMedia,
+  Grid,
 } from '@material-ui/core'
 
 import VpnKeyRoundedIcon from '@mui/icons-material/VpnKeyRounded'
@@ -107,21 +108,25 @@ const Login = () => {
       <Container>
         <Card style={styles.PaperForm}>
           {/* //ramen kring */}
-          <Box
-            sx={{
-              width: '50%',
-              marginTop: '15vh',
-            }}
-          >
-            <form onSubmit={onFormSubmit} autoComplete="off">
-              {/* Containern kring inlogging */}
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  marginX: '10vw',
-                }}
-              >
+          <Grid container spacing={2}>
+            {/* <Box
+              sx={{
+                width: '50%',
+                marginTop: '15vh',
+              }}
+            > */}
+            <Grid item xs={12} md={6} style={styles.GridLogin}>
+              <form onSubmit={onFormSubmit} autoComplete="off">
+                {/* Containern kring inlogging */}
+
+                {/* <Box
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    marginX: '10vw',
+                  }}
+                > */}
+
                 <Box
                   sx={{
                     marginBottom: 25,
@@ -289,40 +294,45 @@ const Login = () => {
                     </>
                   )}
                 </Box>
-              </Box>
-            </form>
-          </Box>
-          <CardMedia style={styles.CardLoginMedia}>
-            <Box
-              sx={{
-                height: '100%',
-                display: 'flex',
-                justifyContent: 'flex-end',
-                alignItems: 'flex-end',
-              }}
-            >
-              <Box
-                sx={{
-                  margin: 20,
-                  padding: 30,
-                  backgroundColor: 'rgba(228,228,206,0.95)',
-                  color: 'black',
-                }}
-              >
-                <Typography>
-                  Genom att bli medlem i FOAJÉ blir du en del av Sveriges
-                  största marknadsplats för kvinnliga entreprenörer, kreatörer
-                  och småföretagare.
-                </Typography>
-                <Typography>
-                  Här kan du hitta och köpa produkter och tjänster från företag
-                  drivna av kvinnor. Registrera ditt bolag eller dig själv om du
-                  har tjänster och produkter som du vill sälja. Det går att bli
-                  en säljare oavsett om du har ett bolag eller är frilansare.
-                </Typography>
-              </Box>
-            </Box>
-          </CardMedia>
+                {/* </Box> */}
+              </form>
+            </Grid>
+            {/* </Box> */}
+            <Grid item xs={12} md={6}>
+              <CardMedia style={styles.CardLoginMedia}>
+                <Box
+                  sx={{
+                    height: '100%',
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                    alignItems: 'flex-end',
+                  }}
+                >
+                  <Box
+                    sx={{
+                      margin: 20,
+                      padding: 30,
+                      backgroundColor: 'rgba(228,228,206,0.95)',
+                      color: 'black',
+                    }}
+                  >
+                    <Typography>
+                      Genom att bli medlem i FOAJÉ blir du en del av Sveriges
+                      största marknadsplats för kvinnliga entreprenörer,
+                      kreatörer och småföretagare.
+                    </Typography>
+                    <Typography>
+                      Här kan du hitta och köpa produkter och tjänster från
+                      företag drivna av kvinnor. Registrera ditt bolag eller dig
+                      själv om du har tjänster och produkter som du vill sälja.
+                      Det går att bli en säljare oavsett om du har ett bolag
+                      eller är frilansare.
+                    </Typography>
+                  </Box>
+                </Box>
+              </CardMedia>
+            </Grid>
+          </Grid>
         </Card>
       </Container>
     </>

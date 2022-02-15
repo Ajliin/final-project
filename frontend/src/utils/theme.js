@@ -1,16 +1,15 @@
 import React from 'react'
-import { createTheme } from '@mui/material/styles'
+import { createTheme, responsiveFontSizes } from '@mui/material/styles'
 //import Typography from '@material-ui/core/Typography'
 //import { purple } from '@material-ui/core/colors'
 //import { withTheme } from '@material-ui/core'
 
-export const theme = createTheme({
+export let theme = createTheme({
   typography: {
     fontFamily: 'Raleway',
     fontWeightLight: 100,
 
     body1: {
-      // color: '#030304',
       fontWeight: 500,
     },
   },
@@ -30,6 +29,8 @@ export const theme = createTheme({
     },
   },
 })
+
+theme = responsiveFontSizes(theme)
 
 export const styles = {
   // COMPANYPAGE
@@ -62,9 +63,9 @@ export const styles = {
   Paper: {
     marginTop: 10,
     padding: 15,
-    display: 'flex',
-    flexDirection: 'row',
-    minWidth: 800,
+    //  display: 'flex',
+    // flexDirection: 'row',
+    //minWidth: 800,
     backgroundColor: '#d5cfc7',
   },
 
@@ -87,7 +88,9 @@ export const styles = {
   CardLoginMedia: {
     backgroundImage: `url(./illu8.jpg)`,
     height: '100%',
-    width: '50%',
+  },
+  GridLogin: {
+    padding: '15vh',
   },
   //end login
 
@@ -108,7 +111,7 @@ export const styles = {
   BackgroundImg: {
     backgroundImage: `url(./header.jpg)`,
     backgroundPosition: 'bottom',
-    height: '80vh',
+    height: '90vh',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-end',
@@ -135,7 +138,6 @@ export const styles = {
   CompanyFormMedia: {
     backgroundImage: `url(./illu7.jpg)`,
     height: '100%',
-    width: '50%',
   },
 
   FooterStyle: {

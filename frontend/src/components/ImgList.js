@@ -1,11 +1,11 @@
-import { Card, CardHeader, CardMedia, Grid, Box } from '@material-ui/core'
+import { Card, Grid, Box } from '@material-ui/core'
 
 const ImgList = () => {
   return (
     <Grid container spacing={2}>
       {data.map((img, index) => (
         <Grid item xs={1.5}>
-          <Card sx={{ maxWidth: 100 }}>
+          <Card key={index} sx={{ maxWidth: 100 }}>
             <Box
               sx={{
                 display: 'flex',

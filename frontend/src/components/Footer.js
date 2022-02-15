@@ -4,8 +4,6 @@ import { useDispatch } from 'react-redux'
 import { styles } from '../utils/theme'
 
 const Footer = () => {
-  const dispatch = useDispatch()
-
   return (
     <footer>
       <Box style={styles.FooterStyle}>

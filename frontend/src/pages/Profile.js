@@ -38,9 +38,6 @@ const Profile = () => {
     hasCompany,
     email,
   } = useSelector((store) => store.user)
-  const description = useSelector((store) => store.profile.description)
-
-  const { companyName } = useSelector((store) => store.company)
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -97,7 +94,7 @@ const Profile = () => {
               <CardMedia style={styles.ProfileCardHeader}></CardMedia>
             </Grid>
             {/* Grid content */}
-            <Grid item xs={6}>
+            <Grid item xs={12} md={6}>
               <CardContent style={styles.CardContent}>
                 <Box
                   sx={{
@@ -122,7 +119,7 @@ const Profile = () => {
               </CardContent>
             </Grid>
             {/* buttons inside content */}
-            <Grid item xs={6}>
+            <Grid item xs={12} md={6}>
               <Box
                 sx={{
                   display: 'flex',

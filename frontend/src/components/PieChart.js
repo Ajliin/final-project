@@ -108,7 +108,7 @@ export const PieChart3 = ({ genderRatio }) => {
         label={({ dataEntry }) =>
           dataEntry.title + ': ' + dataEntry.value + '%'
         }
-        labelPosition={150}
+        labelPosition={110}
         center={[70, 70]}
         y
         viewBoxSize={[150, 150]}

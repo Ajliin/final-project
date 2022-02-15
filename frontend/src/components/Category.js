@@ -5,12 +5,7 @@ import { useDispatch } from 'react-redux'
 import companies from '../reducers/companies'
 import { URL_API } from '../utils/url'
 
-import { styles } from '../utils/theme'
-
 const Category = ({ category, no, searchSkills }) => {
-  console.log('categoryName', category)
-  //console.log('searchSkills', searchSkills)
-
   const dispatch = useDispatch()
 
   const getCategory = (searchSkills) => {
@@ -30,8 +25,7 @@ const Category = ({ category, no, searchSkills }) => {
           flexDirection: 'column',
           justifyContent: 'space-between',
           alignItems: 'center',
-
-          height: '15vh',
+          margin: 10,
         }}
       >
         <img

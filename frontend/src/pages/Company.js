@@ -26,7 +26,6 @@ import Header from '../components/Header'
 import LogOutBtn from '../components/LogOutBtn'
 import { PieChart1, PieChart2 } from '../components/PieChart'
 import Modal from '../components/Modal'
-import AvatarIcon from '../components/AvatarIcon'
 import ImgList from '../components/ImgList'
 import Footer from '../components/Footer'
 
@@ -232,21 +231,14 @@ const Company = () => {
                 <Card style={styles.Card}>
                   <CardMedia style={styles.CardHeaderMedia}></CardMedia>
                   <CardContent style={styles.CardContent}>
-                    <Box
-                      sx={{
-                        padding: 2,
-                        display: 'flex',
-                      }}
-                    >
-                      <img
-                        className="img-profile"
-                        src={`https://source.unsplash.com/random/150x150?sig=7`}
-                      />
-                      <Box
-                        sx={{
-                          marginLeft: 20,
-                        }}
-                      >
+                    <Grid container spacing={2}>
+                      <Grid item xs={6} md={3}>
+                        <img
+                          className="img-profile"
+                          src={`https://source.unsplash.com/random/150x150?sig=7`}
+                        />
+                      </Grid>
+                      <Grid item xs={5} md={3}>
                         <Typography variant="h4" component="h1">
                           {sCompany.companyName}
                         </Typography>
@@ -259,28 +251,20 @@ const Company = () => {
                           <LocationOnOutlined />
                           <p>{sCompany.location}</p>
                         </Box>
-                      </Box>
-                    </Box>
+                      </Grid>
 
-                    <Box
-                      sx={{
-                        marginLeft: 20,
-                      }}
-                    >
-                      <PieChart2 />
-                    </Box>
-                    <Box
-                      sx={{
-                        marginLeft: 20,
-                      }}
-                    >
-                      <Button>Kontakta mig</Button>
-                    </Box>
+                      <Grid item xs={6} md={3}>
+                        <PieChart2 />
+                      </Grid>
+                      <Grid item xs={6} md={3}>
+                        <Button>Kontakta mig</Button>
+                      </Grid>
+                    </Grid>
                   </CardContent>
                 </Card>
               </Grid>
               {/* SKILLS Card */}
-              <Grid item xs={4}>
+              <Grid item xs={12} md={4}>
                 <Card style={styles.SmallCard}>
                   <Typography variant="h6" component="h2">
                     Skills eller produkter
@@ -329,8 +313,7 @@ const Company = () => {
                     readOnly
                     precision={0.1}
                   />
-
-                  <p>
+                  <Typography>
                     Omdöme: {Math.round(sCompany.rating * 10) / 10}
                     <Button
                       onClick={() => {
@@ -343,13 +326,13 @@ const Company = () => {
                     >
                       ({sCompany.reviews.length})
                     </Button>
-                  </p>
-
+                  </Typography>
+                  {/* //Rating modal*/}
                   <Modal />
                 </Card>
               </Grid>
               {/* Company Description Card */}
-              <Grid item xs={8}>
+              <Grid item xs={12} md={8}>
                 <Card style={styles.SmallCard}>
                   <Typography variant="h6" component="h2">
                     Beskrivning av företaget
@@ -358,7 +341,7 @@ const Company = () => {
                 </Card>
               </Grid>
 
-              {/* webpage and social media */}
+              {/* show Ratings*/}
               <Grid item xs={12}>
                 {showRating && (
                   <Card style={styles.SmallCard}>
@@ -424,21 +407,21 @@ const Company = () => {
                 <Card style={styles.Card}>
                   <CardMedia style={styles.CardHeaderMedia}></CardMedia>
                   <CardContent style={styles.CardContent}>
-                    <Box
-                      sx={{
-                        padding: 2,
-                        display: 'flex',
-                      }}
+                    <Grid
+                      container
+                      spacing={2}
+                      // sx={{
+                      //   padding: 2,
+                      //   display: 'flex',
+                      // }}
                     >
-                      <img
-                        className="img-profile"
-                        src={`https://source.unsplash.com/random/150x150?sig=7`}
-                      />
-                      <Box
-                        sx={{
-                          marginLeft: 20,
-                        }}
-                      >
+                      <Grid item xs={6} md={3}>
+                        <img
+                          className="img-profile"
+                          src={`https://source.unsplash.com/random/150x150?sig=7`}
+                        />
+                      </Grid>
+                      <Grid item xs={5} md={3}>
                         <Typography variant="h4" component="h1">
                           {myCompany.companyName}
                         </Typography>
@@ -451,39 +434,37 @@ const Company = () => {
                           <LocationOnOutlined />
                           <p>{myCompany.location}</p>
                         </Box>
-                      </Box>
-                    </Box>
+                      </Grid>
 
-                    <Box
-                      sx={{
-                        marginLeft: 20,
-                      }}
-                    >
-                      <PieChart1 />
-                    </Box>
-                    <Box
-                      sx={{
-                        marginLeft: 20,
-                        display: 'flex',
-                        flexDirection: 'column',
-                      }}
-                    >
-                      <Button
-                        type="submit"
-                        color="secondary"
-                        variant="contained"
-                        style={styles.h6Space}
-                        onClick={() => navigate('/company-form')}
-                      >
-                        Redigera
-                      </Button>
-                      <LogOutBtn />
-                    </Box>
+                      <Grid item xs={6} md={3}>
+                        <PieChart1 />
+                      </Grid>
+                      <Grid item xs={6} md={3}>
+                        <Box
+                          sx={{
+                            marginLeft: 20,
+                            display: 'flex',
+                            flexDirection: 'column',
+                          }}
+                        >
+                          <Button
+                            type="submit"
+                            color="secondary"
+                            variant="contained"
+                            style={styles.h6Space}
+                            onClick={() => navigate('/company-form')}
+                          >
+                            Redigera
+                          </Button>
+                          <LogOutBtn />
+                        </Box>
+                      </Grid>
+                    </Grid>
                   </CardContent>
                 </Card>
               </Grid>
               {/* SKILLS Card */}
-              <Grid item xs={4}>
+              <Grid item xs={12} md={4}>
                 <Card style={styles.SmallCard}>
                   <Typography variant="h6" component="h2">
                     Skills eller produkter
@@ -537,7 +518,7 @@ const Company = () => {
                 </Card>
               </Grid>
               {/* Company Description Card */}
-              <Grid item xs={8}>
+              <Grid item xs={12} md={8}>
                 <Card style={styles.SmallCard}>
                   <Typography variant="h6" component="h2">
                     Beskrivning av företaget

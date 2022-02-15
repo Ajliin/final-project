@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import Dialog from '@mui/material/Dialog'
@@ -6,21 +8,19 @@ import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
-import { useSelector, useDispatch } from 'react-redux'
 
 import DoRating from './DoRating'
 
-import searchedCompany from '../reducers/searchedCompany'
-
 import { URL_API } from '../utils/url'
 
-export default function FormDialog() {
+import searchedCompany from '../reducers/searchedCompany'
+
+const Modal = () => {
   const [open, setOpen] = useState(false)
   const [review, setReview] = useState('')
 
   //useSelector
   const userReview = useSelector((store) => store.user.firstname)
-
   const { companyId, thisReview } = useSelector(
     (store) => store.searchedCompany,
   )
@@ -44,9 +44,9 @@ export default function FormDialog() {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        newRating: thisReview,
-        comment: review,
-        reviewerId: userReview,
+        newRating: thisReview, //from DoRating via useSelector
+        comment: review, //from useState review
+        reviewerId: userReview, //from useSelector
       }),
     }
 
@@ -71,12 +71,14 @@ export default function FormDialog() {
         Rate this company
       </Button>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Rating</DialogTitle>
+        <DialogTitle>Omdöme</DialogTitle>
         <DialogContent>
+          {/* Ratingstars */}
           <DoRating />
 
           <DialogContentText>
-            To rate to this company, please your amount of stars here.
+            För att ge detta företag ett omdöme, välj antal stjärnor och skriv
+            en kommentar.
           </DialogContentText>
           <DialogContentText>{thisReview}</DialogContentText>
           <TextField
@@ -99,3 +101,5 @@ export default function FormDialog() {
     </div>
   )
 }
+
+export default Modal

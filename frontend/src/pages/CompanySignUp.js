@@ -10,6 +10,7 @@ import {
   Container,
   Card,
   CardMedia,
+  Grid,
 } from '@material-ui/core'
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
 
@@ -204,197 +205,207 @@ const CompanySignUp = () => {
       <Header />
       <Container className="app-container" position="static" color="secondary">
         <Card style={styles.SignUpEditForm}>
-          <Box
-            sx={{
-              width: '5%',
-              marginTop: '1vw',
-            }}
-          >
-            <Button onClick={() => navigate(`/company/${profileId}`)}>
-              <CloseRoundedIcon />
-            </Button>
-          </Box>
-          {/* //ramen kring */}
-          <Box
-            sx={{
-              width: '50%',
-              marginTop: '7vh',
-              marginRight: '5vw',
-            }}
-          >
-            <form onSubmit={onFormSubmit}>
-              {/* Containern kring formulär */}
-              <Box
+          <Grid container spacing={2}>
+            <Grid item xs={1} md={1}>
+              {/* <Box
                 sx={{
-                  //  backgroundColor: 'beige',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  marginX: '5vw',
+                  width: '5%',
+                  marginTop: '1vw',
                 }}
-              >
+              > */}
+              <Button onClick={() => navigate(`/company/${profileId}`)}>
+                <CloseRoundedIcon style={{ marginTop: '1vw' }} />
+              </Button>
+              {/* </Box> */}
+            </Grid>
+            {/* //ramen kring */}
+            <Grid item xs={11} md={5}>
+              {/* <Box
+                sx={{
+                  width: '50%',
+                  marginTop: '7vh',
+                  marginRight: '5vw',
+                }}
+              > */}
+              <form onSubmit={onFormSubmit}>
+                {/* Containern kring formulär */}
                 <Box
                   sx={{
-                    marginBottom: 25,
+                    //  backgroundColor: 'beige',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    marginX: '5vw',
+                    marginTop: '5vh',
                   }}
                 >
-                  {mode === 'new' ? (
-                    <>
-                      <Typography variant="h5" component="h2">
-                        Välkommen att registrera ditt företag
-                      </Typography>
-                      <Typography variant="body2" component="h5">
-                        Lorum ipsum
-                      </Typography>
-                    </>
+                  <Box
+                    sx={{
+                      marginBottom: 25,
+                    }}
+                  >
+                    {mode === 'new' ? (
+                      <>
+                        <Typography variant="h5" component="h2">
+                          Välkommen att registrera ditt företag
+                        </Typography>
+                        <Typography variant="body2" component="h5">
+                          Lorum ipsum
+                        </Typography>
+                      </>
+                    ) : (
+                      <>
+                        <Typography variant="h5" component="h2">
+                          Redigera dina uppgifter om ditt företag
+                        </Typography>
+                        <Typography variant="body2" component="h5">
+                          Lorum ipsum
+                        </Typography>
+                      </>
+                    )}
+                  </Box>
+
+                  <TextField
+                    id="companyName"
+                    label="Företagsnamn"
+                    required
+                    margin="normal"
+                    variant="outlined"
+                    value={companyName}
+                    onChange={(event) => setCompanyName(event.target.value)}
+                  />
+
+                  <TextField
+                    id="genderRatio"
+                    type="text"
+                    required
+                    label="Ägarandel kvinnor i %"
+                    margin="normal"
+                    variant="outlined"
+                    value={genderRatio}
+                    onChange={(event) => setGenderRatio(event.target.value)}
+                  />
+
+                  <TextField
+                    id="companyDescription"
+                    type="text-area"
+                    margin="normal"
+                    multiline
+                    maxRows={4}
+                    label="Företagsbeskrivning"
+                    variant="outlined"
+                    value={companyDescription}
+                    onChange={(event) =>
+                      setCompanyDescription(event.target.value)
+                    }
+                  />
+
+                  <TextField
+                    id="location"
+                    required
+                    type="text"
+                    margin="normal"
+                    label="Plats"
+                    variant="outlined"
+                    value={location}
+                    onChange={(event) => setLocation(event.target.value)}
+                  />
+
+                  <TextField
+                    id="skills"
+                    required
+                    type="text"
+                    margin="normal"
+                    label="Skills"
+                    variant="outlined"
+                    value={skills}
+                    onChange={(event) => setSkills(event.target.value)}
+                  />
+                  <TextField
+                    id="skills2"
+                    type="text"
+                    margin="normal"
+                    label="Skills "
+                    variant="outlined"
+                    value={skills2}
+                    onChange={(event) => setSkills2(event.target.value)}
+                  />
+                  <TextField
+                    id="skills3"
+                    type="text"
+                    margin="normal"
+                    label="Skills "
+                    variant="outlined"
+                    value={skills3}
+                    onChange={(event) => setSkills3(event.target.value)}
+                  />
+                  <TextField
+                    id="skills2"
+                    type="text"
+                    margin="normal"
+                    label="Skills "
+                    variant="outlined"
+                    value={skills4}
+                    onChange={(event) => setSkills4(event.target.value)}
+                  />
+
+                  <TextField
+                    id="url"
+                    required
+                    type="text"
+                    label="Webb-adress"
+                    margin="normal"
+                    variant="outlined"
+                    value={url}
+                    onChange={(event) => setUrl(event.target.value)}
+                  />
+                  {!hasCompany1 ? (
+                    <Button type="submit" color="secondary" variant="contained">
+                      Submit
+                    </Button>
                   ) : (
-                    <>
-                      <Typography variant="h5" component="h2">
-                        Redigera dina uppgifter om ditt företag
-                      </Typography>
-                      <Typography variant="body2" component="h5">
-                        Lorum ipsum
-                      </Typography>
-                    </>
+                    <Button type="submit" color="secondary" variant="contained">
+                      Edit data
+                    </Button>
                   )}
                 </Box>
-
-                <TextField
-                  id="companyName"
-                  label="Företagsnamn"
-                  required
-                  margin="normal"
-                  variant="outlined"
-                  value={companyName}
-                  onChange={(event) => setCompanyName(event.target.value)}
-                />
-
-                <TextField
-                  id="genderRatio"
-                  type="text"
-                  required
-                  label="Ägarandel kvinnor i %"
-                  margin="normal"
-                  variant="outlined"
-                  value={genderRatio}
-                  onChange={(event) => setGenderRatio(event.target.value)}
-                />
-
-                <TextField
-                  id="companyDescription"
-                  type="text-area"
-                  margin="normal"
-                  multiline
-                  maxRows={4}
-                  label="Företagsbeskrivning"
-                  variant="outlined"
-                  value={companyDescription}
-                  onChange={(event) =>
-                    setCompanyDescription(event.target.value)
-                  }
-                />
-
-                <TextField
-                  id="location"
-                  required
-                  type="text"
-                  margin="normal"
-                  label="Plats"
-                  variant="outlined"
-                  value={location}
-                  onChange={(event) => setLocation(event.target.value)}
-                />
-
-                <TextField
-                  id="skills"
-                  required
-                  type="text"
-                  margin="normal"
-                  label="Skills"
-                  variant="outlined"
-                  value={skills}
-                  onChange={(event) => setSkills(event.target.value)}
-                />
-                <TextField
-                  id="skills2"
-                  type="text"
-                  margin="normal"
-                  label="Skills "
-                  variant="outlined"
-                  value={skills2}
-                  onChange={(event) => setSkills2(event.target.value)}
-                />
-                <TextField
-                  id="skills3"
-                  type="text"
-                  margin="normal"
-                  label="Skills "
-                  variant="outlined"
-                  value={skills3}
-                  onChange={(event) => setSkills3(event.target.value)}
-                />
-                <TextField
-                  id="skills2"
-                  type="text"
-                  margin="normal"
-                  label="Skills "
-                  variant="outlined"
-                  value={skills4}
-                  onChange={(event) => setSkills4(event.target.value)}
-                />
-
-                <TextField
-                  id="url"
-                  required
-                  type="text"
-                  label="Webb-adress"
-                  margin="normal"
-                  variant="outlined"
-                  value={url}
-                  onChange={(event) => setUrl(event.target.value)}
-                />
-                {!hasCompany1 ? (
-                  <Button type="submit" color="secondary" variant="contained">
-                    Submit
-                  </Button>
-                ) : (
-                  <Button type="submit" color="secondary" variant="contained">
-                    Edit data
-                  </Button>
-                )}
-              </Box>
-            </form>
-          </Box>
-          <CardMedia style={styles.CompanyFormMedia}>
-            <Box
-              sx={{
-                height: '110vh',
-                display: 'flex',
-                justifyContent: 'flex-end',
-                alignItems: 'flex-end',
-              }}
-            >
-              <Box
-                sx={{
-                  margin: 20,
-                  padding: 30,
-                  backgroundColor: 'rgba(215,215, 215,0.7)',
-                  color: 'black',
-                }}
-              >
-                <Typography>
-                  Genom att bli medlem i FOAJÉ blir du en del av Sveriges
-                  största marknadsplats för kvinnliga entreprenörer, kreatörer
-                  och småföretagare.
-                </Typography>
-                <Typography>
-                  Här kan du hitta och köpa produkter och tjänster från företag
-                  drivna av kvinnor. Registrera ditt bolag eller dig själv om du
-                  har tjänster och produkter som du vill sälja. Det går att bli
-                  en säljare oavsett om du har ett bolag eller är frilansare.
-                </Typography>
-              </Box>
-            </Box>
-          </CardMedia>
+              </form>
+              {/* </Box> */}
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <CardMedia style={styles.CompanyFormMedia}>
+                <Box
+                  sx={{
+                    height: '110vh',
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                    alignItems: 'flex-end',
+                  }}
+                >
+                  <Box
+                    sx={{
+                      margin: 20,
+                      padding: 30,
+                      backgroundColor: 'rgba(215,215, 215,0.7)',
+                      color: 'black',
+                    }}
+                  >
+                    <Typography>
+                      Genom att bli medlem i FOAJÉ blir du en del av Sveriges
+                      största marknadsplats för kvinnliga entreprenörer,
+                      kreatörer och småföretagare.
+                    </Typography>
+                    <Typography>
+                      Här kan du hitta och köpa produkter och tjänster från
+                      företag drivna av kvinnor. Registrera ditt bolag eller dig
+                      själv om du har tjänster och produkter som du vill sälja.
+                      Det går att bli en säljare oavsett om du har ett bolag
+                      eller är frilansare.
+                    </Typography>
+                  </Box>
+                </Box>
+              </CardMedia>
+            </Grid>
+          </Grid>
         </Card>
       </Container>
     </>
