@@ -1,8 +1,5 @@
 import React from 'react'
 import { createTheme, responsiveFontSizes } from '@mui/material/styles'
-//import Typography from '@material-ui/core/Typography'
-//import { purple } from '@material-ui/core/colors'
-//import { withTheme } from '@material-ui/core'
 
 export let theme = createTheme({
   typography: {
@@ -63,9 +60,6 @@ export const styles = {
   Paper: {
     marginTop: 10,
     padding: 15,
-    //  display: 'flex',
-    // flexDirection: 'row',
-    //minWidth: 800,
     backgroundColor: '#d5cfc7',
   },
 

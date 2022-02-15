@@ -3,17 +3,7 @@ import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import Rating from '@mui/material/Rating'
 
-import {
-  Paper,
-  Grid,
-  Button,
-  Typography,
-  Chip,
-  Box,
-  Link,
-  Card,
-  CardActionArea,
-} from '@material-ui/core'
+import { Grid, Typography, Chip, Box, CardActionArea } from '@material-ui/core'
 import { LocationOnOutlined } from '@material-ui/icons'
 
 import { PieChart3 } from './PieChart'
@@ -89,12 +79,7 @@ const SearchCard = () => {
                 </Grid>
                 {/* Skills  */}
                 <Grid item xs={5} md={3}>
-                  <Box
-                  // sx={{
-                  //   marginLeft: 50,
-                  //   width: 200,
-                  // }}
-                  >
+                  <Box>
                     <Typography variant="h6" component="h3">
                       Skills
                     </Typography>
@@ -119,13 +104,7 @@ const SearchCard = () => {
                 <Grid item xs={7} md={3}>
                   {/* sm if less than 600 */}
 
-                  <Box
-                    sx={
-                      {
-                        // marginLeft: 50,
-                      }
-                    }
-                  >
+                  <Box>
                     <Typography variant="h6" component="h3">
                       Ägandestruktur
                     </Typography>

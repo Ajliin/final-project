@@ -7,7 +7,6 @@ import {
   TextField,
   Box,
   Container,
-  Paper,
   Link,
   Card,
   CardMedia,
@@ -109,23 +108,9 @@ const Login = () => {
         <Card style={styles.PaperForm}>
           {/* //ramen kring */}
           <Grid container spacing={2}>
-            {/* <Box
-              sx={{
-                width: '50%',
-                marginTop: '15vh',
-              }}
-            > */}
             <Grid item xs={12} md={6} style={styles.GridLogin}>
               <form onSubmit={onFormSubmit} autoComplete="off">
                 {/* Containern kring inlogging */}
-
-                {/* <Box
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    marginX: '10vw',
-                  }}
-                > */}
 
                 <Box
                   sx={{
@@ -294,10 +279,9 @@ const Login = () => {
                     </>
                   )}
                 </Box>
-                {/* </Box> */}
               </form>
             </Grid>
-            {/* </Box> */}
+
             <Grid item xs={12} md={6}>
               <CardMedia style={styles.CardLoginMedia}>
                 <Box

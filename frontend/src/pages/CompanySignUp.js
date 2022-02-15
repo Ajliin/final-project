@@ -207,31 +207,16 @@ const CompanySignUp = () => {
         <Card style={styles.SignUpEditForm}>
           <Grid container spacing={2}>
             <Grid item xs={1} md={1}>
-              {/* <Box
-                sx={{
-                  width: '5%',
-                  marginTop: '1vw',
-                }}
-              > */}
               <Button onClick={() => navigate(`/company/${profileId}`)}>
                 <CloseRoundedIcon style={{ marginTop: '1vw' }} />
               </Button>
-              {/* </Box> */}
             </Grid>
             {/* //ramen kring */}
             <Grid item xs={11} md={5}>
-              {/* <Box
-                sx={{
-                  width: '50%',
-                  marginTop: '7vh',
-                  marginRight: '5vw',
-                }}
-              > */}
               <form onSubmit={onFormSubmit}>
                 {/* Containern kring formulär */}
                 <Box
                   sx={{
-                    //  backgroundColor: 'beige',
                     display: 'flex',
                     flexDirection: 'column',
                     marginX: '5vw',
@@ -369,7 +354,6 @@ const CompanySignUp = () => {
                   )}
                 </Box>
               </form>
-              {/* </Box> */}
             </Grid>
             <Grid item xs={12} md={6}>
               <CardMedia style={styles.CompanyFormMedia}>

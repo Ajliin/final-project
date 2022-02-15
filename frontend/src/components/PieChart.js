@@ -18,7 +18,6 @@ export const PieChart1 = () => {
       <PieChart
         style={{ height: '100px', width: '200px' }}
         data={pieData}
-        //totalValue={100}
         startAngle={-90}
         lineWidth={70} //bredd
         paddingAngle={2}
@@ -35,10 +34,6 @@ export const PieChart1 = () => {
           fontSize: '1rem',
           fontFamily: 'sans-serif',
         }}
-        // your data
-
-        // width and height of the view box
-        //viewBoxSize={[400, 400]}
       />
     </div>
   )
@@ -59,7 +54,6 @@ export const PieChart2 = () => {
       <PieChart
         style={{ height: '100px', width: '200px' }}
         data={pieData}
-        //totalValue={100}
         startAngle={-90}
         lineWidth={70} //bredd
         paddingAngle={2}
@@ -76,20 +70,12 @@ export const PieChart2 = () => {
           fontSize: '1rem',
           fontFamily: 'sans-serif',
         }}
-        // your data
-
-        // width and height of the view box
-        //viewBoxSize={[400, 400]}
       />
     </div>
   )
 }
 
 export const PieChart3 = ({ genderRatio }) => {
-  // const genderRatio = useSelector((store) => store.company.genderRatio)
-  // const genderRatioSearchedCompany = useSelector(
-  //   (store) => store.searchedCompany.genderRatio,
-  //)
   const pieData = [
     { title: 'Women', value: genderRatio, color: '#ff6600' },
     { title: 'Men', value: 100 - genderRatio, color: '#c43300' },
@@ -100,7 +86,6 @@ export const PieChart3 = ({ genderRatio }) => {
       <PieChart
         style={{ height: '100px', width: '200px' }}
         data={pieData}
-        //totalValue={100}
         startAngle={-90}
         lineWidth={70} //bredd
         paddingAngle={2}
@@ -117,10 +102,6 @@ export const PieChart3 = ({ genderRatio }) => {
           fontSize: '1rem',
           fontFamily: 'sans-serif',
         }}
-        // your data
-
-        // width and height of the view box
-        //viewBoxSize={[400, 400]}
       />
     </div>
   )

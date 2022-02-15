@@ -407,14 +407,7 @@ const Company = () => {
                 <Card style={styles.Card}>
                   <CardMedia style={styles.CardHeaderMedia}></CardMedia>
                   <CardContent style={styles.CardContent}>
-                    <Grid
-                      container
-                      spacing={2}
-                      // sx={{
-                      //   padding: 2,
-                      //   display: 'flex',
-                      // }}
-                    >
+                    <Grid container spacing={2}>
                       <Grid item xs={6} md={3}>
                         <img
                           className="img-profile"

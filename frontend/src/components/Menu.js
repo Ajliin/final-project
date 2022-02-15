@@ -57,9 +57,7 @@ const MenuBar = () => {
       dispatch(company.actions.setLocation(null))
       dispatch(company.actions.setSkills(null))
       dispatch(company.actions.setUrl(null))
-      // dispatch(company.actions.setError(data.response))
 
-      //specify the data that we want to save in localStorage 'user' here
       localStorage.removeItem('user')
       localStorage.removeItem('profile')
       localStorage.removeItem('company')

@@ -78,14 +78,14 @@ const LandingPage = () => {
       >
         <Box style={styles.BackgroundImg}>
           <Header />
-          {/* <Container> */}
+
           <Box
             sx={{
               maxWidth: 724,
-              // background: 'yellow',
+
               display: 'flex',
               flexDirection: 'column',
-              // alignItems: 'flex-end',
+
               justifyContent: 'flex-end',
               height: '100%',
               marginBottom: '2vh',
@@ -93,15 +93,7 @@ const LandingPage = () => {
               marginRight: '15vw',
             }}
           >
-            {/* // <Paper> */}
-            <Box
-              sx={
-                {
-                  // background: 'grey',
-                }
-              }
-            >
-              {/*  fontWeight={700} */}
+            <Box>
               <Typography variant="h2" component="h1" style={styles.Typo1}>
                 Sveriges största marknadsplats för kvinnliga entreprenörer,
                 kreatörer och småföretagare
@@ -110,13 +102,11 @@ const LandingPage = () => {
                 </Box>
               </Typography>
             </Box>
-            {/* // </Paper> */}
+
             <Box
               sx={{
                 marginY: '1vh',
                 display: 'flex',
-                //  background: 'blue',
-                //justifyContent: 'center',
               }}
             >
               {email ? (
@@ -129,18 +119,7 @@ const LandingPage = () => {
                 </Typography>
               )}
             </Box>
-            {/* <Box
-              sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                marginY: 2,
 
-                background: 'rgba(215,215,215,0.5)',
-                padding: 20,
-                borderRadius: 10,
-                background: 'red',
-              }}
-            > */}
             <Grid container spacing={2}>
               <Grid item>
                 <TextField
@@ -207,7 +186,6 @@ const LandingPage = () => {
               </Box>
             </Grid>
           </Box>
-          {/* </Container> */}
         </Box>
         <Container>
           <Box>
