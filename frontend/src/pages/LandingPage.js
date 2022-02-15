@@ -10,8 +10,6 @@ import {
   Container,
   Grid,
   Box,
-  Paper,
-  Link,
   Chip,
 } from '@material-ui/core'
 
@@ -81,11 +79,9 @@ const LandingPage = () => {
 
           <Box
             sx={{
-              maxWidth: 724,
-
+              maxWidth: 824,
               display: 'flex',
               flexDirection: 'column',
-
               justifyContent: 'flex-end',
               height: '100%',
               marginBottom: '2vh',

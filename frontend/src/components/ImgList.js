@@ -4,8 +4,8 @@ const ImgList = () => {
   return (
     <Grid container spacing={2}>
       {data.map((img, index) => (
-        <Grid item xs={1.5}>
-          <Card key={index} sx={{ maxWidth: 100 }}>
+        <Grid key={index} item xs={2}>
+          <Card sx={{ maxWidth: 100 }}>
             <Box
               sx={{
                 display: 'flex',

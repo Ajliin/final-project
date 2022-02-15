@@ -16,8 +16,10 @@ import {
 } from '@material-ui/core'
 
 import Rating from '@mui/material/Rating'
-import { LocationOnOutlined, WrapText } from '@material-ui/icons'
+import { LocationOnOutlined } from '@material-ui/icons'
 import { CardContent } from '@mui/material'
+
+import uniqid from 'uniqid'
 
 import { URL_API } from '../utils/url'
 import { styles } from '../utils/theme'
@@ -229,7 +231,7 @@ const Company = () => {
               {/* //HEADER Card */}
               <Grid item xs={12}>
                 <Card style={styles.Card}>
-                  <CardMedia style={styles.CardHeaderMedia}></CardMedia>
+                  <CardContent style={styles.CardHeaderMedia}></CardContent>
                   <CardContent style={styles.CardContent}>
                     <Grid container spacing={2}>
                       <Grid item xs={6} md={3}>
@@ -283,7 +285,11 @@ const Company = () => {
                         return
                       } else {
                         return (
-                          <Chip label={skill} style={styles.BgLightPurple} />
+                          <Chip
+                            key={uniqid}
+                            label={skill}
+                            style={styles.BgLightPurple}
+                          />
                         )
                       }
                     })}
@@ -350,10 +356,10 @@ const Company = () => {
                     {sCompany.reviews &&
                       sCompany.reviews.map((review) => (
                         <Box
+                          key={uniqid}
                           sx={{
                             padding: 10,
                             display: 'flex',
-                            // justifyContent: 'space-between',
                           }}
                         >
                           <Box
@@ -405,7 +411,7 @@ const Company = () => {
               {/* //HEADER Card */}
               <Grid item xs={12}>
                 <Card style={styles.Card}>
-                  <CardMedia style={styles.CardHeaderMedia}></CardMedia>
+                  <CardContent style={styles.CardHeaderMedia}></CardContent>
                   <CardContent style={styles.CardContent}>
                     <Grid container spacing={2}>
                       <Grid item xs={6} md={3}>
@@ -476,7 +482,11 @@ const Company = () => {
                         return
                       } else {
                         return (
-                          <Chip label={skill} style={styles.BgLightPurple} />
+                          <Chip
+                            key={uniqid}
+                            label={skill}
+                            style={styles.BgLightPurple}
+                          />
                         )
                       }
                     })}
@@ -529,6 +539,7 @@ const Company = () => {
                     {myCompany.reviews &&
                       myCompany.reviews.map((review) => (
                         <Box
+                          key={uniqid}
                           sx={{
                             padding: 10,
                             display: 'flex',
