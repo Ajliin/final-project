@@ -9,7 +9,6 @@ import {
   Box,
   Grid,
   Card,
-  CardMedia,
   CardContent,
 } from '@material-ui/core'
 
@@ -89,7 +88,7 @@ const Profile = () => {
           <Grid container spacing={2}>
             {/* Grid img */}
             <Grid item xs={12}>
-              <CardMedia style={styles.ProfileCardHeader}></CardMedia>
+              <CardContent style={styles.ProfileCardHeader}></CardContent>
             </Grid>
             {/* Grid content */}
             <Grid item xs={12} md={6}>
@@ -109,7 +108,7 @@ const Profile = () => {
                     <Typography variant="h5" component="h3">
                       Välkommen {firstname} {lastname} till Foaje!
                     </Typography>
-                    <Typography variant="h6" component="body1">
+                    <Typography variant="h6" component="h6">
                       Din email: {email}
                     </Typography>
                   </Box>

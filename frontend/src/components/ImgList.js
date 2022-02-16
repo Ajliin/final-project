@@ -4,7 +4,7 @@ const ImgList = () => {
   return (
     <Grid container spacing={2}>
       {data.map((img, index) => (
-        <Grid key={index} item xs={2}>
+        <Grid key={index} item xs={6} sm={4} md={2}>
           <Card sx={{ maxWidth: 100 }}>
             <Box
               sx={{
@@ -12,7 +12,7 @@ const ImgList = () => {
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'center',
-                widht: 200,
+                // maxWidth: 200,
               }}
             >
               <img

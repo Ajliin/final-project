@@ -85,7 +85,7 @@ const SearchCard = () => {
                     Skills
                   </Typography>
                   <Box>
-                    {company.skills.map((skill) => {
+                    {company.skills.forEach((skill) => {
                       if (skill === '') {
                         return
                       } else {

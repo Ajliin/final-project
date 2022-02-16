@@ -27,11 +27,9 @@ const user = createSlice({
       store.userId = action.payload
     },
     setFirstname: (store, action) => {
-      console.log('inside setUsername reducer', action.payload)
       store.firstname = action.payload
     },
     setLastname: (store, action) => {
-      console.log('inside setUsername reducer', action.payload)
       store.lastname = action.payload
     },
     setAccessToken: (store, action) => {
@@ -42,7 +40,6 @@ const user = createSlice({
     },
     setHasCompany: (store, action) => {
       store.hasCompany = action.payload
-      console.log('reducr store.hasCompany', store.hasCompany)
     },
     setError: (store, action) => {
       store.error = action.payload

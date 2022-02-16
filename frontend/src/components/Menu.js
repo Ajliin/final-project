@@ -95,12 +95,14 @@ const MenuBar = () => {
             }}
           >
             <Box>
-              <MenuItem onClick={goToLandingPage}>Sök</MenuItem>
-              <MenuItem onClick={goToProfile}>Min profil</MenuItem>
+              <MenuItem onClick={() => goToLandingPage()}>Sök</MenuItem>
+              <MenuItem onClick={() => goToProfile()}>Min profil</MenuItem>
               {hasCompany && (
-                <MenuItem onClick={goToCompanyPage}>Mitt företag</MenuItem>
+                <MenuItem onClick={() => goToCompanyPage()}>
+                  Mitt företag
+                </MenuItem>
               )}
-              <MenuItem onClick={goToLogOut}>Logout</MenuItem>
+              <MenuItem onClick={() => goToLogOut()}>Logout</MenuItem>
             </Box>
           </Menu>
         </>

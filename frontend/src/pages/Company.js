@@ -12,6 +12,7 @@ import {
   Grid,
   Card,
   Chip,
+  List,
 } from '@material-ui/core'
 
 import Rating from '@mui/material/Rating'
@@ -218,7 +219,7 @@ const Company = () => {
         })
     }
   }, [dispatch, accessToken, paramId, mode])
-
+  // console.log(uniqid())
   return (
     <>
       <Header />
@@ -280,22 +281,16 @@ const Company = () => {
                       flexWrap: 'wrap',
                     }}
                   >
-                    {sCompany.skills?.map((skill) => {
+                    {sCompany.skills?.map((skill, index) => {
                       if (skill === '') {
                         return
                       } else {
                         return (
-                          <>
-                            <Chip
-                              key={sCompany.companyId}
-                              label={skill}
-                              style={styles.BgLightPurple}
-                            />
-                            {console.log(
-                              'skills sCompany key',
-                              sCompany.companyId,
-                            )}
-                          </>
+                          <Chip
+                            key={skill}
+                            label={skill}
+                            style={styles.BgLightPurple}
+                          />
                         )
                       }
                     })}
@@ -360,18 +355,15 @@ const Company = () => {
                     <p>Recension</p>
 
                     {sCompany.reviews &&
-                      sCompany.reviews.map((review) => (
-                        <Box
-                          key={sCompany.companyId}
+                      sCompany.reviews.map((review, index) => (
+                        <List
+                          key={index}
                           sx={{
                             padding: 10,
                             display: 'flex',
                           }}
                         >
-                          {console.log(
-                            'review sCompany key',
-                            sCompany.companyId,
-                          )}
+                          {console.log('review sCompany key', index)}
                           <Box
                             sx={{
                               width: '20%',
@@ -395,7 +387,7 @@ const Company = () => {
                           >
                             <Typography>Kommentar: {review.comment}</Typography>
                           </Box>
-                        </Box>
+                        </List>
                       ))}
                   </Card>
                 )}
@@ -488,22 +480,16 @@ const Company = () => {
                       flexWrap: 'wrap',
                     }}
                   >
-                    {myCompany.skills?.map((skill) => {
+                    {myCompany.skills.map((skill, index) => {
                       if (skill === '') {
                         return
                       } else {
                         return (
-                          <>
-                            <Chip
-                              key={myCompany.companyId}
-                              label={skill}
-                              style={styles.BgLightPurple}
-                            />
-                            {console.log(
-                              'skill myCompany key',
-                              myCompany.companyId,
-                            )}
-                          </>
+                          <Chip
+                            key={skill}
+                            label={skill}
+                            style={styles.BgLightPurple}
+                          />
                         )
                       }
                     })}
@@ -548,53 +534,7 @@ const Company = () => {
               </Grid>
 
               {/* webpage and social media */}
-              <Grid item xs={12}>
-                {showRating && (
-                  <Card style={styles.SmallCard}>
-                    <p>Recension</p>
 
-                    {myCompany.reviews &&
-                      myCompany.reviews.map((review) => (
-                        <Box
-                          key={myCompany.companyId}
-                          sx={{
-                            padding: 10,
-                            display: 'flex',
-                          }}
-                        >
-                          {console.log(
-                            'myCompany.companyId myCompany key',
-                            myCompany.companyId,
-                          )}
-
-                          <Box
-                            sx={{
-                              width: '20%',
-                            }}
-                          >
-                            <Typography>Omdöme: {review.rating}</Typography>
-                          </Box>
-                          <Box
-                            sx={{
-                              width: '20%',
-                            }}
-                          >
-                            <Typography>
-                              Gjord av: {review.reviewerId}
-                            </Typography>
-                          </Box>
-                          <Box
-                            sx={{
-                              width: '40%',
-                            }}
-                          >
-                            <Typography>Kommentar: {review.comment}</Typography>
-                          </Box>
-                        </Box>
-                      ))}
-                  </Card>
-                )}
-              </Grid>
               {/* Grid with images */}
               <Grid item xs={12}>
                 <Box
