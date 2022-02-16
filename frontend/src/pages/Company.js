@@ -19,7 +19,7 @@ import Rating from '@mui/material/Rating'
 import { LocationOnOutlined } from '@material-ui/icons'
 import { CardContent } from '@mui/material'
 
-import uniqid from 'uniqid'
+//import uniqid from 'uniqid'
 
 import { URL_API } from '../utils/url'
 import { styles } from '../utils/theme'
@@ -238,7 +238,7 @@ const Company = () => {
                         <img
                           className="img-profile"
                           src={`https://source.unsplash.com/random/150x150?sig=7`}
-                          alt=" profile picture"
+                          alt=" profile"
                         />
                       </Grid>
                       <Grid item xs={5} md={3}>
@@ -283,7 +283,7 @@ const Company = () => {
                   >
                     {sCompany.skills?.map((skill, index) => {
                       if (skill === '') {
-                        return
+                        return null
                       } else {
                         return (
                           <Chip
@@ -482,7 +482,7 @@ const Company = () => {
                   >
                     {myCompany.skills.map((skill, index) => {
                       if (skill === '') {
-                        return
+                        return null
                       } else {
                         return (
                           <Chip
