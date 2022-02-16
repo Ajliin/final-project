@@ -78,7 +78,7 @@ const Profile = () => {
       .then((data) => {
         dispatch(user.actions.setHasCompany(data.response.hasCompany))
       })
-  }, [])
+  }, [accessToken, userId, dispatch])
 
   return (
     <>

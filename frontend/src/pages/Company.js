@@ -106,7 +106,7 @@ const Company = () => {
                 'company',
                 JSON.stringify({
                   user: data.response.companyName,
-                  companyId: data.response.companyName,
+                  companyId: data.response.companyId,
                   companyName: data.response.companyName,
                   companyDescription: data.response.companyDescription,
                   genderRatio: data.response.genderRatio,
@@ -237,7 +237,7 @@ const Company = () => {
                         <img
                           className="img-profile"
                           src={`https://source.unsplash.com/random/150x150?sig=7`}
-                          alt="img profile picture"
+                          alt=" profile picture"
                         />
                       </Grid>
                       <Grid item xs={5} md={3}>
@@ -285,11 +285,17 @@ const Company = () => {
                         return
                       } else {
                         return (
-                          <Chip
-                            key={uniqid}
-                            label={skill}
-                            style={styles.BgLightPurple}
-                          />
+                          <>
+                            <Chip
+                              key={sCompany.companyId}
+                              label={skill}
+                              style={styles.BgLightPurple}
+                            />
+                            {console.log(
+                              'skills sCompany key',
+                              sCompany.companyId,
+                            )}
+                          </>
                         )
                       }
                     })}
@@ -356,12 +362,16 @@ const Company = () => {
                     {sCompany.reviews &&
                       sCompany.reviews.map((review) => (
                         <Box
-                          key={uniqid}
+                          key={sCompany.companyId}
                           sx={{
                             padding: 10,
                             display: 'flex',
                           }}
                         >
+                          {console.log(
+                            'review sCompany key',
+                            sCompany.companyId,
+                          )}
                           <Box
                             sx={{
                               width: '20%',
@@ -418,7 +428,7 @@ const Company = () => {
                         <img
                           className="img-profile"
                           src={`https://source.unsplash.com/random/150x150?sig=7`}
-                          alt="Profile picture of my company"
+                          alt="Profile of my company  "
                         />
                       </Grid>
                       <Grid item xs={5} md={3}>
@@ -483,11 +493,17 @@ const Company = () => {
                         return
                       } else {
                         return (
-                          <Chip
-                            key={uniqid}
-                            label={skill}
-                            style={styles.BgLightPurple}
-                          />
+                          <>
+                            <Chip
+                              key={myCompany.companyId}
+                              label={skill}
+                              style={styles.BgLightPurple}
+                            />
+                            {console.log(
+                              'skill myCompany key',
+                              myCompany.companyId,
+                            )}
+                          </>
                         )
                       }
                     })}
@@ -540,13 +556,17 @@ const Company = () => {
                     {myCompany.reviews &&
                       myCompany.reviews.map((review) => (
                         <Box
-                          key={uniqid}
+                          key={myCompany.companyId}
                           sx={{
                             padding: 10,
                             display: 'flex',
-                            // justifyContent: 'space-between',
                           }}
                         >
+                          {console.log(
+                            'myCompany.companyId myCompany key',
+                            myCompany.companyId,
+                          )}
+
                           <Box
                             sx={{
                               width: '20%',

@@ -26,17 +26,18 @@ const SearchCard = () => {
             href="#"
             onClick={() => goToCompany(company._id, company.companyName)}
             style={styles.Paper}
+            key={company._id}
           >
-            {console.log('company._id', company._id)}
             <Grid container item xs={12} spacing={2}>
               {/* //whole card */}
 
               <Grid item xs={5} md={2}>
                 {/* Picture  */}
-                <Box key={company._id}>
+                <Box>
                   <img
                     className="img-profile"
                     src={`https://source.unsplash.com/random/150x150?sig=${index}`}
+                    alt="company profile"
                   />
                 </Box>
               </Grid>

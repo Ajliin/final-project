@@ -34,15 +34,15 @@ const CompanySignUp = () => {
   const [skills4, setSkills4] = useState('')
 
   const [url, setUrl] = useState('')
-  const [rating, setRating] = useState('')
-  const [countRating, setCountRating] = useState('')
+  // const [rating, setRating] = useState('')
+  // const [countRating, setCountRating] = useState('')
   const [error, setError] = useState(false)
   const [userState, setUserState] = useState('')
   const [mode, setMode] = useState('new')
   const [hasCompany, setHasCompany] = useState()
 
   //useSelector
-  const hasCompany1 = useSelector((store) => store.user.hasCompany)
+  const hasCompanyStore = useSelector((store) => store.user.hasCompany)
 
   const errorMess = useSelector((store) => store.user.error)
   const companyData = useSelector((store) => store.company)
@@ -59,7 +59,7 @@ const CompanySignUp = () => {
 
   useEffect(() => {
     setUserState(profileId)
-    if (hasCompany1) {
+    if (hasCompanyStore) {
       setHasCompany(true)
       setMode('edit')
       setCompanyName(companyData.companyId)
@@ -77,7 +77,7 @@ const CompanySignUp = () => {
     } else {
       setHasCompany(true)
     }
-  }, [hasCompany, mode, profileId, companyData])
+  }, [hasCompany, hasCompanyStore, mode, profileId, companyData])
 
   useEffect(() => {
     if (accessToken === null) {
@@ -127,8 +127,6 @@ const CompanySignUp = () => {
           location,
           skills: [skills, skills2, skills3, skills4],
           url,
-          rating,
-          countRating,
         }),
       }
 
@@ -343,7 +341,7 @@ const CompanySignUp = () => {
                     value={url}
                     onChange={(event) => setUrl(event.target.value)}
                   />
-                  {!hasCompany1 ? (
+                  {!hasCompanyStore ? (
                     <Button type="submit" color="secondary" variant="contained">
                       Submit
                     </Button>
