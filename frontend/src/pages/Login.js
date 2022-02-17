@@ -241,7 +241,7 @@ const Login = () => {
                       >
                         <Typography>Är du redan medlem? </Typography>
                         <Link
-                          href=""
+                          // href=""
                           underline="hover"
                           onClick={() => setMode('signin')}
                         >
@@ -270,7 +270,7 @@ const Login = () => {
                         <Typography>Vill du bli medlem? </Typography>
                         <Link
                           underline="hover"
-                          href="#"
+                          //href=""
                           onClick={() => setMode('signup')}
                         >
                           Sign up

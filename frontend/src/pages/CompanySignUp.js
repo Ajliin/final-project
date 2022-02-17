@@ -342,11 +342,21 @@ const CompanySignUp = () => {
                     onChange={(event) => setUrl(event.target.value)}
                   />
                   {!hasCompanyStore ? (
-                    <Button type="submit" color="secondary" variant="contained">
+                    <Button
+                      type="submit"
+                      color="secondary"
+                      variant="contained"
+                      style={styles.BtnCompanyForm}
+                    >
                       Submit
                     </Button>
                   ) : (
-                    <Button type="submit" color="secondary" variant="contained">
+                    <Button
+                      type="submit"
+                      color="secondary"
+                      variant="contained"
+                      style={styles.BtnCompanyForm}
+                    >
                       Edit data
                     </Button>
                   )}

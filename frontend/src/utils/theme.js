@@ -25,6 +25,15 @@ export let theme = createTheme({
       contrastText: '#030304',
     },
   },
+  overrides: {
+    MuiOutlinedInput: {
+      input: {
+        '&:-webkit-autofill': {
+          '-webkit-box-shadow': '0 0 0 100px rgba(0,0,0,0.1) inset',
+        },
+      },
+    },
+  },
 })
 
 theme = responsiveFontSizes(theme)
@@ -72,6 +81,7 @@ export const styles = {
     display: 'flex',
     height: '85vh',
     marginTop: 20,
+    marginBottom: 10,
     elevation: 5,
     backgroundColor: '#cab9ed',
   },
@@ -90,7 +100,7 @@ export const styles = {
   // Profile
   ProfileCardHeader: {
     backgroundImage: `url(./illu10.jpg)`,
-    height: 300,
+    minHeight: 300,
   },
   ProfileBtn: {
     width: '70%',
@@ -98,7 +108,7 @@ export const styles = {
     float: 'left',
   },
   PageContainer: {
-    height: '80vh',
+    minHeight: '80vh',
   },
   // Landingpage
   BackgroundImg: {
@@ -113,7 +123,15 @@ export const styles = {
     // alignItems: 'flex-end',
     // objectFit: 'cover',
   },
-  //HeaderContainer: { minHeight: '80vh' },
+
+  // input: {
+  //   '&:-webkit-autofill': {
+  //     '-webkit-box-shadow': '0 0 0 100px rg inset',
+  //   },
+  //   backgroundColor: 'rgba(0,0,0,0.1)',
+  // },
+
+  HeaderContainer: { marginTop: '10vh' },
   HeroGridContainer: { height: '100%' },
 
   h6Space: {
@@ -128,14 +146,19 @@ export const styles = {
   SignUpEditForm: {
     display: 'flex',
     marginTop: 20,
+    marginBottom: 10,
     elevation: 5,
-    height: '100%',
+    // height: '100%',
     backgroundColor: '#cab9ed',
   },
 
   CompanyFormMedia: {
     backgroundImage: `url(./illu7.jpg)`,
     height: '100%',
+  },
+
+  BtnCompanyForm: {
+    marginBottom: 10,
   },
 
   FooterStyle: {

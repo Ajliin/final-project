@@ -52,7 +52,7 @@ const Company = () => {
 
   //useEffects
   useEffect(() => {
-    if (!accessToken) {
+    if (accessToken === null) {
       navigate('/login')
     }
   }, [accessToken, navigate])
@@ -480,7 +480,7 @@ const Company = () => {
                       flexWrap: 'wrap',
                     }}
                   >
-                    {myCompany.skills.map((skill, index) => {
+                    {myCompany.skills?.map((skill, index) => {
                       if (skill === '') {
                         return null
                       } else {

@@ -28,6 +28,11 @@ const LogOutBtn = () => {
       dispatch(company.actions.setLocation(null))
       dispatch(company.actions.setSkills(null))
       dispatch(company.actions.setUrl(null))
+
+      dispatch(company.actions.setRating(null))
+
+      dispatch(company.actions.setCountRating(null))
+      dispatch(company.actions.setReviews(null))
       dispatch(company.actions.setError(null))
 
       //specify the data that we want to save in localStorage 'user' here
