@@ -1,4 +1,5 @@
 import { createTheme, responsiveFontSizes } from '@mui/material/styles'
+import { height } from '@mui/system'
 
 export let theme = createTheme({
   typography: {
@@ -41,10 +42,9 @@ export const styles = {
   },
   //content under picture
   CardContent: {
-    padding: 2,
     display: 'flex',
     justifyContent: 'space-between',
-    // padding: 20,
+    padding: 20,
   },
 
   SmallCard: {
@@ -104,12 +104,17 @@ export const styles = {
   BackgroundImg: {
     backgroundImage: `url(./header.jpg)`,
     backgroundPosition: 'bottom',
-    height: '90vh',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-end',
-    objectFit: 'cover',
+    paddingBottom: 50,
+    minHeight: '80vh',
+
+    // height: '90vh',
+    // display: 'flex',
+    // flexDirection: 'column',
+    // alignItems: 'flex-end',
+    // objectFit: 'cover',
   },
+  //HeaderContainer: { minHeight: '80vh' },
+  HeroGridContainer: { height: '100%' },
 
   h6Space: {
     marginTop: 10,
@@ -142,6 +147,12 @@ export const styles = {
   },
   HeaderStyle: {
     position: 'sticky',
+    padding: 10,
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    minHeight: '3vh',
   },
   Typo1: {
     color: '#030304',

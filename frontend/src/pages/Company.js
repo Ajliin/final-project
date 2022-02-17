@@ -233,7 +233,7 @@ const Company = () => {
                 <Card style={styles.Card}>
                   <CardContent style={styles.CardHeaderMedia}></CardContent>
                   <CardContent style={styles.CardContent}>
-                    <Grid container spacing={2}>
+                    <Grid container spacing={4}>
                       <Grid item xs={6} md={3}>
                         <img
                           className="img-profile"

@@ -72,114 +72,98 @@ const LandingPage = () => {
           backgroundColor: '#cab9ed',
         }}
       >
+        {/* HERO */}
         <Box style={styles.BackgroundImg}>
           <Header />
-
-          <Box
-            sx={{
-              maxWidth: 824,
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'flex-end',
-              height: '100%',
-              marginBottom: '2vh',
-              marginLeft: '10vw',
-              marginRight: '15vw',
-            }}
-          >
-            <Box>
-              <Typography variant="h2" component="h1" style={styles.Typo1}>
-                Sveriges största marknadsplats för kvinnliga entreprenörer,
-                kreatörer och småföretagare
-                <Box component="span" style={styles.TypoBright}>
-                  &nbsp;!
-                </Box>
-              </Typography>
-            </Box>
-
-            <Box
-              sx={{
-                marginY: '1vh',
-                display: 'flex',
-              }}
+          <Container style={styles.HeaderContainer}>
+            <Grid
+              container
+              spacing={5}
+              direction="column"
+              justifyContent="flex-end"
+              alignItems="flex-end"
+              style={styles.HeroGridContainer}
             >
-              {email ? (
-                <Typography style={styles.Typo1} variant="h5" component="h4">
-                  Välkommen {firstname}
+              <Grid item xs={11} md={9}>
+                <Typography variant="h2" component="h1" style={styles.Typo1}>
+                  Sveriges största marknadsplats för kvinnliga entreprenörer,
+                  kreatörer och småföretagare
+                  <Box component="span" style={styles.TypoBright}>
+                    &nbsp;!
+                  </Box>
                 </Typography>
-              ) : (
-                <Typography style={styles.Typo2} variant="h5" component="h4">
-                  Välkommen till Foajé
-                </Typography>
-              )}
-            </Box>
-
-            <Grid container spacing={2}>
-              <Grid item>
-                <TextField
-                  id="companyName"
-                  autoComplete="off"
-                  label="Företag"
-                  InputProps={{
-                    startAdornment: (
-                      <SearchRoundedIcon style={{ marginRight: 5 }} />
-                    ),
-                  }}
-                  variant="outlined"
-                  value={searchCompany}
-                  onChange={(event) => setSearchCompany(event.target.value)}
-                />
-              </Grid>
-              <Grid item>
-                <TextField
-                  id="skills"
-                  autoComplete="off"
-                  label="Skills"
-                  InputProps={{
-                    startAdornment: (
-                      <WorkOutlineRoundedIcon style={{ marginRight: 5 }} />
-                    ),
-                  }}
-                  variant="outlined"
-                  value={searchSkills}
-                  onChange={(event) => setSearchSkills(event.target.value)}
-                />
               </Grid>
 
-              <Grid item>
-                <TextField
-                  id="city"
-                  autoComplete="off"
-                  label="Location"
-                  InputProps={{
-                    startAdornment: (
-                      <LocationOnOutlined style={{ marginRight: 5 }} />
-                    ),
-                  }}
-                  variant="outlined"
-                  value={searchLocation}
-                  onChange={(event) => setSearchLocation(event.target.value)}
-                />
+              <Grid item xs={11} md={9}>
+                <Typography style={styles.Typo2} variant="h5" component="h2">
+                  {email
+                    ? `Välkommen ${firstname} kanske handlar det bara om att man måste ta upp massa plats här för att det ska hamna på rätt ställe`
+                    : 'Välkommen till Foajé'}
+                </Typography>
               </Grid>
-              <Box
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                }}
-              >
-                <Button
-                  type="submit"
-                  color="primary"
-                  style={{ padding: 15, marginLeft: 8 }}
-                  variant="contained"
-                  onClick={getCompanyData}
-                >
-                  <SearchRoundedIcon style={{ marginRight: 5 }} />
-                  &nbsp;SÖK&nbsp;
-                </Button>
-              </Box>
+
+              <Grid container spacing={2} xs={11} md={9}>
+                <Grid item xs={12} sm={4} md={3}>
+                  <TextField
+                    id="companyName"
+                    autoComplete="off"
+                    label="Företag"
+                    InputProps={{
+                      startAdornment: (
+                        <SearchRoundedIcon style={{ marginRight: 5 }} />
+                      ),
+                    }}
+                    variant="outlined"
+                    value={searchCompany}
+                    onChange={(event) => setSearchCompany(event.target.value)}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={4} md={3}>
+                  <TextField
+                    id="skills"
+                    autoComplete="off"
+                    label="Skills"
+                    InputProps={{
+                      startAdornment: (
+                        <WorkOutlineRoundedIcon style={{ marginRight: 5 }} />
+                      ),
+                    }}
+                    variant="outlined"
+                    value={searchSkills}
+                    onChange={(event) => setSearchSkills(event.target.value)}
+                  />
+                </Grid>
+
+                <Grid item xs={12} sm={4} md={3}>
+                  <TextField
+                    id="city"
+                    autoComplete="off"
+                    label="Location"
+                    InputProps={{
+                      startAdornment: (
+                        <LocationOnOutlined style={{ marginRight: 5 }} />
+                      ),
+                    }}
+                    variant="outlined"
+                    value={searchLocation}
+                    onChange={(event) => setSearchLocation(event.target.value)}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={4} md={3}>
+                  <Button
+                    type="submit"
+                    color="primary"
+                    style={{ padding: 15 }}
+                    variant="contained"
+                    onClick={getCompanyData}
+                  >
+                    <SearchRoundedIcon style={{ marginRight: 5 }} />
+                    &nbsp;SÖK&nbsp;
+                  </Button>
+                </Grid>
+              </Grid>
             </Grid>
-          </Box>
+          </Container>
         </Box>
         <Container>
           <Box>
@@ -270,6 +254,7 @@ const LandingPage = () => {
             </Box>
           </Box>
         </Container>
+
         <Footer />
       </Box>
     </>

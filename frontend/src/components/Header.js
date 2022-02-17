@@ -13,13 +13,13 @@ const Header = () => {
     <Container>
       <Box
         style={styles.HeaderStyle}
-        sx={{
-          padding: 10,
-          width: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
+        // sx={{
+        //   padding: 10,
+        //   width: '100%',
+        //   display: 'flex',
+        //   alignItems: 'center',
+        //   justifyContent: 'space-between',
+        // }}
       >
         <Link
           color="primary"
