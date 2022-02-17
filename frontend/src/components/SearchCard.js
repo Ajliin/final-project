@@ -120,7 +120,6 @@ const SearchCard = () => {
                     <PieChart3 genderRatio={company.genderRatio} />
                   </Box>
                 </Grid>
-                {/* </Paper> */}
               </Grid>
             </CardActionArea>
           </Card>

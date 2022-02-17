@@ -107,14 +107,14 @@ const Login = () => {
       <Container>
         <Card style={styles.PaperForm}>
           {/* //ramen kring */}
-          <Grid container spacing={2}>
+          <Grid container spacing={2} justifyContent="center">
             <Grid item xs={12} md={6} style={styles.GridLogin}>
               <form onSubmit={onFormSubmit} autoComplete="off">
                 {/* Containern kring inlogging */}
 
                 <Box
                   sx={{
-                    marginBottom: 25,
+                    marginBottom: 35,
                   }}
                 >
                   {mode === 'signin' ? (
@@ -154,6 +154,7 @@ const Login = () => {
                         id="firstname"
                         label="Förnamn"
                         variant="outlined"
+                        autoComplete="off"
                         InputProps={{
                           startAdornment: (
                             <PersonOutlineRoundedIcon
@@ -169,14 +170,12 @@ const Login = () => {
                       <TextField
                         id="lastname"
                         label="Efternamn"
+                        autoComplete="off"
                         InputProps={{
                           startAdornment: (
                             <PersonOutlineRoundedIcon
                               style={{
                                 marginRight: 5,
-                                '& label.Mui-focused': {
-                                  color: 'red',
-                                },
                               }}
                             />
                           ),
@@ -194,6 +193,7 @@ const Login = () => {
                     id="email"
                     type="email"
                     label="Email"
+                    autoComplete="off"
                     InputProps={{
                       startAdornment: (
                         <MailOutlineRoundedIcon style={{ marginRight: 5 }} />

@@ -79,11 +79,11 @@ export const styles = {
   //login sign up PAGE
   PaperForm: {
     display: 'flex',
-    height: '85vh',
     marginTop: 20,
     marginBottom: 10,
     elevation: 5,
     backgroundColor: '#cab9ed',
+    minHeight: 600,
   },
   LoginBtn: {
     width: '100%',
@@ -93,7 +93,8 @@ export const styles = {
     height: '100%',
   },
   GridLogin: {
-    padding: '15vh',
+    padding: '10vh',
+    maxWidth: 550,
   },
   //end login
 
@@ -116,12 +117,6 @@ export const styles = {
     backgroundPosition: 'bottom',
     paddingBottom: 50,
     minHeight: '80vh',
-
-    // height: '90vh',
-    // display: 'flex',
-    // flexDirection: 'column',
-    // alignItems: 'flex-end',
-    // objectFit: 'cover',
   },
 
   // input: {
