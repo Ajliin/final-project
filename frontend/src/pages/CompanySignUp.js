@@ -39,7 +39,7 @@ const CompanySignUp = () => {
   const [error, setError] = useState(false)
   const [userState, setUserState] = useState('')
   const [mode, setMode] = useState('new')
-  const [hasCompany, setHasCompany] = useState()
+  const [hasCompany, setHasCompany] = useState('')
 
   //useSelector
   const hasCompanyStore = useSelector((store) => store.user.hasCompany)
@@ -75,7 +75,6 @@ const CompanySignUp = () => {
       setLocation(companyData.location)
       setUrl(companyData.url)
     } else {
-      setHasCompany(true)
     }
   }, [hasCompany, hasCompanyStore, mode, profileId, companyData])
 
@@ -112,6 +111,7 @@ const CompanySignUp = () => {
         .then((res) => res.json())
         .then((data) => {
           dispatch(user.actions.setHasCompany(data.response.hasCompany))
+          setHasCompany(true)
         })
 
       const options = {

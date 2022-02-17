@@ -1,5 +1,5 @@
 import React from 'react'
-import { Typography, Container, Box, Link } from '@material-ui/core'
+import { Typography, Container, Box, Link, MenuItem } from '@material-ui/core'
 
 import { styles } from '../utils/theme'
 import { useNavigate } from 'react-router-dom'
@@ -9,29 +9,22 @@ import MenuBar from './Menu'
 const Header = () => {
   const navigate = useNavigate()
 
+  const goToLandingPage = () => {
+    navigate('/')
+  }
+
   return (
     <Container>
-      <Box
-        style={styles.HeaderStyle}
-        // sx={{
-        //   padding: 10,
-        //   width: '100%',
-        //   display: 'flex',
-        //   alignItems: 'center',
-        //   justifyContent: 'space-between',
-        // }}
-      >
-        <Link
+      <Box style={styles.HeaderStyle}>
+        <MenuItem
           color="primary"
-          type="submit"
-          onClick={() => navigate('/')}
-          href=""
-          underline="none"
+          //type="submit"
+          onClick={() => goToLandingPage()}
         >
           <Typography variant="h2" component="h2">
             FOAJÉ
           </Typography>
-        </Link>
+        </MenuItem>
         <MenuBar />
       </Box>
     </Container>

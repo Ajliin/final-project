@@ -27,15 +27,12 @@ import Category from '../components/Category'
 import { URL_API } from '../utils/url'
 
 import companies from '../reducers/companies'
-import { inputUnstyledClasses } from '@mui/material'
 
 const LandingPage = () => {
   const [searchSkills, setSearchSkills] = useState('')
   const [searchCompany, setSearchCompany] = useState('')
   const [searchLocation, setSearchLocation] = useState('')
   const [mode, setMode] = useState('')
-
-  const { email, firstname } = useSelector((store) => store.user)
 
   const allCompanies = useSelector((store) => store.companies.companies)
 
@@ -94,14 +91,6 @@ const LandingPage = () => {
                   </Box>
                 </Typography>
               </Grid>
-
-              {/* <Grid item xs={11} md={9}>
-                <Typography style={styles.Typo2} variant="h5" component="h2">
-                  {email
-                    ? `Välkommen ${firstname} kanske handlar det bara om att man måste ta upp massa plats här för att det ska hamna på rätt ställe`
-                    : 'Välkommen till Foajé'}
-                </Typography>
-              </Grid> */}
 
               <Grid item xs={11} md={9}>
                 <form>
