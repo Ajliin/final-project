@@ -182,12 +182,12 @@ app.post('/signin', async (req, res) => {
   try {
     const user = await User.findOne({ email })
 
-    if (!user) {
-      res.status(404).json({
-        response: "Email or password doesn't match",
-        success: false,
-      })
-    }
+    // if (!user) {
+    //   res.status(404).json({
+    //     response: "Email or password doesn't match option1",
+    //     success: false,
+    //   })
+    // }
 
     if (user && bcrypt.compareSync(password, user.password)) {
       res.status(200).json({

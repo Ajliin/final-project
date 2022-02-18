@@ -259,7 +259,11 @@ const Login = () => {
                       >
                         Logga in
                       </Button>
-                      {errorMess && <p color="red">{errorMess}</p>}
+                      {errorMess && (
+                        <Typography style={styles.ErrorText}>
+                          {errorMess}
+                        </Typography>
+                      )}
                       <Box
                         sx={{
                           display: 'flex',

@@ -96,6 +96,10 @@ export const styles = {
     padding: '10vh',
     maxWidth: 550,
   },
+
+  ErrorText: {
+    color: 'red',
+  },
   //end login
 
   // Profile
@@ -118,13 +122,6 @@ export const styles = {
     paddingBottom: 50,
     minHeight: '80vh',
   },
-
-  // input: {
-  //   '&:-webkit-autofill': {
-  //     '-webkit-box-shadow': '0 0 0 100px rg inset',
-  //   },
-  //   backgroundColor: 'rgba(0,0,0,0.1)',
-  // },
 
   HeaderContainer: { marginTop: '10vh' },
   HeroGridContainer: { height: '100%' },
@@ -181,7 +178,6 @@ export const styles = {
     fontWeight: 200,
   },
   TypoGrey: {
-    //color: 'darkgrey',
     fontWeight: 700,
   },
   TypoBright: {
