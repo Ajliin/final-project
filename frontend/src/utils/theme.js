@@ -99,6 +99,7 @@ export const styles = {
 
   ErrorText: {
     color: 'red',
+    marginTop: 20,
   },
   //end login
 
